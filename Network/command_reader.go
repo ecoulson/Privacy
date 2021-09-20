@@ -20,18 +20,19 @@ func (reader CommandReader) HasCommandToRead() bool {
 	return reader.scanner.Scan()
 }
 
-func (reader CommandReader) ParseCommand(terminal *Terminal) *PingCommand {
+func (reader CommandReader) ParseCommand(terminal *Terminal) Command {
 	line := reader.scanner.Text()
-	return ParsePingCommand(line, terminal)
+	return ParseCommand(line, terminal)
 }
 
-func ParsePingCommand(line string, terminal *Terminal) *PingCommand {
+func ParseCommand(line string, terminal *Terminal) Command {
 	commandArgs := strings.Split(line, " ")
-	return &PingCommand {
-		Type: commandArgs[0],
-		Args: commandArgs[1:],
-		Node: terminal.host,
-		Context: *terminal.context,
-		PingService: *terminal.pingService,
+	command := PingCommand {
+		commandType: commandArgs[0],
+		args: commandArgs[1:],
+		node: terminal.host,
+		context: *terminal.context,
+		pingService: *terminal.pingService,
 	}
+	return command
 }

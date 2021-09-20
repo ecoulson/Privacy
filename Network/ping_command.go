@@ -9,19 +9,19 @@ import (
 )
 
 type PingCommand struct {
-	Type string 
-	Args []string
-	Context context.Context
-	Node *HostNode
-	PingService ping.PingService
+	commandType string 
+	args []string
+	context context.Context
+	node *HostNode
+	pingService ping.PingService
 }
 
 func (command PingCommand) Execute() {
 	fmt.Println("execute ping command")
-	peerNode := NewPeerNode(command.Args[0])
-	ConnectNodeToPeer(command.Node, command.Context, peerNode)
-	channel := command.PingService.Ping(command.Context, peerNode.Id())
-	n, err := strconv.Atoi(command.Args[1])
+	peerNode := NewPeerNode(command.args[0])
+	ConnectNodeToPeer(command.node, command.context, peerNode)
+	channel := command.pingService.Ping(command.context, peerNode.Id())
+	n, err := strconv.Atoi(command.args[1])
 	if err != nil {
 		panic(err)
 	}

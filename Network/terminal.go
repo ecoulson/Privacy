@@ -27,7 +27,7 @@ func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context
 func (terminal Terminal) Start() {
 	terminal.PrintInputCharacter()
 	for terminal.HasCommandToRead() {
-		command := terminal.commandReader.ParseCommand(&terminal)
+		command := terminal.ParseCommand()
 		command.Execute()
 		terminal.PrintInputCharacter()
 	}
@@ -39,4 +39,8 @@ func (terminal Terminal) PrintInputCharacter() {
 
 func (terminal Terminal) HasCommandToRead() bool {
 	return terminal.commandReader.HasCommandToRead()
+}
+
+func (terminal Terminal) ParseCommand() Command {
+	return terminal.commandReader.ParseCommand(&terminal);
 }

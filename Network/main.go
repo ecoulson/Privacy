@@ -10,16 +10,16 @@ import (
 
 func main() {
 	context := context.Background()
-	node := NewHostNode(&context)
-	pingService := CreatePingService(node)
-	terminal := NewTerminal(os.Stdin, node, &context, pingService)
+	hostNode := NewHostNode(&context)
+	pingService := CreatePingService(hostNode)
+	terminal := NewTerminal(os.Stdin, hostNode, &context, pingService)
 
-	node.SetProtocol(ping.ID, pingService.PingHandler)
+	hostNode.SetProtocol(ping.ID, pingService.PingHandler)
 
-	PrintAddress(node)
+	PrintAddress(hostNode)
 	terminal.Start()
 	
-	node.Close()
+	hostNode.Close()
 }
 
 func CreatePingService(node *HostNode) *ping.PingService {
