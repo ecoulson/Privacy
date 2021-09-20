@@ -8,7 +8,10 @@ type ParserLookupTable map[string]CommandParser
 
 
 func NewParserLookupTable(host *HostNode, context *context.Context) ParserLookupTable {
-	table := make(ParserLookupTable)
-	table["ping"] = NewPingParser(host, context)
+	table := ParserLookupTable {
+		"ping": NewPingParser(host, context),
+		"help": NewHelpParser(),
+		"whoami": NewWhoAMIParser(host),
+	}
 	return table
 }

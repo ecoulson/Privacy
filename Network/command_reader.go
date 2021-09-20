@@ -25,8 +25,8 @@ func (reader CommandReader) HasCommandToRead() bool {
 func (reader CommandReader) ParseCommand(terminal *Terminal) Command {
 	line := reader.scanner.Text()
 	commandArgs := strings.Split(line, " ")
-	commandParser, ok := reader.parserLookupTable[commandArgs[0]]
-	if (!ok) {
+	commandParser, hasParser := reader.parserLookupTable[commandArgs[0]]
+	if (!hasParser) {
 		return UnknownCommand{ commandArgs: commandArgs }
 	}
 	return commandParser.Parse(commandArgs)
