@@ -8,11 +8,13 @@ import (
 
 type CommandReader struct {
 	scanner *bufio.Scanner
+	parserLookupTable ParserLookupTable
 }
 
-func NewCommandReader(inputStream io.Reader) *CommandReader {
+func NewCommandReader(inputStream io.Reader, parserLookupTable ParserLookupTable) *CommandReader {
 	return &CommandReader {
 		scanner: bufio.NewScanner(inputStream),
+		parserLookupTable: parserLookupTable,
 	}
 }
 
@@ -22,17 +24,6 @@ func (reader CommandReader) HasCommandToRead() bool {
 
 func (reader CommandReader) ParseCommand(terminal *Terminal) Command {
 	line := reader.scanner.Text()
-	return ParseCommand(line, terminal)
-}
-
-func ParseCommand(line string, terminal *Terminal) Command {
 	commandArgs := strings.Split(line, " ")
-	command := PingCommand {
-		commandType: commandArgs[0],
-		args: commandArgs[1:],
-		node: terminal.host,
-		context: *terminal.context,
-		pingService: *terminal.pingService,
-	}
-	return command
+	return reader.parserLookupTable[commandArgs[0]].Parse(commandArgs)
 }

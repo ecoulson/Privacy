@@ -17,7 +17,7 @@ type Terminal struct {
 
 func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, pingService *ping.PingService) *Terminal {
 	return &Terminal {
-		commandReader: NewCommandReader(inputStream),
+		commandReader: NewCommandReader(inputStream, NewParserLookupTable(host, context, pingService)),
 		host: host,
 		context: context,
 		pingService: pingService,
@@ -25,6 +25,7 @@ func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context
 }
 
 func (terminal Terminal) Start() {
+
 	terminal.PrintInputCharacter()
 	for terminal.HasCommandToRead() {
 		command := terminal.ParseCommand()
