@@ -2,15 +2,13 @@ package main
 
 import (
 	"context"
-
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
 type ParserLookupTable map[string]CommandParser
 
 
-func NewParserLookupTable(host *HostNode, context *context.Context, pingService *ping.PingService) ParserLookupTable {
+func NewParserLookupTable(host *HostNode, context *context.Context) ParserLookupTable {
 	table := make(ParserLookupTable)
-	table["ping"] = NewPingParser(host, context, pingService)
+	table["ping"] = NewPingParser(host, context)
 	return table
 }

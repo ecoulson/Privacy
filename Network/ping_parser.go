@@ -12,11 +12,11 @@ type PingParser struct {
 	pingService *ping.PingService
 }
 
-func NewPingParser(host *HostNode, context *context.Context, pingService *ping.PingService) *PingParser {
+func NewPingParser(node *HostNode, context *context.Context) *PingParser {
 	return &PingParser {
-		host: host,
+		host: node,
 		context: context,
-		pingService: pingService,
+		pingService: ping.NewPingService(*node.host),
 	}
 }
 
@@ -26,6 +26,5 @@ func (parser PingParser) Parse(commandArguments []string) Command {
 		args: commandArguments[1:],
 		node: parser.host,
 		context: *parser.context,
-		pingService: *parser.pingService,
 	}
 }

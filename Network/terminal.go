@@ -4,23 +4,19 @@ import (
 	"context"
 	"fmt"
 	"io"
-
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
 type Terminal struct {
 	commandReader *CommandReader
 	host *HostNode
 	context *context.Context
-	pingService *ping.PingService
 }
 
-func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, pingService *ping.PingService) *Terminal {
+func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context) *Terminal {
 	return &Terminal {
-		commandReader: NewCommandReader(inputStream, NewParserLookupTable(host, context, pingService)),
+		commandReader: NewCommandReader(inputStream, NewParserLookupTable(host, context)),
 		host: host,
 		context: context,
-		pingService: pingService,
 	}
 }
 

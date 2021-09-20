@@ -13,19 +13,23 @@ type PingCommand struct {
 	args []string
 	context context.Context
 	node *HostNode
-	pingService ping.PingService
 }
 
 func (command PingCommand) Execute() {
-	fmt.Println("execute ping command")
+	pingService := CreatePingService(command.node)
+	command.node.SetProtocol(ping.ID, pingService.PingHandler)
 	peerNode := NewPeerNode(command.args[0])
 	ConnectNodeToPeer(command.node, command.context, peerNode)
-	channel := command.pingService.Ping(command.context, peerNode.Id())
+	channel := pingService.Ping(command.context, peerNode.Id())
 	n, err := strconv.Atoi(command.args[1])
 	if err != nil {
 		panic(err)
 	}
 	Ping(n, peerNode, channel)
+}
+
+func CreatePingService(node *HostNode) *ping.PingService {
+	return  &ping.PingService{ Host: *node.host }
 }
 
 func ConnectNodeToPeer(host *HostNode, context context.Context, peer *PeerNode) {
