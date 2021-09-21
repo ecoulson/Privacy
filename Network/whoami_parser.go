@@ -11,5 +11,5 @@ func NewWhoAMIParser(node *HostNode) CommandParser {
 }
 
 func (parser WhoAMIParser) Parse(commandArguments []string) Command {
-	return WhoAMICommand{ node: parser.node }
+	return WhoAMICommand { node: parser.node }
 }
