@@ -50,3 +50,13 @@ func (node HostNode) Close() {
 		panic(err)
 	}
 }
+
+func (node HostNode) Connect(peer *PeerNode) {
+	if err := (*node.host).Connect(*node.context, *peer.PeerInfo()); err != nil {
+		panic(err)
+	}
+}
+
+func (node HostNode) NewStream(peer *PeerNode, protocolId protocol.ID) (network.Stream, error) {
+	return (*node.host).NewStream(*node.context, peer.Id(), protocolId)
+}

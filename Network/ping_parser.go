@@ -23,7 +23,8 @@ func NewPingParser(node *HostNode, context *context.Context) *PingParser {
 func (parser PingParser) Parse(commandArguments []string) Command {
 	return PingCommand {
 		commandType: commandArguments[0],
-		args: commandArguments[1:],
+		peerMultiaddress: commandArguments[1],
+		numberOfPings: commandArguments[2],
 		node: parser.host,
 		context: *parser.context,
 	}
