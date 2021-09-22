@@ -16,7 +16,7 @@ type PingContext struct {
 }
 
 func NewPingContext(host *HostNode, threadContext *context.Context, peer *PeerNode) *PingContext {
-	stream, err := CreateStreamBetweenNodes(host, peer)
+	stream, err := createStreamBetweenNodes(host, peer)
 	pingContext, cancelFunction := context.WithCancel(*threadContext)
 	return &PingContext{
 		threadContext: threadContext,
@@ -24,8 +24,26 @@ func NewPingContext(host *HostNode, threadContext *context.Context, peer *PeerNo
 		stream: &stream,
 		pingContext: &pingContext,
 		cancel: cancelFunction,
-		responseChannel: CreateResponseChannel(err),
+		responseChannel: createResponseChannel(err),
 	}
+}
+
+func createStreamBetweenNodes(host *HostNode, peer *PeerNode) (network.Stream, error) {
+	return host.NewStream(peer, ProtocolId)
+}
+
+func createResponseChannel(err error) chan PingResponse {
+	if err != nil {
+		return createResponseChannelFromError(err)
+	}
+	return make(chan PingResponse)
+}
+
+func createResponseChannelFromError(err error) chan PingResponse {
+	channel := make(chan PingResponse, 1)
+	channel <- *CreateErrorResponse(err)
+	close(channel)
+	return channel
 }
 
 func (context PingContext) Cancel() {
@@ -38,22 +56,4 @@ func (context PingContext) Error() error {
 
 func (context PingContext) Done() <-chan struct{} {
 	return (*context.pingContext).Done()
-}
-
-func CreateStreamBetweenNodes(host *HostNode, peer *PeerNode) (network.Stream, error) {
-	return host.NewStream(peer, ProtocolId)
-}
-
-func CreateResponseChannel(err error) chan PingResponse {
-	if err != nil {
-		return CreateResponseChannelFromError(err)
-	}
-	return make(chan PingResponse)
-}
-
-func CreateResponseChannelFromError(err error) chan PingResponse {
-	channel := make(chan PingResponse, 1)
-	channel <- *CreateErrorResponse(err)
-	close(channel)
-	return channel
 }
