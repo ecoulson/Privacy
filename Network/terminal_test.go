@@ -15,7 +15,7 @@ var _ = Describe("Terminal", func () {
 				context := context.Background()
 
 				Expect(func ()  {
-					NewTerminal(nil, NewHostNode(&context), &context)
+					NewTerminal(nil, NewHostNode(&context), &context, NewLogger())
 				}).To(Panic())
 			})
 
@@ -23,7 +23,7 @@ var _ = Describe("Terminal", func () {
 				context := context.Background()
 
 				Expect(func ()  {
-					NewTerminal(os.Stdin, nil, &context)
+					NewTerminal(os.Stdin, nil, &context, NewLogger())
 				}).To(Panic())
 			})
 
@@ -31,7 +31,7 @@ var _ = Describe("Terminal", func () {
 				context := context.Background()
 
 				Expect(func ()  {
-					NewTerminal(os.Stdin, NewHostNode(&context), nil)
+					NewTerminal(os.Stdin, NewHostNode(&context), nil, NewLogger())
 				}).To(Panic())
 			})
 		})	

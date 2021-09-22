@@ -28,7 +28,7 @@ func (table ParserTable) Keys() []string {
 	return keys
 }
 
-func NewParserLookupTable(host *HostNode, context *context.Context) ParserTable {
+func NewParserLookupTable(host *HostNode, context *context.Context, logger *Logger) ParserTable {
 	table := make(map[string]CommandParser)
 	parserTable := ParserTable {
 		parserLookupTable: table,
@@ -38,5 +38,6 @@ func NewParserLookupTable(host *HostNode, context *context.Context) ParserTable 
 	table["help"] = NewHelpParser(&parserTable)
 	table["quit"] = NewQuitParser()
 	table["contacts"] = NewContactsParser(host.Contacts())
+	table["logs"] = NewLogsParser(logger)
 	return parserTable
 }

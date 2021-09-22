@@ -14,13 +14,14 @@ type Terminal struct {
 	context *context.Context
 }
 
-func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context) *Terminal {
+func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, logger *Logger) *Terminal {
 	assert.NotNil(inputStream, "Input stream can not be nil")
 	assert.NotNil(host, "Host can not be nil")
 	assert.NotNil(*context, "Context can not be nil")
 
+	parserTable := NewParserLookupTable(host, context, logger)
 	return &Terminal {
-		commandReader: NewCommandReader(inputStream, NewParserLookupTable(host, context)),
+		commandReader: NewCommandReader(inputStream, parserTable),
 		host: host,
 		context: context,
 	}
