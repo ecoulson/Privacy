@@ -4,41 +4,50 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-
-	"github.com/libp2p/go-libp2p/p2p/protocol/ping"
 )
 
 type PingCommand struct {
-	Type string 
-	Args []string
-	Context context.Context
-	Node *HostNode
-	PingService ping.PingService
+	commandType string 
+	peerMultiaddress string
+	numberOfPings string
+	context context.Context
+	node *HostNode
 }
 
 func (command PingCommand) Execute() {
-	fmt.Println("execute ping command")
-	peerNode := NewPeerNode(command.Args[0])
-	ConnectNodeToPeer(command.Node, command.Context, peerNode)
-	channel := command.PingService.Ping(command.Context, peerNode.Id())
-	n, err := strconv.Atoi(command.Args[1])
+	pingService := CreatePingService(command)
+	peerNode := command.GetPeerNode()
+	command.ConnectHostNodeToPeerNode(peerNode)
+	responseChannel := pingService.Ping(peerNode)
+	command.Ping(peerNode, responseChannel)
+}
+
+func (command PingCommand) GetPeerNode() *PeerNode {
+	return NewPeerNode(command.peerMultiaddress)
+}
+
+func (command PingCommand) ConnectHostNodeToPeerNode(peerNode *PeerNode) {
+	command.node.Connect(peerNode)
+}
+
+func (command PingCommand) ParseNumberOfPings() int {
+	n, err := strconv.Atoi(command.numberOfPings)
 	if err != nil {
 		panic(err)
 	}
-	Ping(n, peerNode, channel)
+	return n
 }
 
-func ConnectNodeToPeer(host *HostNode, context context.Context, peer *PeerNode) {
-	if err := (*host.host).Connect(context, *peer.PeerInfo()); err != nil {
-		panic(err)
-	}
-}
-
-func Ping(n int, peerNode *PeerNode, channel <-chan ping.Result) {
+func (command PingCommand) Ping(peerNode *PeerNode, channel <-chan PingResponse) {
 	address := peerNode.PeerInfo()
+	n := command.ParseNumberOfPings()
 	fmt.Println("Sending", n, "ping messages to", address)
 	for i := 0; i < n; i++ {
 		response := <- channel
-		fmt.Println("pinged", address, "in", response.RTT)
+		if response.Error != nil {
+			fmt.Println(response.Error)
+		} else {
+			fmt.Println("pinged", address, "in", response.RoundTripTime)
+		}
 	}
 }

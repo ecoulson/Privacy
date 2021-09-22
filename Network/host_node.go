@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"time"
 
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
@@ -45,8 +46,22 @@ func (node HostNode) SetProtocol(protocolId protocol.ID, handler func (s network
 	(*node.host).SetStreamHandler(protocolId, handler)
 }
 
+func (node HostNode) RecordLatency(peer *PeerNode, roundTripTime time.Duration) {
+	(*node.host).Peerstore().RecordLatency(peer.Id(), roundTripTime)
+}
+
 func (node HostNode) Close() {
 	if err := (*node.host).Close(); err != nil {
 		panic(err)
 	}
+}
+
+func (node HostNode) Connect(peer *PeerNode) {
+	if err := (*node.host).Connect(*node.context, *peer.PeerInfo()); err != nil {
+		panic(err)
+	}
+}
+
+func (node HostNode) NewStream(peer *PeerNode, protocolId protocol.ID) (network.Stream, error) {
+	return (*node.host).NewStream(*node.context, peer.Id(), protocolId)
 }
