@@ -8,8 +8,9 @@ import (
 func main() {
 	context := context.Background()
 	hostNode := NewHostNode(&context)
-	pingProtcol := PingProtocol {}
-	terminal := NewTerminal(os.Stdin, hostNode, &context)
+	entries := make(chan LogEntry)
+	pingProtcol := NewPingProtocol(entries)
+	terminal := NewTerminal(os.Stdin, hostNode, &context, entries)
 
 	pingProtcol.Initialize(hostNode)
 	terminal.Start()

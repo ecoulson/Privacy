@@ -10,7 +10,15 @@ import (
 
 const ProtocolId = "/privacy/ping/0.0.1"
 
-type PingProtocol struct {}
+type PingProtocol struct {
+	entries chan LogEntry
+}
+
+func NewPingProtocol(entries chan LogEntry) *PingProtocol {
+	return &PingProtocol{
+		entries: entries,
+	}
+}
 
 func (protocol PingProtocol) Initialize(host *HostNode) {
 	host.SetProtocol(ProtocolId, protocol.PingHandler)
@@ -34,7 +42,10 @@ func (protocol PingProtocol) PingHandler(stream network.Stream) {
 func (protocol PingProtocol) handlePing(stream network.Stream, pingBuffer []byte, timer *time.Timer, errorChannel chan error) {
 	_, err := io.ReadFull(stream, pingBuffer)
 	protocol.pushErrorToChannel(err, errorChannel)
-	
+
+	go func() {
+		protocol.entries <- LogEntry{ line: "Pinged!" }
+	}()
 	_, err = stream.Write(pingBuffer)
 	protocol.pushErrorToChannel(err, errorChannel)
 	timer.Reset(PingTimeout)
