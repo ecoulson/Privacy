@@ -19,11 +19,6 @@ type PingService struct {
 	context context.Context
 }
 
-type Result struct {
-	RTT time.Duration
-	Error error
-}
-
 func CreatePingService(command PingCommand) *PingService {
 	return &PingService { 
 		host: command.node, 
@@ -31,70 +26,54 @@ func CreatePingService(command PingCommand) *PingService {
 	}
 }
 
-func (service PingService) Ping(peer *PeerNode) <-chan Result {
-	stream, err := service.CreateStream(peer)
-	if err != nil {
-		return CreateResponseChannelFromError(err)
-	}
-	pingContext, cancel := context.WithCancel(service.context)
-	responseChannel := make(chan Result)
+func (service PingService) Ping(peer *PeerNode) <-chan PingResponse {
+	context := NewPingContext(service.host, &service.context, peer)
 
-	go service.PingUntilContextIsClosed(stream, pingContext, cancel, responseChannel, peer)
-	go service.AbortPing(stream, pingContext)
+	go service.PingUntilContextIsClosed(context)
+	go service.AbortPing(context)
 
-	return responseChannel
+	return context.responseChannel
 }
 
-func (service PingService) CreateStream(peer *PeerNode) (network.Stream, error) {
-	return service.host.NewStream(peer, ProtocolId)
-}
+func (service PingService) PingUntilContextIsClosed(context *PingContext) {
+	defer close(context.responseChannel)
+	defer context.Cancel()
 
-func CreateResponseChannelFromError(err error) <-chan Result {
-	channel := make(chan Result, 1)
-	channel <- Result{ Error: err}
-	close(channel)
-	return channel
-}
-
-func (service PingService) PingUntilContextIsClosed(stream network.Stream, pingContext context.Context, cancel context.CancelFunc, responseChannel chan Result, peer *PeerNode) {
-	defer close(responseChannel)
-	defer cancel()
-
-	for pingContext.Err() == nil {
-		service.MakePingRequest(stream, pingContext, responseChannel, peer)
+	for !service.IsContextClosed(context) {
+		service.MakePingRequest(context)
 	}
 }
 
-func (service PingService) MakePingRequest(stream network.Stream, pingContext context.Context, responseChannel chan Result, peer *PeerNode) {
-	response := service.SendPingOverStream(stream)
-	
-	if pingContext.Err() != nil {
+func (service PingService) IsContextClosed(context* PingContext) bool {
+	return context.Error() != nil
+}
+
+func (service PingService) MakePingRequest(context *PingContext) {
+	response := service.SendPingOverStream(*context.stream)
+	if service.IsContextClosed(context) {
 		return
 	}
-
-	service.RecordPingLatency(peer, response)
+	service.RecordPingLatency(context.peer, response)
 
 	select {
-	case responseChannel <- *response:
-	case <- pingContext.Done():
+	case context.responseChannel <- *response:
+	case <- (*context.pingContext).Done():
 		return
 	}
 }
 
-func (service PingService) SendPingOverStream(stream network.Stream) *Result {
-	pingData := make([]byte, PingSize)
-	rand.Read(pingData)
-
+func (service PingService) SendPingOverStream(stream network.Stream) *PingResponse {
 	before := time.Now()
-	_, err := stream.Write(pingData)
-	if err != nil {
-		return CreateErrorResponse(err)
+	pingData := service.GetRandomPingData()
+
+	writeErrorResponse := service.WritePingDataToStream(stream, pingData)
+	if writeErrorResponse != nil {
+		return writeErrorResponse
 	}
 
-	responseData := make([]byte, PingSize)
-	_, err = io.ReadFull(stream, responseData)
-	if err != nil {
-		return CreateErrorResponse(err)
+	responseData, readErrorResponse := service.ReadPingDataFromStream(stream)
+	if readErrorResponse != nil {
+		return readErrorResponse
 	}
 
 	if !bytes.Equal(pingData, responseData) {
@@ -103,28 +82,37 @@ func (service PingService) SendPingOverStream(stream network.Stream) *Result {
 	return CreateResponse(before)
 }
 
-func CreateErrorResponse(err error) *Result {
-	return &Result {
-		RTT: 0,
-		Error: err,
-	}
+func (service PingService) GetRandomPingData() []byte {
+	pingData := make([]byte, PingSize)
+	rand.Read(pingData)
+	return pingData
 }
 
-func CreateResponse(before time.Time) *Result {
-	return &Result {
-		RTT: time.Since(before),
-		Error: nil,
+func (service PingService) WritePingDataToStream(stream network.Stream, pingData []byte) *PingResponse {
+	_, err := stream.Write(pingData)
+	if err == nil {
+		return nil
 	}
+	return CreateErrorResponse(err)
 }
 
-func (service PingService) RecordPingLatency(peer *PeerNode, result *Result) {
+func (service PingService) ReadPingDataFromStream(stream network.Stream) ([]byte, *PingResponse) {
+	responseData := make([]byte, PingSize)
+	_, err := io.ReadFull(stream, responseData)
+	if err != nil {
+		return nil, CreateErrorResponse(err)
+	}
+	return responseData, nil
+}
+
+func (service PingService) RecordPingLatency(peer *PeerNode, result *PingResponse) {
 	if result.Error != nil {
 		return
 	}
-	(*service.host.host).Peerstore().RecordLatency(peer.Id(), result.RTT)
+	(*service.host.host).Peerstore().RecordLatency(peer.Id(), result.RoundTripTime)
 }
 
-func (service PingService) AbortPing(stream network.Stream, pingContext context.Context) {
-	<- pingContext.Done()
-	stream.Reset()
+func (service PingService) AbortPing(context *PingContext) {
+	<- (*context.pingContext).Done()
+	(*context.stream).Reset()
 }

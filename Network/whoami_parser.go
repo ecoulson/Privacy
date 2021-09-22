@@ -1,15 +1,15 @@
 package main
 
-type WhoAMIParser struct {
+type WhoAmIParser struct {
 	node *HostNode
 }
 
-func NewWhoAMIParser(node *HostNode) CommandParser {
-	return WhoAMIParser {
+func NewWhoAmIParser(node *HostNode) CommandParser {
+	return WhoAmIParser {
 		node: node,
 	}
 }
 
-func (parser WhoAMIParser) Parse(commandArguments []string) Command {
-	return WhoAMICommand { node: parser.node }
+func (parser WhoAmIParser) Parse(commandArguments []string) Command {
+	return NewWhoAmICommand(parser.node)
 }

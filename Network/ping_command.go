@@ -16,29 +16,38 @@ type PingCommand struct {
 
 func (command PingCommand) Execute() {
 	pingService := CreatePingService(command)
-	peerNode := NewPeerNode(command.peerMultiaddress)
-	command.node.Connect(peerNode)
-	channel := pingService.Ping(peerNode)
-	Ping(ParseNumberOfPings(command.numberOfPings), peerNode, channel)
+	peerNode := command.GetPeerNode()
+	command.ConnectHostNodeToPeerNode(peerNode)
+	responseChannel := pingService.Ping(peerNode)
+	command.Ping(peerNode, responseChannel)
 }
 
+func (command PingCommand) GetPeerNode() *PeerNode {
+	return NewPeerNode(command.peerMultiaddress)
+}
 
-func ParseNumberOfPings(rawNumberOfPings string) int {
-	n, err := strconv.Atoi(rawNumberOfPings)
+func (command PingCommand) ConnectHostNodeToPeerNode(peerNode *PeerNode) {
+	command.node.Connect(peerNode)
+}
+
+func (command PingCommand) ParseNumberOfPings() int {
+	n, err := strconv.Atoi(command.numberOfPings)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func Ping(n int, peerNode *PeerNode, channel <-chan Result) {
+func (command PingCommand) Ping(peerNode *PeerNode, channel <-chan PingResponse) {
 	address := peerNode.PeerInfo()
+	n := command.ParseNumberOfPings()
 	fmt.Println("Sending", n, "ping messages to", address)
 	for i := 0; i < n; i++ {
 		response := <- channel
 		if response.Error != nil {
-			fmt.Println(response)
+			fmt.Println(response.Error)
+		} else {
+			fmt.Println("pinged", address, "in", response.RoundTripTime)
 		}
-		fmt.Println("pinged", address, "in", response.RTT.Nanoseconds())
 	}
 }
