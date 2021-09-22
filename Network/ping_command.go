@@ -43,7 +43,7 @@ func (command PingCommand) connectHostNodeToPeerNode(peerNode *PeerNode) {
 func (command PingCommand) parseNumberOfPings() int {
 	n, err := strconv.Atoi(command.numberOfPings)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid number of pings")
 	}
 	return n
 }
