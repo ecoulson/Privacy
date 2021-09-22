@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/multiformats/go-multiaddr"
 )
@@ -22,7 +24,7 @@ func (node PeerNode) Id() peer.ID {
 func (node PeerNode) PeerInfo() *peer.AddrInfo {
 	address, err := peer.AddrInfoFromP2pAddr(node.Multiaddress()[0])
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid multiaddress")
 	}
 	return address
 }
@@ -30,7 +32,7 @@ func (node PeerNode) PeerInfo() *peer.AddrInfo {
 func (node PeerNode) Multiaddress() []multiaddr.Multiaddr {
 	multiAddress, err := multiaddr.NewMultiaddr(node.address)
 	if err != nil {
-		panic(err)
+		fmt.Println("Invalid node address")
 	}
 	return []multiaddr.Multiaddr { multiAddress }
 }

@@ -37,5 +37,6 @@ func NewParserLookupTable(host *HostNode, context *context.Context) ParserTable 
 	table["whoami"] = NewWhoAmIParser(host)
 	table["help"] = NewHelpParser(&parserTable)
 	table["quit"] = NewQuitParser()
+	table["contacts"] = NewContactsParser(host.Contacts())
 	return parserTable
 }
