@@ -1,12 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type WhoAmICommand struct {
 	node *HostNode
 }
 
 func NewWhoAmICommand(node *HostNode) Command {
+	if node == nil {
+		panic(errors.New("host node can not be nil"))
+	}
 	return WhoAmICommand {
 		node: node,
 	}
