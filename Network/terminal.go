@@ -22,22 +22,22 @@ func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context
 
 func (terminal Terminal) Start() {
 
-	terminal.PrintInputCharacter()
-	for terminal.HasCommandToRead() {
-		command := terminal.ParseCommand()
+	terminal.printInputCharacter()
+	for terminal.hasCommandToRead() {
+		command := terminal.parseCommand()
 		command.Execute()
-		terminal.PrintInputCharacter()
+		terminal.printInputCharacter()
 	}
 }
 
-func (terminal Terminal) PrintInputCharacter() {
+func (terminal Terminal) printInputCharacter() {
 	fmt.Print("> ")
 }
 
-func (terminal Terminal) HasCommandToRead() bool {
+func (terminal Terminal) hasCommandToRead() bool {
 	return terminal.commandReader.HasCommandToRead()
 }
 
-func (terminal Terminal) ParseCommand() Command {
+func (terminal Terminal) parseCommand() Command {
 	return terminal.commandReader.ParseCommand(&terminal);
 }

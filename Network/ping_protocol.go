@@ -10,8 +10,7 @@ import (
 
 const ProtocolId = "/privacy/ping/0.0.1"
 
-type PingProtocol struct {
-}
+type PingProtocol struct {}
 
 func (protocol PingProtocol) Initialize(host *HostNode) {
 	host.SetProtocol(ProtocolId, protocol.PingHandler)
@@ -25,30 +24,30 @@ func (protocol PingProtocol) PingHandler(stream network.Stream) {
 	defer close(errorChannel)
 	defer timer.Stop()
 
-	go protocol.PingTimeoutHandler(stream, timer, errorChannel)
+	go protocol.pingTimeoutHandler(stream, timer, errorChannel)
 
 	for {
-		protocol.HandlePing(stream, pingBuffer, timer, errorChannel)
+		protocol.handlePing(stream, pingBuffer, timer, errorChannel)
 	}
 }
 
-func (protocol PingProtocol) HandlePing(stream network.Stream, pingBuffer []byte, timer *time.Timer, errorChannel chan error) {
+func (protocol PingProtocol) handlePing(stream network.Stream, pingBuffer []byte, timer *time.Timer, errorChannel chan error) {
 	_, err := io.ReadFull(stream, pingBuffer)
-	protocol.PushErrorToChannel(err, errorChannel)
+	protocol.pushErrorToChannel(err, errorChannel)
 	
 	_, err = stream.Write(pingBuffer)
-	protocol.PushErrorToChannel(err, errorChannel)
+	protocol.pushErrorToChannel(err, errorChannel)
 	timer.Reset(PingTimeout)
 }
 
-func (protocol PingProtocol) PushErrorToChannel(err error, errorChannel chan error) {
+func (protocol PingProtocol) pushErrorToChannel(err error, errorChannel chan error) {
 	if err != nil {
 		errorChannel <- err
 		return
 	}
 }
 
-func (protocol PingProtocol) PingTimeoutHandler(stream network.Stream, timer *time.Timer, errorChannel chan error) {
+func (protocol PingProtocol) pingTimeoutHandler(stream network.Stream, timer *time.Timer, errorChannel chan error) {
 	select {
 	case <-timer.C:
 		fmt.Println("ping timeout")

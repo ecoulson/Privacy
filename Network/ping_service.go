@@ -106,10 +106,10 @@ func (service PingService) ReadPingDataFromStream(stream network.Stream) ([]byte
 }
 
 func (service PingService) RecordPingLatency(peer *PeerNode, result *PingResponse) {
-	if result.Error != nil {
+	if result.Error() != nil {
 		return
 	}
-	service.host.RecordLatency(peer, result.RoundTripTime)
+	service.host.RecordLatency(peer, result.RoundTripTime())
 }
 
 func (service PingService) AbortPing(context *PingContext) {

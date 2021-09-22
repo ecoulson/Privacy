@@ -9,14 +9,14 @@ type PeerNode struct {
 	address string
 }
 
-func (node PeerNode) Id() peer.ID {
-	return node.PeerInfo().ID
-}
-
 func NewPeerNode(address string) *PeerNode {
 	return &PeerNode {
 		address: address,
 	}
+}
+
+func (node PeerNode) Id() peer.ID {
+	return node.PeerInfo().ID
 }
 
 func (node PeerNode) PeerInfo() *peer.AddrInfo {

@@ -3,20 +3,32 @@ package main
 import "time"
 
 type PingResponse struct {
-	RoundTripTime time.Duration
-	Error error
+	roundTripTime time.Duration
+	err error
 }
 
 func CreateErrorResponse(err error) *PingResponse {
 	return &PingResponse {
-		RoundTripTime: 0,
-		Error: err,
+		roundTripTime: 0,
+		err: err,
 	}
 }
 
 func CreateResponse(before time.Time) *PingResponse {
 	return &PingResponse {
-		RoundTripTime: time.Since(before),
-		Error: nil,
+		roundTripTime: time.Since(before),
+		err: nil,
 	}
+}
+
+func (response PingResponse) RoundTripTime() time.Duration {
+	return response.roundTripTime
+}
+
+func (response PingResponse) HasError() bool {
+	return response.err != nil
+}
+
+func (response PingResponse) Error() error {
+	return response.err
 }
