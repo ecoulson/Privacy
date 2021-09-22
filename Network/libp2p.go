@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/host"
@@ -14,6 +15,7 @@ func CreateP2PHost(context *context.Context) *host.Host {
 		libp2p.Ping(false),
 	)
 	if err != nil {
+		fmt.Println("Failed to create new host node")
 		panic(err)
 	}
 	return &node
