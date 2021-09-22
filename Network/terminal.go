@@ -12,8 +12,8 @@ type Terminal struct {
 	context *context.Context
 }
 
-func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, entries chan LogEntry) *Terminal {
-	parserTable := NewParserLookupTable(host, context, entries)
+func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, logger *Logger) *Terminal {
+	parserTable := NewParserLookupTable(host, context, logger)
 	return &Terminal {
 		commandReader: NewCommandReader(inputStream, parserTable),
 		host: host,

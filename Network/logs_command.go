@@ -1,17 +1,15 @@
 package main
 
 type LogsCommand struct {
-	entries chan LogEntry
+	logger *Logger
 }
 
-func NewLogsCommand(entries chan LogEntry) Command {
+func NewLogsCommand(logger *Logger) Command {
 	return LogsCommand {
-		entries: entries,
+		logger: logger,
 	}
 }
 
 func (command LogsCommand) Execute() {
-	for entry := range command.entries {
-		entry.Display()
-	}
+	command.logger.Display()
 }
