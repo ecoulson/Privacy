@@ -14,13 +14,19 @@ import (
 type HostNode struct {
 	host *host.Host
 	context *context.Context
+	contacts *Contacts
 }
 
 func NewHostNode(context *context.Context) *HostNode {
 	return &HostNode {
 		host: CreateP2PHost(context),
 		context: context,
+		contacts: NewContacts(),
 	}
+}
+
+func (node *HostNode) Contacts() *Contacts {
+	return node.contacts
 }
 
 func (node HostNode) Id() peer.ID {
