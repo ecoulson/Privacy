@@ -6,9 +6,15 @@ import (
 )
 
 type UnknownCommand struct {
-	commandArgs []string
+	commandArguments []string
+}
+
+func NewUnknownCommand(commandArguments []string) Command {
+	return UnknownCommand {
+		commandArguments: commandArguments,
+	}
 }
 
 func (command UnknownCommand) Execute() {
-	fmt.Println("Unknown command: \"" + strings.Join(command.commandArgs, " ") + "\". Type help for help ")
+	fmt.Println("Unknown command: \"" + strings.Join(command.commandArguments, " ") + "\". Type help for help ")
 }
