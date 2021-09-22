@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("", func ()  {
+var _ = Describe("WhoAmiCommand", func ()  {
 	Describe("Create Command", func ()  {
 		Context("Valid host node", func ()  {
 			It("Should create command", func ()  {
