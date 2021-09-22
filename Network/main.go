@@ -8,10 +8,11 @@ import (
 func main() {
 	context := context.Background()
 	hostNode := NewHostNode(&context)
-	entries := make(chan LogEntry)
-	pingProtcol := NewPingProtocol(entries)
-	terminal := NewTerminal(os.Stdin, hostNode, &context, entries)
+	logger := NewLogger()
+	pingProtcol := NewPingProtocol(logger)
+	terminal := NewTerminal(os.Stdin, hostNode, &context, logger)
 
+	logger.Initialize()
 	pingProtcol.Initialize(hostNode)
 	terminal.Start()
 	

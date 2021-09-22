@@ -1,15 +1,15 @@
 package main
 
 type LogsParser struct {
-	entries chan LogEntry
+	logger *Logger
 }
 
-func NewLogsParser(entries chan LogEntry) LogsParser {
+func NewLogsParser(logger *Logger) LogsParser {
 	return LogsParser {
-		entries: entries,
+		logger: logger,
 	}
 }
 
 func (parser LogsParser) Parse(commandArguments []string) Command {
-	return NewLogsCommand(parser.entries)
+	return NewLogsCommand(parser.logger)
 }
