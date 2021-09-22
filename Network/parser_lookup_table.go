@@ -35,7 +35,7 @@ func NewParserLookupTable(host *HostNode, context *context.Context) ParserTable 
 	}
 	table["ping"] = NewPingParser(host, context)
 	table["whoami"] = NewWhoAmIParser(host)
-	table["help"] = NewHelpParser(parserTable)
+	table["help"] = NewHelpParser(&parserTable)
 	table["quit"] = NewQuitParser()
 	return parserTable
 }

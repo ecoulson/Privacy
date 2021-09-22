@@ -35,7 +35,7 @@ func (protocol PingProtocol) PingHandler(stream network.Stream) {
 func (protocol PingProtocol) HandlePing(stream network.Stream, pingBuffer []byte, timer *time.Timer, errorChannel chan error) {
 	_, err := io.ReadFull(stream, pingBuffer)
 	protocol.PushErrorToChannel(err, errorChannel)
-	fmt.Println("Pinged")
+	
 	_, err = stream.Write(pingBuffer)
 	protocol.PushErrorToChannel(err, errorChannel)
 	timer.Reset(PingTimeout)

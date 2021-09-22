@@ -36,8 +36,8 @@ func (context PingContext) Error() error {
 	return (*context.pingContext).Err()
 }
 
-func (context PingContext) Done() {
-	return 
+func (context PingContext) Done() <-chan struct{} {
+	return (*context.pingContext).Done()
 }
 
 func CreateStreamBetweenNodes(host *HostNode, peer *PeerNode) (network.Stream, error) {

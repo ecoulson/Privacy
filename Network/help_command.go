@@ -3,7 +3,13 @@ package main
 import "fmt"
 
 type HelpCommand struct {
-	parserTable ParserTable
+	parserTable *ParserTable
+}
+
+func NewHelpCommand(parserTable *ParserTable) Command {
+	return HelpCommand {
+		parserTable: parserTable,
+	}
 }
 
 func (command HelpCommand) Execute() {

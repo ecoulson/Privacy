@@ -57,7 +57,7 @@ func (service PingService) MakePingRequest(context *PingContext) {
 
 	select {
 	case context.responseChannel <- *response:
-	case <- (*context.pingContext).Done():
+	case <- context.Done():
 		return
 	}
 }
@@ -109,7 +109,7 @@ func (service PingService) RecordPingLatency(peer *PeerNode, result *PingRespons
 	if result.Error != nil {
 		return
 	}
-	(*service.host.host).Peerstore().RecordLatency(peer.Id(), result.RoundTripTime)
+	service.host.RecordLatency(peer, result.RoundTripTime)
 }
 
 func (service PingService) AbortPing(context *PingContext) {

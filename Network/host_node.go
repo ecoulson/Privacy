@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"time"
 
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
@@ -43,6 +44,10 @@ func (node HostNode) Multiaddress() []multiaddr.Multiaddr {
 
 func (node HostNode) SetProtocol(protocolId protocol.ID, handler func (s network.Stream)) {
 	(*node.host).SetStreamHandler(protocolId, handler)
+}
+
+func (node HostNode) RecordLatency(peer *PeerNode, roundTripTime time.Duration) {
+	(*node.host).Peerstore().RecordLatency(peer.Id(), roundTripTime)
 }
 
 func (node HostNode) Close() {

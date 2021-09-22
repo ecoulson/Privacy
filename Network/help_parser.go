@@ -1,17 +1,15 @@
 package main
 
 type HelpParser struct {
-	parserTable ParserTable
+	parserTable *ParserTable
 }
 
-func NewHelpParser(parserTable ParserTable) HelpParser {
+func NewHelpParser(parserTable *ParserTable) HelpParser {
 	return HelpParser {
 		parserTable: parserTable,
 	}
 }
 
 func (parser HelpParser) Parse(commandArguments []string) Command {
-	return HelpCommand {
-		parserTable: parser.parserTable,
-	}
+	return NewHelpCommand(parser.parserTable)
 }
