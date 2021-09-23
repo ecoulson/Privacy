@@ -6,10 +6,10 @@ import (
 )
 
 type WhoAmICommand struct {
-	node *HostNode
+	node IHostNode
 }
 
-func NewWhoAmICommand(node *HostNode) Command {
+func NewWhoAmICommand(node IHostNode) Command {
 	if node == nil {
 		panic(errors.New("host node can not be nil"))
 	}

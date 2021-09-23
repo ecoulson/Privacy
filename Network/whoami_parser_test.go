@@ -1,40 +1,27 @@
 package main
 
-import (
-	"context"
+import "testing"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-)
+func Test_CreateWhoAmIParserWithValidNode(t *testing.T) {
+	command := NewWhoAmICommand(NewFakeHostNode())
 
-var _ = Describe("WhoAmIParser", func ()  {
-	Describe("Create Parser", func ()  {
-		Context("Valid host node", func ()  {
-			It("Should create parser", func ()  {
-				context := context.Background()
-				command := NewWhoAmIParser(NewHostNode(&context))
+	if command == nil {
+		t.Fatal("Command should not be nil")
+	}
+}
 
-				Expect(command).ToNot(BeNil())
-			})
-		})
+func Test_CreateWhoAmIParserWithNilNode(t *testing.T) {
+	defer ShouldPanic("Should have paniced with nil host", t)
 
-		Context("Nil host node", func ()  {
-			It("Should panic", func ()  {
-				Expect(func () {
-					NewWhoAmIParser(nil)
-				}).Should(Panic())	
-			})
-		})
-	})
+	NewWhoAmIParser((nil))
+}
 
-	Describe("Parser Command", func ()  {
-		It("Should parse a whoami command", func () {
-			context := context.Background()
-			parser := NewWhoAmIParser(NewHostNode(&context))
+func Test_ParseWhoAmICommand(t *testing.T) {
+	parser := NewWhoAmIParser(NewFakeHostNode())
 
-			command := parser.Parse([]string { "whoami" })
-
-			Expect(command).ToNot(Equal(nil))
-		})
-	})
-})
+	command := parser.Parse([]string { "whoami" })
+	
+	if command == nil {
+		t.Fatal("Command should not be nil")
+	}
+}

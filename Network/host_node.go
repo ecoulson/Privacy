@@ -11,18 +11,35 @@ import (
 	"github.com/multiformats/go-multiaddr"
 )
 
+type IHostNode interface {
+	Id() peer.ID
+	PeerInfo() *peer.AddrInfo
+	Connect(peer *PeerNode)
+	Multiaddress() []multiaddr.Multiaddr
+	Close()
+	NewStream(peer *PeerNode, protocolId protocol.ID) (network.Stream, error)
+	RecordLatency(peer *PeerNode, roundTripTime time.Duration)
+	SetProtocol(protocolId protocol.ID, handler func (s network.Stream))
+	Contacts() *Contacts
+	Host() *host.Host
+}
+
 type HostNode struct {
 	host *host.Host
-	context *context.Context
+	context context.Context
 	contacts *Contacts
 }
 
-func NewHostNode(context *context.Context) *HostNode {
+func NewHostNode(context context.Context) IHostNode {
 	return &HostNode {
 		host: CreateP2PHost(context),
 		context: context,
 		contacts: NewContacts(),
 	}
+}
+
+func (node *HostNode) Host() *host.Host {
+	return node.host
 }
 
 func (node *HostNode) Contacts() *Contacts {
@@ -63,11 +80,11 @@ func (node HostNode) Close() {
 }
 
 func (node HostNode) Connect(peer *PeerNode) {
-	if err := (*node.host).Connect(*node.context, *peer.PeerInfo()); err != nil {
+	if err := (*node.host).Connect(node.context, *peer.PeerInfo()); err != nil {
 		panic(err)
 	}
 }
 
 func (node HostNode) NewStream(peer *PeerNode, protocolId protocol.ID) (network.Stream, error) {
-	return (*node.host).NewStream(*node.context, peer.Id(), protocolId)
+	return (*node.host).NewStream(node.context, peer.Id(), protocolId)
 }

@@ -19,7 +19,7 @@ func NewPingProtocol(logger *Logger) *PingProtocol {
 	}
 }
 
-func (protocol PingProtocol) Initialize(host *HostNode) {
+func (protocol PingProtocol) Initialize(host IHostNode) {
 	host.SetProtocol(ProtocolId, protocol.PingHandler)
 }
 
