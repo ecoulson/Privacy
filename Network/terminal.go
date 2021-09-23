@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"io"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
 )
 
 type Terminal struct {
@@ -13,6 +15,10 @@ type Terminal struct {
 }
 
 func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context) *Terminal {
+	assert.NotNil(inputStream, "Input stream can not be nil")
+	assert.NotNil(host, "Host can not be nil")
+	assert.NotNil(*context, "Context can not be nil")
+
 	return &Terminal {
 		commandReader: NewCommandReader(inputStream, NewParserLookupTable(host, context)),
 		host: host,
@@ -21,7 +27,6 @@ func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context
 }
 
 func (terminal Terminal) Start() {
-
 	terminal.printInputCharacter()
 	for terminal.hasCommandToRead() {
 		command := terminal.parseCommand()

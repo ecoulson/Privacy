@@ -11,3 +11,9 @@ func Equal(a interface {}, b interface {}, message string) {
 		panic(message)
 	}
 }
+
+func NotNil(a interface {}, message string) {
+	if a == nil {
+		panic(message)
+	}
+}
