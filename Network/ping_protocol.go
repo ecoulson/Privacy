@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"time"
 
@@ -10,7 +9,15 @@ import (
 
 const ProtocolId = "/privacy/ping/0.0.1"
 
-type PingProtocol struct {}
+type PingProtocol struct {
+	logger *Logger
+}
+
+func NewPingProtocol(logger *Logger) *PingProtocol {
+	return &PingProtocol{
+		logger: logger,
+	}
+}
 
 func (protocol PingProtocol) Initialize(host *HostNode) {
 	host.SetProtocol(ProtocolId, protocol.PingHandler)
@@ -34,6 +41,8 @@ func (protocol PingProtocol) PingHandler(stream network.Stream) {
 func (protocol PingProtocol) handlePing(stream network.Stream, pingBuffer []byte, timer *time.Timer, errorChannel chan error) {
 	_, err := io.ReadFull(stream, pingBuffer)
 	protocol.pushErrorToChannel(err, errorChannel)
+
+	protocol.logger.Log("Pinged!")
 	
 	_, err = stream.Write(pingBuffer)
 	protocol.pushErrorToChannel(err, errorChannel)
@@ -50,12 +59,10 @@ func (protocol PingProtocol) pushErrorToChannel(err error, errorChannel chan err
 func (protocol PingProtocol) pingTimeoutHandler(stream network.Stream, timer *time.Timer, errorChannel chan error) {
 	select {
 	case <-timer.C:
-		fmt.Println("ping timeout")
+		return
 	case err, hasError := <- errorChannel:
 		if hasError {
-			fmt.Println(err)
-		} else {
-			fmt.Println("ping loop failed without error")
+			protocol.logger.Log(err.Error())
 		}
 	}
 	stream.Reset()
