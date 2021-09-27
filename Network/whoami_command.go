@@ -13,7 +13,7 @@ func NewWhoAmICommand(node IHostNode) Command {
 	if node == nil {
 		panic(errors.New("host node can not be nil"))
 	}
-	return WhoAmICommand {
+	return &WhoAmICommand {
 		node: node,
 	}
 }

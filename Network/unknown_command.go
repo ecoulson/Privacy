@@ -13,7 +13,7 @@ func NewUnknownCommand(commandArguments []string) Command {
 	if commandArguments == nil {
 		panic("Nil command arguments")
 	}
-	return UnknownCommand {
+	return &UnknownCommand {
 		commandArguments: commandArguments,
 	}
 }

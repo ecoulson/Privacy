@@ -12,7 +12,7 @@ func NewWhoAmIParser(node IHostNode) CommandParser {
 	if node == nil {
 		panic("host can not be nil")
 	}
-	return WhoAmIParser {
+	return &WhoAmIParser {
 		node: node,
 	}
 }

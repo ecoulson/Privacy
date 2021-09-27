@@ -6,7 +6,13 @@ import (
 )
 
 type QuitCommand struct {
+	// TODO: consider adding a field for passing in a quit 
+	// object that standardizes this process in case their 
+	// are things that need to be closed
+}
 
+func NewQuitCommand() Command {
+	return &QuitCommand {}
 }
 
 func (command QuitCommand) Execute() {
