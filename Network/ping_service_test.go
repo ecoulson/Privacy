@@ -16,19 +16,6 @@ import (
 
 type FakeNetworkStream struct {
 	mux.MuxedStream
-
-    // ID returns an identifier that uniquely identifies this Stream within this
-    // host, during this run. Stream IDs may repeat across restarts.
-    // ID() string
-
-    // Protocol() protocol.ID
-    // SetProtocol(id protocol.ID)
-
-    // Stat returns metadata pertaining to this stream.
-    // Stat() Stat
-
-    // Conn returns the connection this stream is part of.
-    // Conn() Conn
 }
 
 func (stream FakeNetworkStream) ID() string {

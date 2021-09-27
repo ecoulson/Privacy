@@ -7,7 +7,7 @@ func NewUnknownCommandParser() CommandParser {
 }
 
 func (parser UnknownParser) Parse(commandArguments []string) Command {
-	return UnknownCommand {
+	return &UnknownCommand {
 		commandArguments: commandArguments,
 	}
 }
