@@ -81,7 +81,7 @@ func (service PingService) sendPingOverStream(stream network.Stream) *PingRespon
 	if !bytes.Equal(pingData, responseData) {
 		return CreateErrorResponse(errors.New("Ping packet does not match the response packet"))
 	}
-	return CreateResponse(before)
+	return CreateResponse(NewClock(), before)
 }
 
 func (service PingService) getRandomPingData() []byte {
