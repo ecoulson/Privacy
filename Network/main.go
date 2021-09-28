@@ -7,11 +7,11 @@ import (
 
 func main() {
 	context := context.Background()
-	hostNode := NewHostNode(&context)
+	hostNode := NewHostNode(context)
 	logger := NewLogger()
 	pingProtcol := NewPingProtocol(logger)
 	discoveryService := NewDiscoveryService(hostNode)
-	terminal := NewTerminal(os.Stdin, hostNode, &context, logger)
+	terminal := NewTerminal(os.Stdin, hostNode, context, logger)
 	
 	discoveryService.Initialize()
 	logger.Initialize()

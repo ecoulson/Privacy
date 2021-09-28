@@ -1,26 +1,21 @@
 package main
 
-import (
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-)
+import "testing"
 
-var _ = Describe("Unknown Command Parser", func ()  {
-	Describe("Unknown Parser", func ()  {
-		It("Should create parser", func ()  {
-			parser := NewUnknownCommandParser()
+func Test_UnkownCommand(t *testing.T) {
+	parser := NewUnknownCommandParser()
 
-			Expect(parser).ToNot(BeNil())
-		})
-	})
+	if parser == nil {
+		t.Fatal("Parser can not be nil")
+	}
+}
 
-	Describe("Parser Command", func ()  {
-		It("Should parse an unknown command", func () {
-			parser := NewUnknownCommandParser()
+func Test_ShouldParseUnknownCommand(t *testing.T) {
+	parser := NewUnknownCommandParser()
 
-			command := parser.Parse([]string { "unknown" })
+	command := parser.Parse([]string { "unknown" })
 
-			Expect(command).ToNot(Equal(nil))
-		})
-	})
-})
+	if command == nil {
+		t.Fatal("Command should not be nil")
+	}
+}

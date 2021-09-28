@@ -2,7 +2,7 @@ package main
 
 type UnknownParser struct {}
 
-func NewUnknownCommandParser() UnknownParser {
+func NewUnknownCommandParser() CommandParser {
 	return UnknownParser{}
 }
 

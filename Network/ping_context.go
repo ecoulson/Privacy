@@ -8,27 +8,25 @@ import (
 
 type PingContext struct {
 	stream *network.Stream
-	threadContext *context.Context
 	peer *PeerNode
-	pingContext *context.Context
+	context context.Context
 	cancel context.CancelFunc
 	responseChannel chan PingResponse
 }
 
-func NewPingContext(host *HostNode, threadContext *context.Context, peer *PeerNode) *PingContext {
+func NewPingContext(host IHostNode, threadContext context.Context, peer *PeerNode) *PingContext {
 	stream, err := createStreamBetweenNodes(host, peer)
-	pingContext, cancelFunction := context.WithCancel(*threadContext)
+	pingContext, cancelFunction := context.WithCancel(threadContext)
 	return &PingContext{
-		threadContext: threadContext,
 		peer: peer,
 		stream: &stream,
-		pingContext: &pingContext,
+		context: pingContext,
 		cancel: cancelFunction,
 		responseChannel: createResponseChannel(err),
 	}
 }
 
-func createStreamBetweenNodes(host *HostNode, peer *PeerNode) (network.Stream, error) {
+func createStreamBetweenNodes(host IHostNode, peer *PeerNode) (network.Stream, error) {
 	return host.NewStream(peer, ProtocolId)
 }
 
@@ -51,9 +49,13 @@ func (context PingContext) Cancel() {
 }
 
 func (context PingContext) Error() error {
-	return (*context.pingContext).Err()
+	return context.context.Err()
 }
 
 func (context PingContext) Done() <-chan struct{} {
-	return (*context.pingContext).Done()
+	return context.context.Done()
+}
+
+func (context *PingContext) Close() {
+	close(context.responseChannel)
 }

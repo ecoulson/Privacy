@@ -1,37 +1,23 @@
 package main
 
-import (
-	"context"
+import "testing"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-)
+func Test_CreateWhoAmICommandWithValidHostNode(t *testing.T) {
+	command := NewWhoAmICommand(NewFakeHostNode())
 
-var _ = Describe("WhoAmiCommand", func ()  {
-	Describe("Create Command", func ()  {
-		Context("Valid host node", func ()  {
-			It("Should create command", func ()  {
-				context := context.Background()
-				command := NewWhoAmICommand(NewHostNode(&context))
+	if command == nil {
+		t.Fatal("Command must not be nil")
+	}
+}
 
-				Expect(command).ToNot(BeNil())
-			})
-		})
+func Test_CreateCommandWithNilHostNode(t *testing.T) {
+	defer ShouldPanic("Nil host node should panic", t)
 
-		Context("Nil host node", func ()  {
-			It("Should panic", func ()  {
-				Expect(func () {
-					NewWhoAmICommand(nil)
-				}).Should(Panic())	
-			})
-		})
-	})
+	NewWhoAmICommand(nil)
+}
 
-	Describe("Execute Command", func ()  {
-		It("Should execute command", func () {
-			context := context.Background()
-			command := NewWhoAmICommand(NewHostNode(&context))
-			command.Execute()
-		})
-	})
-})
+func Test_ExecuteWhoAmICommand(t *testing.T) {
+	command := NewWhoAmICommand(NewFakeHostNode())
+
+	command.Execute()
+}

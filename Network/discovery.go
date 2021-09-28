@@ -6,11 +6,11 @@ import (
 )
 
 type DiscoveryNotifee struct {
-	host *HostNode
+	host IHostNode
 	contacts *Contacts
 }
 
-func NewDiscoveryNotifee(node *HostNode) *DiscoveryNotifee {
+func NewDiscoveryNotifee(node IHostNode) *DiscoveryNotifee {
 	return &DiscoveryNotifee {
 		host: node,
 		contacts: node.Contacts(),
@@ -22,16 +22,16 @@ func (notifee *DiscoveryNotifee) HandlePeerFound(peerInfo peer.AddrInfo) {
 }
 
 type DiscoveryService struct {
-	host *HostNode
+	host IHostNode
 	mdnsService mdns.Service
 	contacts *Contacts
 }
 
-func NewDiscoveryService(node *HostNode) *DiscoveryService {
+func NewDiscoveryService(node IHostNode) *DiscoveryService {
 	return &DiscoveryService{
 		host: node,
-		contacts: node.contacts,
-		mdnsService: mdns.NewMdnsService(*node.host, "example"),
+		contacts: node.Contacts(),
+		mdnsService: mdns.NewMdnsService(*node.Host(), "example"),
 	}
 }
 

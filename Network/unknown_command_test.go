@@ -1,36 +1,25 @@
 package main
 
-import (
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-)
+import "testing"
 
-var _ = Describe("Unknown Command", func ()  {
-	Describe("Create Unknown Command", func ()  {
-		Context("A valid array", func() {
-			It("Should create command", func ()  {
-				command := NewUnknownCommand([]string { "aaaa" })
+func Test_CreateUnknownCommand(t *testing.T) {
+	command := NewUnknownCommand([]string { "aaaa" })
 				
-				Expect(command).ToNot(BeNil())
-			})
-		})
+	if command == nil {
+		t.Fatal("Command should not be null")
+	}
+}
 
-		Context("Nil array", func ()  {
-			It("Should panic when given a nil array", func ()  {
-				Expect(func ()  {
-					NewUnknownCommand(nil)
-				}).To(Panic())
-			})
-		})
-	})
+func Test_CreateUnknownCommandWithNilArray(t *testing.T) {
+	defer ShouldPanic("Should panic with nil array", t)
 
-	Describe("Execute Command", func ()  {
-		It("Should execute unknown command", func () {
-			parser := NewUnknownCommandParser()
+	NewUnknownCommand(nil)
+}
 
-			command := parser.Parse([]string { "unknown" })
+func Test_ExecuteUnknownCommand(t *testing.T) {
+	parser := NewUnknownCommandParser()
 
-			command.Execute()
-		})
-	})
-})
+	command := parser.Parse([]string { "unknown" })
+
+	command.Execute()
+}
