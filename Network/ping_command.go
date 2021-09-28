@@ -11,7 +11,7 @@ type PingCommand struct {
 	peerMultiaddress string
 	numberOfPings string
 	context context.Context
-	node *HostNode
+	node IHostNode
 }
 
 func NewPingCommand(parser *PingParser, commandArguments []string ) Command {
@@ -19,13 +19,13 @@ func NewPingCommand(parser *PingParser, commandArguments []string ) Command {
 		commandType: commandArguments[0],
 		peerMultiaddress: commandArguments[1],
 		numberOfPings: commandArguments[2],
-		node: parser.host,
-		context: *parser.context,
+		node: parser.node,
+		context: parser.context,
 	}
 }
 
 func (command PingCommand) Execute() {
-	pingService := CreatePingService(command)
+	pingService := NewPingService(command)
 	peerNode := command.getPeerNode()
 	command.connectHostNodeToPeerNode(peerNode)
 	responseChannel := pingService.Ping(peerNode)

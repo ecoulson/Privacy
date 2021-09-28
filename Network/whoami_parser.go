@@ -5,10 +5,10 @@ import (
 )
 
 type WhoAmIParser struct {
-	node *HostNode
+	node IHostNode
 }
 
-func NewWhoAmIParser(node *HostNode) CommandParser {
+func NewWhoAmIParser(node IHostNode) CommandParser {
 	if node == nil {
 		panic("host can not be nil")
 	}

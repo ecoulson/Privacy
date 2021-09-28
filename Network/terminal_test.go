@@ -3,37 +3,35 @@ package main
 import (
 	"context"
 	"os"
-
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
+	"testing"
 )
 
-var _ = Describe("Terminal", func () {
-	Describe("Create Terminal", func ()  {
-		Context("Nil arguments", func ()  {
-			It("Should panic with nil input stream", func ()  {
-				context := context.Background()
+func ShouldPanic(message string, t* testing.T) {
+	if r := recover(); r == nil {
+		t.Fatal(message)
+	}
+}
 
-				Expect(func ()  {
-					NewTerminal(nil, NewHostNode(&context), &context, NewLogger())
-				}).To(Panic())
-			})
+func Test_CreateTerminal_NilInput(t *testing.T) {
+	defer ShouldPanic("Should panic because of nil argument", t)
 
-			It("Should panic with nil host node", func ()  {
-				context := context.Background()
+	NewTerminal(nil, NewFakeHostNode(), context.Background(), NewLogger())
+}
 
-				Expect(func ()  {
-					NewTerminal(os.Stdin, nil, &context, NewLogger())
-				}).To(Panic())
-			})
+func Test_CreateTerminal_NilHost(t *testing.T) {
+	defer ShouldPanic("Should panic because of nil argument", t)
 
-			It("Should panic with nil context", func ()  {
-				context := context.Background()
+	NewTerminal(os.Stdin, nil, context.Background(), NewLogger())
+}
 
-				Expect(func ()  {
-					NewTerminal(os.Stdin, NewHostNode(&context), nil, NewLogger())
-				}).To(Panic())
-			})
-		})	
-	})
-})
+func Test_CreateTerminal_NilContext(t *testing.T) {
+	defer ShouldPanic("Should panic because of nil argument", t)
+
+	NewTerminal(os.Stdin, NewFakeHostNode(), nil, NewLogger())
+}
+
+func Test_CreateTerminal_NilLogger(t *testing.T) {
+	defer ShouldPanic("Should panic because of nil argument", t)
+
+	NewTerminal(os.Stdin, NewFakeHostNode(), context.Background(), nil)
+}

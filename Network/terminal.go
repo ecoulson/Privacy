@@ -10,14 +10,15 @@ import (
 
 type Terminal struct {
 	commandReader *CommandReader
-	host *HostNode
-	context *context.Context
+	host IHostNode
+	context context.Context
 }
 
-func NewTerminal(inputStream io.Reader, host *HostNode, context *context.Context, logger *Logger) *Terminal {
+func NewTerminal(inputStream io.Reader, host IHostNode, context context.Context, logger *Logger) *Terminal {
 	assert.NotNil(inputStream, "Input stream can not be nil")
 	assert.NotNil(host, "Host can not be nil")
-	assert.NotNil(*context, "Context can not be nil")
+	assert.NotNil(context, "Context can not be nil")
+	assert.NotNil(*logger, "Logger can not be nil")
 
 	parserTable := NewParserLookupTable(host, context, logger)
 	return &Terminal {
