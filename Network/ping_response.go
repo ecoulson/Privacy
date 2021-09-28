@@ -1,6 +1,10 @@
 package main
 
-import "time"
+import (
+	"time"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
+)
 
 type PingResponse struct {
 	roundTripTime time.Duration
@@ -8,15 +12,23 @@ type PingResponse struct {
 }
 
 func CreateErrorResponse(err error) *PingResponse {
+	assert.NotNil(err, "Error can not be nil")
+
 	return &PingResponse {
 		roundTripTime: 0,
 		err: err,
 	}
 }
 
-func CreateResponse(before time.Time) *PingResponse {
+func CreateResponse(clock IClock, before time.Time) *PingResponse {
+	assert.NotNil(clock, "Clock can not be nil")
+
+	if (before.Before(clock.Now())) {
+		panic("The given time must be in the past")
+	}
+
 	return &PingResponse {
-		roundTripTime: time.Since(before),
+		roundTripTime: clock.Since(before),
 		err: nil,
 	}
 }
