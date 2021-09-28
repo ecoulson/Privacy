@@ -1,5 +1,7 @@
 package main
 
+import "github.com/ecoulson/Privacy/pkg/assert"
+
 type UnknownParser struct {}
 
 func NewUnknownCommandParser() CommandParser {
@@ -7,6 +9,7 @@ func NewUnknownCommandParser() CommandParser {
 }
 
 func (parser UnknownParser) Parse(commandArguments []string) Command {
+	assert.True(commandArguments != nil, "Arguments can not be nil")
 	return &UnknownCommand {
 		commandArguments: commandArguments,
 	}

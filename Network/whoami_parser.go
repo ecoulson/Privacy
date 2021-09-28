@@ -9,9 +9,7 @@ type WhoAmIParser struct {
 }
 
 func NewWhoAmIParser(node IHostNode) CommandParser {
-	if node == nil {
-		panic("host can not be nil")
-	}
+	assert.NotNil(node, "Host can not be nil")
 	return &WhoAmIParser {
 		node: node,
 	}

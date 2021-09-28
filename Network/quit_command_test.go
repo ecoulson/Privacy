@@ -1,18 +1,18 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func Test_CreateQuitCommand(t *testing.T) {
-	command := NewQuitCommand()
+	command := NewQuitCommand(func() {})
 
-	if command == nil {
-		t.Fatal("Command should not be nil")
-	}
+	assert.NotNil(t, command, "Command should not be nil")
 } 
-
 func Test_ExecuteQuitCommand(t *testing.T) {
-	defer ShouldPanic("Did not quit the program", t)
-	command := NewQuitCommand()
+	command := NewQuitCommand(func() {})
 
 	command.Execute()
 }

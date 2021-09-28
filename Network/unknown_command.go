@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
 )
 
 type UnknownCommand struct {
@@ -10,9 +12,7 @@ type UnknownCommand struct {
 }
 
 func NewUnknownCommand(commandArguments []string) Command {
-	if commandArguments == nil {
-		panic("Nil command arguments")
-	}
+	assert.True(commandArguments != nil, "Arguments can not be nil")
 	return &UnknownCommand {
 		commandArguments: commandArguments,
 	}

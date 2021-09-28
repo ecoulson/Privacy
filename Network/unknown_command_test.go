@@ -1,19 +1,21 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func Test_CreateUnknownCommand(t *testing.T) {
 	command := NewUnknownCommand([]string { "aaaa" })
 				
-	if command == nil {
-		t.Fatal("Command should not be null")
-	}
+	assert.NotNil(t, command, "Command should not be null")
 }
 
 func Test_CreateUnknownCommandWithNilArray(t *testing.T) {
-	defer ShouldPanic("Should panic with nil array", t)
-
-	NewUnknownCommand(nil)
+	assert.PanicsWithValue(t, "Arguments can not be nil", func() {
+		NewUnknownCommand(nil)
+	})
 }
 
 func Test_ExecuteUnknownCommand(t *testing.T) {

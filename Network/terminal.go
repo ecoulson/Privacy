@@ -18,7 +18,7 @@ func NewTerminal(inputStream io.Reader, host IHostNode, context context.Context,
 	assert.NotNil(inputStream, "Input stream can not be nil")
 	assert.NotNil(host, "Host can not be nil")
 	assert.NotNil(context, "Context can not be nil")
-	assert.NotNil(*logger, "Logger can not be nil")
+	assert.True(logger != nil, "Logger can not be nil")
 
 	parserTable := NewParserLookupTable(host, context, logger)
 	return &Terminal {

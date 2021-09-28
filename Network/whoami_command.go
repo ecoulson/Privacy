@@ -1,8 +1,9 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
 )
 
 type WhoAmICommand struct {
@@ -10,9 +11,7 @@ type WhoAmICommand struct {
 }
 
 func NewWhoAmICommand(node IHostNode) Command {
-	if node == nil {
-		panic(errors.New("host node can not be nil"))
-	}
+	assert.NotNil(node, "Host can not be nil")
 	return &WhoAmICommand {
 		node: node,
 	}

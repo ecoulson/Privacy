@@ -2,20 +2,24 @@ package main
 
 import (
 	"fmt"
-	"os"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
 )
 
 type QuitCommand struct {
-	// TODO: consider adding a field for passing in a quit 
-	// object that standardizes this process in case their 
-	// are things that need to be closed
+	quitFunction func()
 }
 
-func NewQuitCommand() Command {
-	return &QuitCommand {}
+func NewQuitCommand(quitFunction func()) Command {
+	fmt.Println(quitFunction == nil)
+	assert.NotNil(quitFunction, "Quit function can not be nil")
+
+	return &QuitCommand {
+		quitFunction: quitFunction,
+	}
 }
 
 func (command QuitCommand) Execute() {
 	fmt.Println("Shutting down node...")
-	os.Exit(0)
+	command.quitFunction()
 }
