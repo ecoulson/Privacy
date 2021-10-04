@@ -1,19 +1,29 @@
 package assert
 
 func IsGreater(a int, b int, message string) {
-	if a <= b {
-		panic(message)
-	}
+	True(a > b, message)
 }
 
 func Equal(a interface {}, b interface {}, message string) {
-	if a != b {
+	True(a == b, message)
+}
+
+func NotEqual(a interface {}, b interface {}, message string) {
+	False(a == b, message)
+}
+
+func NotNil(a interface {}, message string) {
+	False(a == nil, message)
+}
+
+func True(expression bool, message string) {
+	if !expression {
 		panic(message)
 	}
 }
 
-func NotNil(a interface {}, message string) {
-	if a == nil {
+func False(expression bool, message string) {
+	if expression {
 		panic(message)
 	}
 }

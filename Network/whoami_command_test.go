@@ -1,19 +1,21 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func Test_CreateWhoAmICommandWithValidHostNode(t *testing.T) {
 	command := NewWhoAmICommand(NewFakeHostNode())
 
-	if command == nil {
-		t.Fatal("Command must not be nil")
-	}
+	assert.NotNil(t, command, "Command must not be nil")
 }
 
 func Test_CreateCommandWithNilHostNode(t *testing.T) {
-	defer ShouldPanic("Nil host node should panic", t)
-
-	NewWhoAmICommand(nil)
+	assert.PanicsWithValue(t, "Host can not be nil", func() {
+		NewWhoAmICommand(nil)
+	})
 }
 
 func Test_ExecuteWhoAmICommand(t *testing.T) {

@@ -1,6 +1,10 @@
 package main
 
-import "github.com/ecoulson/Privacy/pkg/assert"
+import (
+	"os"
+
+	"github.com/ecoulson/Privacy/pkg/assert"
+)
 
 type QuitParser struct {
 
@@ -11,9 +15,12 @@ func NewQuitParser() CommandParser {
 }
 
 func (parser QuitParser) Parse(commandArguments []string) Command {
-	assert.NotNil(commandArguments, "Cannot parse nil arguments")
-	assert.Equal("quit", commandArguments[0], "First argument should be \"quit\"")
 	assert.Equal(1, len(commandArguments), "Must have exactly one argument")
+	assert.Equal("quit", commandArguments[0], "First argument should be \"quit\"")
 
-	return QuitCommand{}
+	return NewQuitCommand(parser.quitFunction)
+}
+
+func (parser QuitParser) quitFunction() {
+	os.Exit(0)
 }

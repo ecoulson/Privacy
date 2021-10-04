@@ -4,34 +4,30 @@ import (
 	"context"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func ShouldPanic(message string, t* testing.T) {
-	if r := recover(); r == nil {
-		t.Fatal(message)
-	}
-}
-
 func Test_CreateTerminal_NilInput(t *testing.T) {
-	defer ShouldPanic("Should panic because of nil argument", t)
-
-	NewTerminal(nil, NewFakeHostNode(), context.Background(), NewLogger())
+	assert.PanicsWithValue(t, "Input stream can not be nil", func() {
+		NewTerminal(nil, NewFakeHostNode(), context.Background(), NewLogger())
+	})
 }
 
 func Test_CreateTerminal_NilHost(t *testing.T) {
-	defer ShouldPanic("Should panic because of nil argument", t)
-
-	NewTerminal(os.Stdin, nil, context.Background(), NewLogger())
+	assert.PanicsWithValue(t, "Host can not be nil", func() {
+		NewTerminal(os.Stdin, nil, context.Background(), NewLogger())
+	})
 }
 
 func Test_CreateTerminal_NilContext(t *testing.T) {
-	defer ShouldPanic("Should panic because of nil argument", t)
-
-	NewTerminal(os.Stdin, NewFakeHostNode(), nil, NewLogger())
+	assert.PanicsWithValue(t, "Context can not be nil", func() {
+		NewTerminal(os.Stdin, NewFakeHostNode(), nil, NewLogger())
+	})
 }
 
 func Test_CreateTerminal_NilLogger(t *testing.T) {
-	defer ShouldPanic("Should panic because of nil argument", t)
-
-	NewTerminal(os.Stdin, NewFakeHostNode(), context.Background(), nil)
+	assert.PanicsWithValue(t, "Logger can not be nil", func() {
+		NewTerminal(os.Stdin, NewFakeHostNode(), context.Background(), nil)
+	})
 }

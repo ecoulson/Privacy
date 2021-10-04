@@ -1,19 +1,21 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func Test_CreateWhoAmIParserWithValidNode(t *testing.T) {
 	command := NewWhoAmICommand(NewFakeHostNode())
 
-	if command == nil {
-		t.Fatal("Command should not be nil")
-	}
+	assert.NotNil(t, command, "Command should not be nil")
 }
 
 func Test_CreateWhoAmIParserWithNilNode(t *testing.T) {
-	defer ShouldPanic("Should have paniced with nil host", t)
-
-	NewWhoAmIParser((nil))
+	assert.PanicsWithValue(t, "Host can not be nil", func ()  {
+		NewWhoAmIParser((nil))
+	})
 }
 
 func Test_ParseWhoAmICommand(t *testing.T) {
@@ -21,7 +23,5 @@ func Test_ParseWhoAmICommand(t *testing.T) {
 
 	command := parser.Parse([]string { "whoami" })
 	
-	if command == nil {
-		t.Fatal("Command should not be nil")
-	}
+	assert.NotNil(t, command, "Command should not be nil")
 }
