@@ -1,3 +1,3 @@
-export interface ICommand<T> {
-    execute(): Promise<T>
+export default interface ICommand<T> {
+  execute(): Promise<T>;
 }

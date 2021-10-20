@@ -1,1 +1,1 @@
-export interface IBucket {}
+export default interface IBucket {}
