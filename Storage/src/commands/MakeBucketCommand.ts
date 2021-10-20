@@ -1,3 +1,5 @@
+// Author: Evan Coulson
+
 import IBucket from "../entities/IBucket";
 import ICommand from "./ICommand";
 
