@@ -14,15 +14,21 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 	}
 
 	async execute(): Promise<IBucket> {
-		await this.processRunner.spawn({
-			command: "",
-			arguments: [],
-		});
-		return {
-			name: this.name,
-			path: {
-				value: `sj://${this.name.value}`,
-			},
-		};
+		try {
+			await this.processRunner.spawn({
+				command: "",
+				arguments: [],
+			});
+			return {
+				name: this.name,
+				path: {
+					value: `sj://${this.name.value}`,
+				},
+			};
+		} catch (error) {
+			throw new Error(
+				"Failed to create bucket because an error occured while spawning the process"
+			);
+		}
 	}
 }

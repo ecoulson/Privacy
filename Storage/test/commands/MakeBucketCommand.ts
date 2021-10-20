@@ -26,7 +26,7 @@ tap.test("Successfully create a bucket", async (t) => {
 	t.end();
 });
 
-tap.test("Fails to create bucket due to process error", (t) => {
+tap.test("Fails to create bucket due to process error", async (t) => {
 	const command = new MakeBucketCommand(
 		{
 			value: "bucket",
@@ -38,9 +38,16 @@ tap.test("Fails to create bucket due to process error", (t) => {
 		}
 	);
 
-	t.throws(async () => {
+	try {
 		await command.execute();
-	}, "Failed to create bucket because an error occured while spawning the process");
-
-	t.end();
+		t.fail();
+	} catch (error) {
+		t.match(
+			error,
+			new Error(
+				"Failed to create bucket because an error occured while spawning the process"
+			)
+		);
+		t.end();
+	}
 });
