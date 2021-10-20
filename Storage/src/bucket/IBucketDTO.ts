@@ -1,4 +1,4 @@
 // Author: Evan Coulson
-import IEntityDTO from "./IEntityDTO";
+import IEntityDTO from "../entities/IEntityDTO";
 
 export interface IBucketDTO extends IEntityDTO {}
