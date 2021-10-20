@@ -3,6 +3,7 @@ import IBucket from "./IBucket";
 import ICommand from "../commands/ICommand";
 import { IBucketName } from "./IBucketName";
 import IProcessRunner from "../os/IProcessRunner";
+import CreateBucketException from "./CreateBucketException";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
 	private readonly name: IBucketName;
@@ -26,9 +27,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 				},
 			};
 		} catch (error) {
-			throw new Error(
-				"Failed to create bucket because an error occured while spawning the process"
-			);
+			throw new CreateBucketException();
 		}
 	}
 }

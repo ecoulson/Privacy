@@ -1,6 +1,7 @@
 // Author: Evan Coulson
 import tap from "tap";
 import BucketName from "../../src/bucket/BucketName";
+import CreateBucketException from "../../src/bucket/CreateBucketException";
 import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
 
 tap.test("Successfully create a bucket", async (t) => {
@@ -33,12 +34,7 @@ tap.test("Fails to create bucket due to process error", async (t) => {
 		await command.execute();
 		t.fail();
 	} catch (error) {
-		t.match(
-			error,
-			new Error(
-				"Failed to create bucket because an error occured while spawning the process"
-			)
-		);
+		t.match(error, new CreateBucketException());
 		t.end();
 	}
 });
