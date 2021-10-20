@@ -1,22 +1,18 @@
 // Author: Evan Coulson
 import tap from "tap";
+import BucketName from "../../src/bucket/BucketName";
 import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
 
 tap.test("Successfully create a bucket", async (t) => {
 	const bucketName = "bucket";
-	const command = new MakeBucketCommand(
-		{
-			value: bucketName,
+	const command = new MakeBucketCommand(new BucketName(bucketName), {
+		spawn: async () => {
+			return {
+				id: { value: 1 },
+				executionLength: {},
+			};
 		},
-		{
-			spawn: async () => {
-				return {
-					id: { value: 1 },
-					executionLength: {},
-				};
-			},
-		}
-	);
+	});
 
 	const bucket = await command.execute();
 
@@ -27,16 +23,11 @@ tap.test("Successfully create a bucket", async (t) => {
 });
 
 tap.test("Fails to create bucket due to process error", async (t) => {
-	const command = new MakeBucketCommand(
-		{
-			value: "bucket",
+	const command = new MakeBucketCommand(new BucketName("bucket"), {
+		spawn: async () => {
+			throw new Error("");
 		},
-		{
-			spawn: async () => {
-				throw new Error("");
-			},
-		}
-	);
+	});
 
 	try {
 		await command.execute();
