@@ -20,3 +20,5 @@ tap.test("Buckets should be equal", (t) => {
 	t.ok(bucketA.equals(bucketB));
 	t.end();
 });
+
+tap.test("Buckets should")

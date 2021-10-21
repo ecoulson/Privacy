@@ -1,4 +1,5 @@
 // Author: Evan Coulson
+import IFileObject from "../file/IFileObject";
 import IBucket from "./IBucket";
 import { IBucketName } from "./IBucketName";
 import IBucketPath from "./IBucketPath";
@@ -20,14 +21,26 @@ export default class Bucket implements IBucket {
 		return this._path;
 	}
 
+	get files(): IFileObject[] {
+		throw new Error("Method not implemented.");
+	}
+
+	addFile(file: IFileObject): void {
+		throw new Error("Method not implemented.");
+	}
+
+	removeFile(path: IBucketPath): IFileObject {
+		throw new Error("Method not implemented.");
+	}
+
+	getFile(path: IBucketPath): IFileObject {
+		throw new Error("Method not implemented.");
+	}
+
 	equals(other: IBucket): boolean {
 		return (
 			this.name.value === other.name.value &&
 			this.path.value === other.path.value
 		);
-	}
-
-	persist(): Promise<IBucket> {
-		throw new Error("Method not implemented.");
 	}
 }
