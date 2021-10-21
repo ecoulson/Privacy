@@ -1,3 +1,4 @@
+// Author: Evan Coulson
 import IBucket from "./IBucket";
 import { IBucketName } from "./IBucketName";
 import IBucketPath from "./IBucketPath";
@@ -19,8 +20,11 @@ export default class Bucket implements IBucket {
 		return this._path;
 	}
 
-	equals(a: IBucket, b: IBucket): boolean {
-		throw new Error("Method not implemented.");
+	equals(other: IBucket): boolean {
+		return (
+			this.name.value === other.name.value &&
+			this.path.value === other.path.value
+		);
 	}
 
 	persist(): Promise<IBucket> {
