@@ -16,3 +16,13 @@ tap.test("Bucket can not have an empty name", (t) => {
 
 	t.end();
 });
+
+tap.test("Bucket equivalency", (t) => {
+	const bucketNameA1 = new BucketName("bucketA");
+	const bucketNameA2 = new BucketName("bucketA");
+	const bucketNameB = new BucketName("bucketB");
+
+	t.ok(bucketNameA1.equals(bucketNameA2));
+	t.notOk(bucketNameA1.equals(bucketNameB));
+	t.end();
+});

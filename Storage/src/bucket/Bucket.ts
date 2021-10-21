@@ -34,13 +34,13 @@ export default class Bucket implements IBucket {
 
 	equals(other: IBucket): boolean {
 		return (
-			this.name.value === other.name.value &&
+			this.name.equals(other.name) &&
 			this.path.value === other.path.value &&
 			this.files.length === other.files.length &&
 			this._files.reduce<boolean>(
 				(equal, file, i) =>
 					equal &&
-					file.name === other.files[i].name &&
+					file.name.equals(other.files[i].name) &&
 					file.path === other.files[i].path,
 				true
 			)

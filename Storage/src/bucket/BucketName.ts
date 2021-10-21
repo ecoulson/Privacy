@@ -12,4 +12,8 @@ export default class BucketName implements IFileName {
 	get value(): string {
 		return this.name;
 	}
+
+	equals(other: IFileName): boolean {
+		return this.value === other.value;
+	}
 }
