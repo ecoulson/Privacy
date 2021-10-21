@@ -35,20 +35,20 @@ export default class Bucket implements IBucket {
 	equals(other: IBucket): boolean {
 		return (
 			this.name.equals(other.name) &&
-			this.path.value === other.path.value &&
+			this.path.equals(other.path) &&
 			this.files.length === other.files.length &&
 			this._files.reduce<boolean>(
 				(equal, file, i) =>
 					equal &&
 					file.name.equals(other.files[i].name) &&
-					file.path === other.files[i].path,
+					file.path.equals(other.files[i].path),
 				true
 			)
 		);
 	}
 
 	getFile(path: IFilePath): IFile {
-		const file = this._files.find((file) => file.path.value === path.value);
+		const file = this._files.find((file) => file.path.equals(path));
 		this.assertFileExists(path, file);
 		return file!;
 	}
