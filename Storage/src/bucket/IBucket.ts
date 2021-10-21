@@ -1,14 +1,15 @@
 // Author: Evan Coulson
 import IEquatable from "../equatable/IEquatable";
-import IFileObject from "../file/IFileObject";
-import { IBucketName } from "./IBucketName";
-import IBucketPath from "./IBucketPath";
+import IFile from "../file/IFile";
+import { IFileName } from "../file/IFileName";
+import IFilePath from "../file/IFilePath";
 
 export default interface IBucket extends IEquatable<IBucket> {
-	get name(): IBucketName;
-	get path(): IBucketPath;
-	get files(): IFileObject[];
-	addFile(file: IFileObject): void;
-	removeFile(path: IBucketPath): IFileObject;
-	getFile(path: IBucketPath): IFileObject;
+	get name(): IFileName;
+	get path(): IFilePath;
+	get files(): IFile[];
+	addFile(file: IFile): IBucket;
+	getFile(path: IFilePath): IFile;
+	updateFile(object: IFile): IBucket;
+	removeFile(path: IFilePath): IBucket;
 }

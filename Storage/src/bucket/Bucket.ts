@@ -1,46 +1,69 @@
 // Author: Evan Coulson
-import IFileObject from "../file/IFileObject";
+import IFile from "../file/IFile";
 import IBucket from "./IBucket";
-import { IBucketName } from "./IBucketName";
-import IBucketPath from "./IBucketPath";
+import { IFileName } from "../file/IFileName";
+import IFilePath from "../file/IFilePath";
+import UnknownFileException from "./UnknownFileException";
 
 export default class Bucket implements IBucket {
-	private readonly _name: IBucketName;
-	private readonly _path: IBucketPath;
+	private readonly _name: IFileName;
+	private readonly _path: IFilePath;
+	private readonly _files: IFile[];
 
-	constructor(name: IBucketName, path: IBucketPath) {
+	constructor(name: IFileName, path: IFilePath, files?: IFile[]) {
 		this._name = name;
 		this._path = path;
+		this._files = files || [];
 	}
 
-	get name(): IBucketName {
+	get name(): IFileName {
 		return this._name;
 	}
 
-	get path(): IBucketPath {
+	get path(): IFilePath {
 		return this._path;
 	}
 
-	get files(): IFileObject[] {
-		throw new Error("Method not implemented.");
+	get files(): IFile[] {
+		return this._files.map((file) => file);
 	}
 
-	addFile(file: IFileObject): void {
-		throw new Error("Method not implemented.");
-	}
-
-	removeFile(path: IBucketPath): IFileObject {
-		throw new Error("Method not implemented.");
-	}
-
-	getFile(path: IBucketPath): IFileObject {
-		throw new Error("Method not implemented.");
+	addFile(file: IFile): IBucket {
+		return new Bucket(this.name, this.path, [...this.files, file]);
 	}
 
 	equals(other: IBucket): boolean {
 		return (
 			this.name.value === other.name.value &&
-			this.path.value === other.path.value
+			this.path.value === other.path.value &&
+			this.files.length === other.files.length &&
+			this._files.reduce<boolean>(
+				(equal, file, i) =>
+					equal &&
+					file.name === other.files[i].name &&
+					file.path === other.files[i].path,
+				true
+			)
 		);
+	}
+
+	getFile(path: IFilePath): IFile {
+		const file = this._files.find((file) => file.path.value === path.value);
+		this.assertFileExists(path, file);
+		return file!;
+	}
+
+	private assertFileExists(path: IFilePath, file?: IFile) {
+		if (!file) {
+			throw new UnknownFileException(this.name, path);
+		}
+	}
+
+	updateFile(object: IFile): IBucket {
+		throw new Error("Method not implemented.");
+	}
+
+	removeFile(path: IFilePath): IBucket {
+		throw new Error("Method not implemented.");
 	}
 }

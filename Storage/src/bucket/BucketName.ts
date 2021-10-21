@@ -1,7 +1,7 @@
 import Assert from "../assert/Assert";
-import { IBucketName } from "./IBucketName";
+import { IFileName } from "../file/IFileName";
 
-export default class BucketName implements IBucketName {
+export default class BucketName implements IFileName {
 	private readonly name: string;
 
 	constructor(name: string) {

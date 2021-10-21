@@ -1,17 +1,17 @@
 // Author: Evan Coulson
 import IBucket from "./IBucket";
 import ICommand from "../commands/ICommand";
-import { IBucketName } from "./IBucketName";
+import { IFileName } from "../file/IFileName";
 import IProcessRunner from "../os/IProcessRunner";
 import CreateBucketException from "./CreateBucketException";
 import StorjBucketPath from "./StorjBucketPath";
 import Bucket from "./Bucket";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
-	private readonly name: IBucketName;
+	private readonly name: IFileName;
 	private readonly processRunner: IProcessRunner;
 
-	constructor(name: IBucketName, processRunner: IProcessRunner) {
+	constructor(name: IFileName, processRunner: IProcessRunner) {
 		this.name = name;
 		this.processRunner = processRunner;
 	}

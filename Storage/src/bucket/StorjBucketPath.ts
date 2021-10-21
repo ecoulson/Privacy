@@ -1,10 +1,10 @@
-import { IBucketName } from "./IBucketName";
-import IBucketPath from "./IBucketPath";
+import { IFileName } from "../file/IFileName";
+import IFilePath from "../file/IFilePath";
 
-export default class StorjBucketPath implements IBucketPath {
+export default class StorjBucketPath implements IFilePath {
 	private readonly path: string;
 
-	constructor(name: IBucketName) {
+	constructor(name: IFileName) {
 		this.path = `sj://${name.value}`;
 	}
 

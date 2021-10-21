@@ -21,4 +21,35 @@ tap.test("Buckets should be equal", (t) => {
 	t.end();
 });
 
-tap.test("Buckets should")
+tap.test("Buckets should give back an immutable list of files", (t) => {
+	const name = new BucketName("bucket");
+	const bucket = new Bucket(name, new StorjBucketPath(name));
+
+	const files = bucket.files;
+	files.push({
+		name: { value: "file" },
+		path: { value: "/file" },
+	});
+
+	t.equal(bucket.files.length, 0);
+	t.equal(files.length, 1);
+	t.end();
+});
+
+tap.test("Adding a file should return a new bucket with the file", (t) => {
+	const name = new BucketName("bucket");
+	const emptyBucket = new Bucket(name, new StorjBucketPath(name));
+
+	const bucket = emptyBucket.addFile({
+		name: { value: "bucket" },
+		path: { value: "/bucket" },
+	});
+
+	t.notOk(emptyBucket.equals(bucket));
+	t.equal(bucket.files.length, 1);
+	t.match(bucket.getFile({ value: "/bucket" }), {
+		name: { value: "bucket" },
+		path: { value: "/bucket" },
+	});
+	t.end();
+});
