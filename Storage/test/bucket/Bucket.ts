@@ -28,7 +28,7 @@ tap.test("Buckets should give back an immutable list of files", (t) => {
 	const files = bucket.files;
 	files.push({
 		name: { value: "file", equals: () => true },
-		path: { value: "/file" },
+		path: { value: "/file", equals: () => false },
 	});
 
 	t.equal(bucket.files.length, 0);
@@ -42,12 +42,12 @@ tap.test("Adding a file should return a new bucket with the file", (t) => {
 
 	const bucket = emptyBucket.addFile({
 		name: { value: "bucket", equals: () => false },
-		path: { value: "/bucket" },
+		path: { value: "/bucket", equals: () => false },
 	});
 
 	t.notOk(emptyBucket.equals(bucket));
 	t.equal(bucket.files.length, 1);
-	t.match(bucket.getFile({ value: "/bucket" }), {
+	t.match(bucket.getFile({ value: "/bucket", equals: () => false }), {
 		name: { value: "bucket" },
 		path: { value: "/bucket" },
 	});

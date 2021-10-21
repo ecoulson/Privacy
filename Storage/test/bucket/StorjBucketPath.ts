@@ -10,3 +10,14 @@ tap.test("Should create a bucket path", (t) => {
 
 	t.end();
 });
+
+tap.test("Storj Bucket Path equivalency test", (t) => {
+	const pathA1 = new StorjBucketPath(new BucketName("pathA"));
+	const pathA2 = new StorjBucketPath(new BucketName("pathA"));
+	const pathB = new StorjBucketPath(new BucketName("pathB"));
+
+	t.ok(pathA1.equals(pathA2));
+	t.notOk(pathA1.equals(pathB));
+
+	t.end();
+});
