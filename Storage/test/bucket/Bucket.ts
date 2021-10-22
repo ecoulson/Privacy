@@ -3,6 +3,7 @@ import tap from "tap";
 import Bucket from "../../src/bucket/Bucket";
 import BucketName from "../../src/bucket/BucketName";
 import StorjBucketPath from "../../src/bucket/StorjBucketPath";
+import FileName from "../../src/file/FileName";
 
 tap.test("Bucket should be properly initialized", (t) => {
 	const name = new BucketName("bucket");
@@ -29,7 +30,11 @@ tap.test("Buckets should give back an immutable list of files", (t) => {
 	const files = bucket.files;
 	files.push({
 		name: { value: "file", equals: () => true },
-		path: { value: "/file", equals: () => true },
+		path: {
+			value: "/file",
+			name: new FileName("file"),
+			equals: () => true,
+		},
 		equals: () => false,
 	});
 
@@ -44,15 +49,26 @@ tap.test("Adding a file should return a new bucket with the file", (t) => {
 
 	const bucket = emptyBucket.addFile({
 		name: { value: "bucket", equals: () => true },
-		path: { value: "/bucket", equals: () => true },
+		path: {
+			value: "/bucket",
+			name: new FileName("file"),
+			equals: () => true,
+		},
 		equals: () => false,
 	});
 
 	t.notOk(emptyBucket.equals(bucket));
 	t.equal(bucket.files.length, 1);
-	t.match(bucket.getFile({ value: "/bucket", equals: () => true }), {
-		name: { value: "bucket" },
-		path: { value: "/bucket" },
-	});
+	t.match(
+		bucket.getFile({
+			value: "/bucket",
+			name: new FileName("bucket"),
+			equals: () => true,
+		}),
+		{
+			name: { value: "bucket" },
+			path: { value: "/bucket" },
+		}
+	);
 	t.end();
 });

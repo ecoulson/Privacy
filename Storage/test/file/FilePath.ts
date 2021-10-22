@@ -1,11 +1,14 @@
 // Author: Evan Coulson
 import tap from "tap";
+import FileName from "../../src/file/FileName";
 import FilePath from "../../src/file/FilePath";
 
 tap.test("Creates a file path", (t) => {
 	const filePath = new FilePath("/foo");
 
 	t.equal(filePath.value, "/foo");
+	t.ok(filePath.name.equals(new FileName("foo")));
+
 	t.end();
 });
 
