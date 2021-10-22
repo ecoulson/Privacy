@@ -1,6 +1,6 @@
+// Author: Evan Coulson
 import IEquatable from "../equatable/IEquatable";
 
-// Author: Evan Coulson
-export interface IFileName extends IEquatable<IFileName> {
+export default interface IFileName extends IEquatable<IFileName> {
 	get value(): string;
 }

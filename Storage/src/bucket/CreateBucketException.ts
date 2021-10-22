@@ -1,3 +1,4 @@
+// Author: Evan Coulson
 export default class CreateBucketException extends Error {
 	public name: string = "CreateBucketException";
 	public message: string =

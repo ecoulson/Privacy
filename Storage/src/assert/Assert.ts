@@ -1,3 +1,4 @@
+// Author: Evan Coulson
 export default class Assert {
 	static notEmpty(a: string, message?: string) {
 		this.notEqual(a, "", message);

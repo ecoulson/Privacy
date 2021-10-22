@@ -1,5 +1,4 @@
 // Author: Evan Coulson
-
 import IProcessId from "./IProcessId";
 import IProcessResult from "./IProcessResults";
 

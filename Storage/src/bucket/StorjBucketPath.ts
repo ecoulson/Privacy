@@ -1,3 +1,4 @@
+// Author: Evan Coulson
 import IFilePath from "../file/IFilePath";
 import BucketName from "./BucketName";
 

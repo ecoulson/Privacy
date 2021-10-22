@@ -1,3 +1,4 @@
+// Author: Evan Coulson
 import tap from "tap";
 import Bucket from "../../src/bucket/Bucket";
 import BucketName from "../../src/bucket/BucketName";

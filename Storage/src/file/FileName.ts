@@ -1,4 +1,5 @@
-import { IFileName } from "../../src/file/IFileName";
+// Author: Evan Coulson
+import IFileName from "./IFileName";
 
 export default class FileName implements IFileName {
 	private readonly _type: string;

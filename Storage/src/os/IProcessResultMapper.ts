@@ -1,5 +1,4 @@
 // Author: Evan Coulson
-
 import IEntityDTO from "../entities/IEntityDTO";
 import IProcessResult from "./IProcessResults";
 

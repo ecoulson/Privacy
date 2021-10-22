@@ -1,7 +1,7 @@
 // Author: Evan Coulson
 import IEquatable from "../equatable/IEquatable";
 import IFile from "../file/IFile";
-import { IFileName } from "../file/IFileName";
+import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 
 export default interface IBucket extends IEquatable<IBucket> {

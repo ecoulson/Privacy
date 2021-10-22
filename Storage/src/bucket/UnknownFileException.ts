@@ -1,4 +1,5 @@
-import { IFileName } from "../file/IFileName";
+// Author: Evan Coulson
+import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 
 export default class UnknownFileException extends Error {

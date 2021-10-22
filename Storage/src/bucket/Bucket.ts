@@ -1,7 +1,7 @@
 // Author: Evan Coulson
 import IFile from "../file/IFile";
 import IBucket from "./IBucket";
-import { IFileName } from "../file/IFileName";
+import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import UnknownFileException from "./UnknownFileException";
 
