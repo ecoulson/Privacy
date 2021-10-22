@@ -39,10 +39,7 @@ export default class Bucket implements IBucket {
 			this.path.equals(other.path) &&
 			this.files.length === other.files.length &&
 			this._files.reduce<boolean>(
-				(equal, file, i) =>
-					equal &&
-					file.name.equals(other.files[i].name) &&
-					file.path.equals(other.files[i].path),
+				(equal, file, i) => equal && file.equals(other.files[i]),
 				true
 			)
 		);
