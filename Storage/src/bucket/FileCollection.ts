@@ -33,8 +33,15 @@ export default class FileCollection implements IFileCollection {
 		return this._files.length;
 	}
 
-	update(file: IFile): IFileCollection {
-		throw new Error("Method not implemented.");
+	update(key: IFilePath, updatedFile: IFile): IFileCollection {
+		return new FileCollection(
+			this._files.map((file) => {
+				if (file.path.equals(key)) {
+					return updatedFile;
+				}
+				return file;
+			})
+		);
 	}
 
 	equals(other: IFileCollection): boolean {

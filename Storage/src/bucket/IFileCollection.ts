@@ -9,5 +9,5 @@ export default interface IFileCollection extends IEquatable<IFileCollection> {
 	get(key: IFilePath): IFile;
 	has(key: IFilePath): boolean;
 	size(): number;
-	update(file: IFile): IFileCollection;
+	update(key: IFilePath, file: IFile): IFileCollection;
 }

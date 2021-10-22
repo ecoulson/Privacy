@@ -45,3 +45,17 @@ tap.test("File collection equivalency", (t) => {
 	t.notOk(collectionWithFiles.equals(emptyCollection));
 	t.end();
 });
+
+tap.test("File collection has updated file", (t) => {
+	const oldKey = new FilePath("/foo.txt");
+	const newKey = new FilePath("/bar.txt");
+	const oldCollection = new FileCollection([new File(oldKey)]);
+
+	const newCollection = oldCollection.update(oldKey, new File(newKey));
+
+	t.ok(oldCollection.has(oldKey));
+	t.ok(newCollection.has(newKey));
+	t.equal(oldCollection.size(), 1);
+	t.equal(newCollection.size(), 1);
+	t.end();
+});
