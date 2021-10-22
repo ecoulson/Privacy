@@ -1,4 +1,5 @@
 // Author: Evan Coulson
+import EmptyFilePathException from "./EmptyFilePathException";
 import IFilePath from "./IFilePath";
 
 export default class FilePath implements IFilePath {
@@ -6,7 +7,7 @@ export default class FilePath implements IFilePath {
 
 	constructor(value: string) {
 		if (value === "") {
-			throw new Error("File path can not be empty");
+			throw new EmptyFilePathException();
 		}
 		this._value = value;
 	}
@@ -16,6 +17,6 @@ export default class FilePath implements IFilePath {
 	}
 
 	equals(other: IFilePath): boolean {
-		throw new Error("Method not implemented.");
+		return other.value === this.value;
 	}
 }

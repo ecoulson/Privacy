@@ -15,3 +15,13 @@ tap.test("Should throw with empty path", (t) => {
 	}, new Error("File path can not be empty"));
 	t.end();
 });
+
+tap.test("File path should be equivalent", (t) => {
+	const filePathA1 = new FilePath("/a");
+	const filePathA2 = new FilePath("/a");
+	const filePathB = new FilePath("/b");
+
+	t.ok(filePathA1.equals(filePathA2));
+	t.notOk(filePathA1.equals(filePathB));
+	t.end();
+});
