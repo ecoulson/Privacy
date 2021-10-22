@@ -1,5 +1,5 @@
 import Assert from "../assert/Assert";
-import { IFileName } from "../file/IFileName";
+import IFileName from "../file/IFileName";
 
 export default class BucketName implements IFileName {
 	private readonly name: string;

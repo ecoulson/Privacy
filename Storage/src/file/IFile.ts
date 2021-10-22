@@ -4,6 +4,6 @@ import IFileName from "./IFileName";
 import IFilePath from "./IFilePath";
 
 export default interface IFile extends IEquatable<IFile> {
-	name: IFileName;
-	path: IFilePath;
+	get name(): IFileName;
+	get path(): IFilePath;
 }
