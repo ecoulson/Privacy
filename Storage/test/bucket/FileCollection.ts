@@ -1,5 +1,6 @@
 import tap from "tap";
 import FileCollection from "../../src/bucket/FileCollection";
+import UnknownFileCollectionKey from "../../src/bucket/UnknownFileCollectionKey";
 import File from "../../src/file/File";
 import FilePath from "../../src/file/FilePath";
 
@@ -13,5 +14,34 @@ tap.test("Should immutably add to file collection", (t) => {
 	t.notOk(emptyCollection.has(path));
 	t.equal(emptyCollection.size(), 0);
 	t.equal(collection.size(), 1);
+	t.end();
+});
+
+tap.test("Should throw when getting non existant key", (t) => {
+	const emptyCollection = new FileCollection();
+	const key = new FilePath("/foo.txt");
+
+	t.throws(() => {
+		emptyCollection.get(key);
+	}, new UnknownFileCollectionKey(key));
+
+	t.end();
+});
+
+tap.test("File collection equivalency", (t) => {
+	const pathA = new FilePath("/a.txt");
+	const pathB = new FilePath("/b.txt");
+	const emptyCollection = new FileCollection();
+	const collectionWithFiles = new FileCollection([
+		new File(pathA),
+		new File(pathB),
+	]);
+	const collectionWithFilesInOtherOrder = new FileCollection([
+		new File(pathB),
+		new File(pathA),
+	]);
+
+	t.ok(collectionWithFiles.equals(collectionWithFilesInOtherOrder));
+	t.notOk(collectionWithFiles.equals(emptyCollection));
 	t.end();
 });

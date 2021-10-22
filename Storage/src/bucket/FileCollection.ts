@@ -38,6 +38,12 @@ export default class FileCollection implements IFileCollection {
 	}
 
 	equals(other: IFileCollection): boolean {
-		throw new Error("Method not implemented.");
+		if (this.size() !== other.size()) {
+			return false;
+		}
+		return this._files.reduce<boolean>(
+			(equal, file) => equal && other.has(file.path),
+			true
+		);
 	}
 }
