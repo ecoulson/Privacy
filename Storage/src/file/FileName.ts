@@ -7,8 +7,9 @@ export default class FileName implements IFileName {
 
 	constructor(value: string) {
 		this._value = value;
-		this._file = value.split(".")[0];
-		this._type = value.split(".")[1];
+		const endingDot = value.lastIndexOf(".");
+		this._file = value.substring(0, endingDot);
+		this._type = value.substring(endingDot + 1);
 	}
 
 	get value(): string {
