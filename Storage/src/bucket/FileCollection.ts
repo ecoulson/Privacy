@@ -16,8 +16,13 @@ export default class FileCollection implements IFileCollection {
 		return new FileCollection([...this._files, file]);
 	}
 
-	delete(key: IFilePath): IFileCollection {
-		throw new Error("Method not implemented.");
+	remove(key: IFilePath): IFileCollection {
+		Assert.true(this.has(key), new UnknownFileCollectionKey(key));
+		return new FileCollection(this.excludeFileFromFiles(key));
+	}
+
+	private excludeFileFromFiles(key: IFilePath) {
+		return this._files.filter((file) => !file.path.equals(key));
 	}
 
 	has(key: IFilePath): boolean {
@@ -30,7 +35,7 @@ export default class FileCollection implements IFileCollection {
 	}
 
 	private searchForFile(key: IFilePath) {
-		return this._files.find((file) => file.path.equals(key))!;
+		return this._files.find((file) => file.path.equals(key)) as IFile;
 	}
 
 	size(): number {
@@ -38,6 +43,7 @@ export default class FileCollection implements IFileCollection {
 	}
 
 	update(key: IFilePath, updatedFile: IFile): IFileCollection {
+		Assert.true(this.has(key), new UnknownFileCollectionKey(key));
 		return new FileCollection(this.updateFileCollection(key, updatedFile));
 	}
 

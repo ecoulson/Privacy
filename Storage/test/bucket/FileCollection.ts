@@ -46,10 +46,14 @@ tap.test("File collection equivalency", (t) => {
 	t.end();
 });
 
-tap.test("File collection has updated file", (t) => {
+tap.test("File collection can immutably update files", (t) => {
 	const oldKey = new FilePath("/foo.txt");
 	const newKey = new FilePath("/bar.txt");
-	const oldCollection = new FileCollection([new File(oldKey)]);
+	const oldCollection = new FileCollection([
+		new File(new FilePath("/random2.txt")),
+		new File(oldKey),
+		new File(new FilePath("/random1.txt")),
+	]);
 
 	const newCollection = oldCollection.update(oldKey, new File(newKey));
 
@@ -57,5 +61,38 @@ tap.test("File collection has updated file", (t) => {
 	t.ok(newCollection.has(newKey));
 	t.equal(oldCollection.size(), 1);
 	t.equal(newCollection.size(), 1);
+	t.end();
+});
+
+tap.test("File collection throws when updating nonexistant key", (t) => {
+	const collection = new FileCollection();
+	const key = new FilePath("/foo.txt");
+
+	t.throws(() => {
+		collection.update(key, new File(key));
+	}, new UnknownFileCollectionKey(key));
+	t.end();
+});
+
+tap.test("Should remove file from file collection", (t) => {
+	const key = new FilePath("/foo.txt");
+	const collectionWithFile = new FileCollection([new File(key)]);
+
+	const emptyCollection = collectionWithFile.remove(key);
+
+	t.ok(collectionWithFile.has(key));
+	t.notOk(emptyCollection.has(key));
+	t.equal(collectionWithFile.size(), 1);
+	t.equal(emptyCollection.size(), 0);
+	t.end();
+});
+
+tap.test("Should throw when removing non existant key", (t) => {
+	const key = new FilePath("/bar.txt");
+	const collection = new FileCollection();
+
+	t.throws(() => {
+		collection.remove(key);
+	}, new UnknownFileCollectionKey(key));
 	t.end();
 });
