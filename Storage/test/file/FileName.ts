@@ -18,3 +18,23 @@ tap.test("File name should handle multiple extensions", (t) => {
 	t.equal(name.type, "txt");
 	t.end();
 });
+
+tap.test("File names should be equivalent", (t) => {
+	const fileNameA1 = new FileName("a.txt");
+	const fileNameA2 = new FileName("a.txt");
+	const fileNameB = new FileName("b.txt");
+
+	t.ok(fileNameA1.equals(fileNameA2));
+	t.notOk(fileNameA1.equals(fileNameB));
+
+	t.end();
+});
+
+tap.test("File name with no extension should be handled properly", (t) => {
+	const name = new FileName("file");
+
+	t.equal(name.value, "file");
+	t.equal(name.file, "file");
+	t.equal(name.type, "");
+	t.end();
+});

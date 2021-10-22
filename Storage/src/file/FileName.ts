@@ -6,10 +6,24 @@ export default class FileName implements IFileName {
 	private readonly _value: string;
 
 	constructor(value: string) {
+		const suffixIndex = this.getSuffixIndex(value);
+		this._file = this.getFile(value, suffixIndex);
+		this._type = this.getType(value, suffixIndex);
 		this._value = value;
-		const endingDot = value.lastIndexOf(".");
-		this._file = value.substring(0, endingDot);
-		this._type = value.substring(endingDot + 1);
+	}
+
+	private getSuffixIndex(value: string) {
+		const index = value.lastIndexOf(".");
+		return index < 0 ? value.length : index;
+	}
+
+	private getFile(value: string, suffixIndex: number) {
+		return value.substring(0, suffixIndex);
+	}
+
+	private getType(value: string, suffixIndex: number) {
+		// add one to skip over dot character
+		return value.substring(suffixIndex + 1);
 	}
 
 	get value(): string {
@@ -25,6 +39,6 @@ export default class FileName implements IFileName {
 	}
 
 	equals(other: IFileName): boolean {
-		throw new Error("Method not implemented.");
+		return this.value === other.value;
 	}
 }
