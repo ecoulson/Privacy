@@ -1,7 +1,7 @@
+// Author: Evan Coulson
 import tap from "tap";
 import FilePath from "../../src/file/FilePath";
 
-// Author: Evan Coulson
 tap.test("Creates a file path", (t) => {
 	const filePath = new FilePath("/foo");
 

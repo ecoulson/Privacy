@@ -1,4 +1,5 @@
 // Author: Evan Coulson
+import Assert from "../assert/Assert";
 import EmptyFilePathException from "./EmptyFilePathException";
 import IFilePath from "./IFilePath";
 
@@ -6,9 +7,7 @@ export default class FilePath implements IFilePath {
 	private readonly _value: string;
 
 	constructor(value: string) {
-		if (value === "") {
-			throw new EmptyFilePathException();
-		}
+		Assert.notEmpty(value, new EmptyFilePathException()); 
 		this._value = value;
 	}
 

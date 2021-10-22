@@ -1,11 +1,12 @@
 import Assert from "../assert/Assert";
 import IFileName from "../file/IFileName";
+import EmptyBucketNameException from "./EmptyBucketNameException";
 
 export default class BucketName implements IFileName {
 	private readonly name: string;
 
 	constructor(name: string) {
-		Assert.notEmpty(name, "Bucket can not have an empty name");
+		Assert.notEmpty(name, new EmptyBucketNameException());
 		this.name = name;
 	}
 

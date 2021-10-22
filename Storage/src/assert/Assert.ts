@@ -1,12 +1,16 @@
 // Author: Evan Coulson
 export default class Assert {
-	static notEmpty(a: string, message?: string) {
-		this.notEqual(a, "", message);
+	static notNull(a: any, error?: Error) {
+		this.notEqual(a, null, error);
 	}
 
-	static notEqual(a: any, b: any, message?: string) {
+	static notEmpty(a: string, error?: Error) {
+		this.notEqual(a, "", error);
+	}
+
+	static notEqual(a: any, b: any, error?: Error) {
 		if (a === b) {
-			throw new Error(message);
+			throw error;
 		}
 	}
 }

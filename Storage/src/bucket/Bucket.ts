@@ -4,6 +4,7 @@ import IBucket from "./IBucket";
 import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import UnknownFileException from "./UnknownFileException";
+import Assert from "../assert/Assert";
 
 export default class Bucket implements IBucket {
 	private readonly _name: IFileName;
@@ -49,14 +50,8 @@ export default class Bucket implements IBucket {
 
 	getFile(path: IFilePath): IFile {
 		const file = this._files.find((file) => file.path.equals(path));
-		this.assertFileExists(path, file);
+		Assert.notNull(file, new UnknownFileException(this.name, path));
 		return file!;
-	}
-
-	private assertFileExists(path: IFilePath, file?: IFile) {
-		if (!file) {
-			throw new UnknownFileException(this.name, path);
-		}
 	}
 
 	updateFile(object: IFile): IBucket {
