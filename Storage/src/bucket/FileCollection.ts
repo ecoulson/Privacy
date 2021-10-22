@@ -26,6 +26,10 @@ export default class FileCollection implements IFileCollection {
 
 	get(key: IFilePath): IFile {
 		Assert.true(this.has(key), new UnknownFileCollectionKey(key));
+		return this.searchForFile(key);
+	}
+
+	private searchForFile(key: IFilePath) {
 		return this._files.find((file) => file.path.equals(key))!;
 	}
 
@@ -34,20 +38,26 @@ export default class FileCollection implements IFileCollection {
 	}
 
 	update(key: IFilePath, updatedFile: IFile): IFileCollection {
-		return new FileCollection(
-			this._files.map((file) => {
-				if (file.path.equals(key)) {
-					return updatedFile;
-				}
-				return file;
-			})
-		);
+		return new FileCollection(this.updateFileCollection(key, updatedFile));
+	}
+
+	private updateFileCollection(key: IFilePath, updatedFile: IFile) {
+		return this._files.map((file) => {
+			if (file.path.equals(key)) {
+				return updatedFile;
+			}
+			return file;
+		});
 	}
 
 	equals(other: IFileCollection): boolean {
 		if (this.size() !== other.size()) {
 			return false;
 		}
+		return this.hasEquivalentFiles(other);
+	}
+
+	private hasEquivalentFiles(other: IFileCollection) {
 		return this._files.reduce<boolean>(
 			(equal, file) => equal && other.has(file.path),
 			true
