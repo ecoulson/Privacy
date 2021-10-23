@@ -11,6 +11,6 @@ export default interface IBucket extends IEquatable<IBucket> {
 	get files(): IFileCollection;
 	addFile(file: IFile): IBucket;
 	getFile(path: IFilePath): IFile;
-	updateFile(object: IFile): IBucket;
+	updateFile(path: IFileName, object: IFile): IBucket;
 	removeFile(path: IFilePath): IBucket;
 }

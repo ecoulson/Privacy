@@ -4,7 +4,6 @@ import IBucket from "./IBucket";
 import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import UnknownFileException from "./UnknownFileException";
-import Assert from "../assert/Assert";
 import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
 import StorjBucketPath from "./StorjBucketPath";
@@ -52,8 +51,12 @@ export default class StorjBucket implements IBucket {
 		}
 	}
 
-	updateFile(object: IFile): IBucket {
-		throw new Error("Method not implemented.");
+	updateFile(path: IFilePath, file: IFile): IBucket {
+		try {
+			return new StorjBucket(this.name, this.files.update(path, file));
+		} catch (error) {
+			throw new UnknownFileException(this.name, path);
+		}
 	}
 
 	removeFile(path: IFilePath): IBucket {

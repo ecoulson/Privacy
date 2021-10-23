@@ -2,10 +2,10 @@
 import tap from "tap";
 import StorjBucket from "../../src/bucket/StorjBucket";
 import BucketName from "../../src/bucket/BucketName";
-import StorjBucketPath from "../../src/bucket/StorjBucketPath";
 import File from "../../src/file/File";
 import FilePath from "../../src/file/FilePath";
 import UnknownFileException from "../../src/bucket/UnknownFileException";
+import FileCollection from "../../src/bucket/FileCollection";
 
 tap.test("Bucket should be properly initialized", (t) => {
 	const name = new BucketName("bucket");
@@ -57,6 +57,31 @@ tap.test("Adding a file should return a new bucket with the file", (t) => {
 
 	t.notOk(emptyBucket.equals(bucket));
 	t.equal(bucket.files.size(), 1);
-	t.match(bucket.getFile(path), new File(path));
+	t.ok(bucket.getFile(path).equals(new File(path)));
+	t.end();
+});
+
+tap.test("Should update a file in the bucket", (t) => {
+	const name = new BucketName("bucket");
+	const path = new FilePath("/file.txt");
+	const updatedPath = new FilePath("/new-file.txt");
+	const bucket = new StorjBucket(name, new FileCollection([new File(path)]));
+
+	const updatedBucket = bucket.updateFile(path, new File(updatedPath));
+
+	t.notOk(updatedBucket.equals(bucket));
+	t.ok(updatedBucket.getFile(updatedPath).equals(new File(updatedPath)));
+	t.end();
+});
+
+tap.test("Should throw when updating non existant file", (t) => {
+	const name = new BucketName("bucket");
+	const path = new FilePath("/file.txt");
+	const bucket = new StorjBucket(name);
+
+	t.throws(() => {
+		bucket.updateFile(path, new File(path));
+	}, new UnknownFileException(name, path));
+
 	t.end();
 });
