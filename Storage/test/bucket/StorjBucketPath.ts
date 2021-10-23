@@ -22,3 +22,13 @@ tap.test("Storj Bucket Path equivalency test", (t) => {
 
 	t.end();
 });
+
+tap.test("Should get storj bucket name from file path", (t) => {
+	const expectedName = new BucketName("foo");
+	const path = new StorjBucketPath(expectedName);
+
+	const name = path.name;
+
+	t.ok(name.equals(expectedName));
+	t.end();
+});

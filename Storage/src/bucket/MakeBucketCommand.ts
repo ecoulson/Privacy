@@ -3,7 +3,6 @@ import IBucket from "./IBucket";
 import ICommand from "../commands/ICommand";
 import IProcessRunner from "../os/IProcessRunner";
 import CreateBucketException from "./CreateBucketException";
-import StorjBucketPath from "./StorjBucketPath";
 import StorjBucket from "./StorjBucket";
 import BucketName from "./BucketName";
 
