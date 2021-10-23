@@ -17,6 +17,16 @@ tap.test("Should immutably add to file collection", (t) => {
 	t.end();
 });
 
+tap.test("Should get a file", (t) => {
+	const key = new FilePath("/foo.txt");
+	const collection = new FileCollection([new File(key)]);
+
+	const file = collection.get(key);
+
+	t.ok(file.equals(new File(key)));
+	t.end();
+});
+
 tap.test("Should throw when getting non existant key", (t) => {
 	const emptyCollection = new FileCollection();
 	const key = new FilePath("/foo.txt");
@@ -59,8 +69,8 @@ tap.test("File collection can immutably update files", (t) => {
 
 	t.ok(oldCollection.has(oldKey));
 	t.ok(newCollection.has(newKey));
-	t.equal(oldCollection.size(), 1);
-	t.equal(newCollection.size(), 1);
+	t.equal(oldCollection.size(), 3);
+	t.equal(newCollection.size(), 3);
 	t.end();
 });
 

@@ -5,16 +5,18 @@ import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import UnknownFileException from "./UnknownFileException";
 import Assert from "../assert/Assert";
+import IFileCollection from "./IFileCollection";
+import FileCollection from "./FileCollection";
 
 export default class Bucket implements IBucket {
 	private readonly _name: IFileName;
 	private readonly _path: IFilePath;
-	private readonly _files: IFile[];
+	private readonly _files: IFileCollection;
 
-	constructor(name: IFileName, path: IFilePath, files?: IFile[]) {
+	constructor(name: IFileName, path: IFilePath, files?: IFileCollection) {
 		this._name = name;
 		this._path = path;
-		this._files = files || [];
+		this._files = files || new FileCollection();
 	}
 
 	get name(): IFileName {
@@ -25,30 +27,28 @@ export default class Bucket implements IBucket {
 		return this._path;
 	}
 
-	get files(): IFile[] {
-		return this._files.map((file) => file);
+	get files(): IFileCollection {
+		return this._files;
 	}
 
 	addFile(file: IFile): IBucket {
-		return new Bucket(this.name, this.path, [...this.files, file]);
+		return new Bucket(this.name, this.path, this.files.add(file));
 	}
 
 	equals(other: IBucket): boolean {
 		return (
 			this.name.equals(other.name) &&
 			this.path.equals(other.path) &&
-			this.files.length === other.files.length &&
-			this._files.reduce<boolean>(
-				(equal, file, i) => equal && file.equals(other.files[i]),
-				true
-			)
+			this.files.equals(other.files)
 		);
 	}
 
 	getFile(path: IFilePath): IFile {
-		const file = this._files.find((file) => file.path.equals(path));
-		Assert.notNull(file, new UnknownFileException(this.name, path));
-		return file!;
+		try {
+			return this.files.get(path);
+		} catch (error) {
+			throw new UnknownFileException(this.name, path);
+		}
 	}
 
 	updateFile(object: IFile): IBucket {

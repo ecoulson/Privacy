@@ -28,11 +28,10 @@ tap.test("Buckets should give back an immutable list of files", (t) => {
 	const name = new BucketName("bucket");
 	const bucket = new Bucket(name, new StorjBucketPath(name));
 
-	const files = bucket.files;
-	files.push(new File(new FilePath("/file")));
+	const files = bucket.files.add(new File(new FilePath("/file")));
 
-	t.equal(bucket.files.length, 0);
-	t.equal(files.length, 1);
+	t.equal(bucket.files.size(), 0);
+	t.equal(files.size(), 1);
 	t.end();
 });
 
@@ -44,7 +43,7 @@ tap.test("Adding a file should return a new bucket with the file", (t) => {
 	const bucket = emptyBucket.addFile(new File(path));
 
 	t.notOk(emptyBucket.equals(bucket));
-	t.equal(bucket.files.length, 1);
+	t.equal(bucket.files.size(), 1);
 	t.match(bucket.getFile(path), new File(path));
 	t.end();
 });

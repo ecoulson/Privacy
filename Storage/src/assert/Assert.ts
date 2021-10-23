@@ -6,10 +6,6 @@ export default class Assert {
 		}
 	}
 
-	static notNull(a: any, error?: Error) {
-		Assert.notEqual(a, null, error);
-	}
-
 	static notEmpty(a: string, error?: Error) {
 		Assert.notEqual(a, "", error);
 	}
