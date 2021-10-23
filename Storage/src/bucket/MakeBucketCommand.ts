@@ -4,7 +4,7 @@ import ICommand from "../commands/ICommand";
 import IProcessRunner from "../os/IProcessRunner";
 import CreateBucketException from "./CreateBucketException";
 import StorjBucketPath from "./StorjBucketPath";
-import Bucket from "./Bucket";
+import StorjBucket from "./StorjBucket";
 import BucketName from "./BucketName";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
@@ -26,7 +26,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 
 	private async makeBucket() {
 		await this.spawnProcess();
-		return new Bucket(this.name, new StorjBucketPath(this.name));
+		return new StorjBucket(this.name);
 	}
 
 	private async spawnProcess() {

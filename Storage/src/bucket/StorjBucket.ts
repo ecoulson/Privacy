@@ -7,15 +7,16 @@ import UnknownFileException from "./UnknownFileException";
 import Assert from "../assert/Assert";
 import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
+import StorjBucketPath from "./StorjBucketPath";
 
-export default class Bucket implements IBucket {
+export default class StorjBucket implements IBucket {
 	private readonly _name: IFileName;
 	private readonly _path: IFilePath;
 	private readonly _files: IFileCollection;
 
-	constructor(name: IFileName, path: IFilePath, files?: IFileCollection) {
+	constructor(name: IFileName, files?: IFileCollection) {
 		this._name = name;
-		this._path = path;
+		this._path = new StorjBucketPath(name);
 		this._files = files || new FileCollection();
 	}
 
@@ -32,7 +33,7 @@ export default class Bucket implements IBucket {
 	}
 
 	addFile(file: IFile): IBucket {
-		return new Bucket(this.name, this.path, this.files.add(file));
+		return new StorjBucket(this.name, this.files.add(file));
 	}
 
 	equals(other: IBucket): boolean {
