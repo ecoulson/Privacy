@@ -85,3 +85,27 @@ tap.test("Should throw when updating non existant file", (t) => {
 
 	t.end();
 });
+
+tap.test("Should delete file when file is in bucket", (t) => {
+	const path = new FilePath("/file.txt");
+	const bucket = new StorjBucket(
+		new BucketName("bucket"),
+		new FileCollection([new File(path)])
+	);
+
+	const emptyBucket = bucket.removeFile(path);
+
+	t.notOk(emptyBucket.files.has(path));
+	t.end();
+});
+
+tap.test("Should throw error when removing path that does not exist", (t) => {
+	const path = new FilePath("/file.txt");
+	const name = new BucketName("bucket");
+	const bucket = new StorjBucket(name);
+
+	t.throws(() => {
+		bucket.removeFile(path);
+	}, new UnknownFileException(name, path));
+	t.end();
+});

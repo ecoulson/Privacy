@@ -60,6 +60,10 @@ export default class StorjBucket implements IBucket {
 	}
 
 	removeFile(path: IFilePath): IBucket {
-		throw new Error("Method not implemented.");
+		try {
+			return new StorjBucket(this.name, this.files.remove(path));
+		} catch (error) {
+			throw new UnknownFileException(this.name, path);
+		}
 	}
 }
