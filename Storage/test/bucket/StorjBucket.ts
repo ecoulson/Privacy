@@ -1,14 +1,14 @@
 // Author: Evan Coulson
 import tap from "tap";
 import StorjBucket from "../../src/bucket/StorjBucket";
-import BucketName from "../../src/bucket/BucketName";
+import StorjBucketName from "../../src/bucket/StorjBucketName";
 import File from "../../src/file/File";
 import FilePath from "../../src/file/FilePath";
 import UnknownFileException from "../../src/bucket/UnknownFileException";
 import FileCollection from "../../src/bucket/FileCollection";
 
 tap.test("Bucket should be properly initialized", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const bucket = new StorjBucket(name);
 
 	t.equal(bucket.name.value, "bucket");
@@ -17,7 +17,7 @@ tap.test("Bucket should be properly initialized", (t) => {
 });
 
 tap.test("Buckets should be equal", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const bucketA = new StorjBucket(name);
 	const bucketB = new StorjBucket(name);
 
@@ -26,7 +26,7 @@ tap.test("Buckets should be equal", (t) => {
 });
 
 tap.test("Buckets should give back an immutable list of files", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const bucket = new StorjBucket(name);
 
 	const files = bucket.files.add(new File(new FilePath("/file")));
@@ -37,7 +37,7 @@ tap.test("Buckets should give back an immutable list of files", (t) => {
 });
 
 tap.test("Should throw when looking for a file that does not exist", (t) => {
-	const name = new BucketName("test");
+	const name = new StorjBucketName("test");
 	const bucket = new StorjBucket(name);
 	const path = new FilePath("/unknown_file.txt");
 
@@ -49,7 +49,7 @@ tap.test("Should throw when looking for a file that does not exist", (t) => {
 });
 
 tap.test("Adding a file should return a new bucket with the file", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const path = new FilePath("/bucket");
 	const emptyBucket = new StorjBucket(name);
 
@@ -62,7 +62,7 @@ tap.test("Adding a file should return a new bucket with the file", (t) => {
 });
 
 tap.test("Should update a file in the bucket", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const path = new FilePath("/file.txt");
 	const updatedPath = new FilePath("/new-file.txt");
 	const bucket = new StorjBucket(name, new FileCollection([new File(path)]));
@@ -75,7 +75,7 @@ tap.test("Should update a file in the bucket", (t) => {
 });
 
 tap.test("Should throw when updating non existant file", (t) => {
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const path = new FilePath("/file.txt");
 	const bucket = new StorjBucket(name);
 
@@ -89,7 +89,7 @@ tap.test("Should throw when updating non existant file", (t) => {
 tap.test("Should delete file when file is in bucket", (t) => {
 	const path = new FilePath("/file.txt");
 	const bucket = new StorjBucket(
-		new BucketName("bucket"),
+		new StorjBucketName("bucket"),
 		new FileCollection([new File(path)])
 	);
 
@@ -101,7 +101,7 @@ tap.test("Should delete file when file is in bucket", (t) => {
 
 tap.test("Should throw error when removing path that does not exist", (t) => {
 	const path = new FilePath("/file.txt");
-	const name = new BucketName("bucket");
+	const name = new StorjBucketName("bucket");
 	const bucket = new StorjBucket(name);
 
 	t.throws(() => {

@@ -3,7 +3,7 @@ import IFileName from "../file/IFileName";
 import BucketNameError from "./BucketNameError";
 import IllegalBucketNameException from "./IllegalBucketNameException";
 
-export default class BucketName implements IFileName {
+export default class StorjBucketName implements IFileName {
 	private static readonly BUCKET_NAME_PATTERN = new RegExp(
 		/^[a-zA-Z0-9-_]*$/
 	);
@@ -22,7 +22,7 @@ export default class BucketName implements IFileName {
 		);
 		Assert.lessThanOrEqualTo(
 			name.length,
-			BucketName.BUCKET_NAME_MAX_LENGTH,
+			StorjBucketName.BUCKET_NAME_MAX_LENGTH,
 			this.createValidationError(BucketNameError.EXCEDES_MAX_LENGTH)
 		);
 		Assert.false(
@@ -30,7 +30,7 @@ export default class BucketName implements IFileName {
 			this.createValidationError(BucketNameError.ENDS_IN_DASH)
 		);
 		Assert.patternMatches(
-			BucketName.BUCKET_NAME_PATTERN,
+			StorjBucketName.BUCKET_NAME_PATTERN,
 			name,
 			this.createValidationError(BucketNameError.HAS_ILLEGAL_CHARACTERS)
 		);

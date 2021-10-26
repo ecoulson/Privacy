@@ -1,7 +1,7 @@
 // Author: Evan Coulson
 import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
-import BucketName from "./BucketName";
+import StorjBucketName from "./StorjBucketName";
 
 export default class StorjBucketPath implements IFilePath {
 	private readonly path: string;
@@ -15,7 +15,7 @@ export default class StorjBucketPath implements IFilePath {
 	}
 
 	get name(): IFileName {
-		return new BucketName(this.value.replace("sj://", ""));
+		return new StorjBucketName(this.value.replace("sj://", ""));
 	}
 
 	equals(other: IFilePath): boolean {

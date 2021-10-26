@@ -4,13 +4,13 @@ import ICommand from "../commands/ICommand";
 import IProcessRunner from "../os/IProcessRunner";
 import CreateBucketException from "./CreateBucketException";
 import StorjBucket from "./StorjBucket";
-import BucketName from "./BucketName";
+import StorjBucketName from "./StorjBucketName";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
-	private readonly name: BucketName;
+	private readonly name: StorjBucketName;
 	private readonly processRunner: IProcessRunner;
 
-	constructor(name: BucketName, processRunner: IProcessRunner) {
+	constructor(name: StorjBucketName, processRunner: IProcessRunner) {
 		this.name = name;
 		this.processRunner = processRunner;
 	}
