@@ -5,6 +5,7 @@ import IProcessRunner from "../os/IProcessRunner";
 import CreateBucketException from "./CreateBucketException";
 import StorjBucket from "./StorjBucket";
 import StorjBucketName from "./StorjBucketName";
+import Context from "../Context";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
 	private readonly name: StorjBucketName;
@@ -24,6 +25,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 	}
 
 	private async makeBucket() {
+		const bucket = Context.bucketGateway.save(new StorjBucket(this.name));
 		await this.spawnProcess();
 		return new StorjBucket(this.name);
 	}

@@ -3,6 +3,14 @@ import tap from "tap";
 import StorjBucketName from "../../src/bucket/StorjBucketName";
 import CreateBucketException from "../../src/bucket/CreateBucketException";
 import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
+import Context from "../../src/Context";
+import StorjBucket from "../../src/bucket/StorjBucket";
+
+tap.beforeEach(() => {
+	Context.bucketGateway = {
+		save: () => new StorjBucket(new StorjBucketName("name")),
+	};
+});
 
 tap.test("Successfully create a bucket", async (t) => {
 	const bucketName = "bucket";
