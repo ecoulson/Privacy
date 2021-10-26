@@ -1,6 +1,6 @@
 import IId from "./IId";
 import { v4 as createRandomUUID, validate } from "uuid";
-import IEquatable from "../utility/IEquatable";
+import IEquatable from "../interfaces/IEquatable";
 
 export default class UUID implements IId, IEquatable<UUID> {
 	private _value: string;

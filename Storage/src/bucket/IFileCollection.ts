@@ -1,4 +1,4 @@
-import IEquatable from "../utility/IEquatable";
+import IEquatable from "../interfaces/IEquatable";
 import IFile from "../file/IFile";
 import IFilePath from "../file/IFilePath";
 

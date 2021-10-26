@@ -3,7 +3,7 @@ import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import IFileCollection from "./IFileCollection";
 import IEntity from "../entities/IEntity";
-import IEquatable from "../utility/IEquatable";
+import IEquatable from "../interfaces/IEquatable";
 
 export default interface IBucket extends IEntity, IEquatable<IBucket> {
 	get name(): IFileName;
