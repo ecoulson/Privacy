@@ -6,13 +6,16 @@ import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
 import StorjBucketPath from "./StorjBucketPath";
 import StorjBucketName from "./StorjBucketName";
+import Entity from "../entities/Entity";
+import UUID from "../id/UUID";
 
-export default class StorjBucket implements IBucket {
+export default class StorjBucket extends Entity implements IBucket {
 	private readonly _name: StorjBucketName;
 	private readonly _path: StorjBucketPath;
 	private readonly _files: IFileCollection;
 
 	constructor(name: StorjBucketName, files?: IFileCollection) {
+		super(new UUID());
 		this._name = name;
 		this._path = new StorjBucketPath(name);
 		this._files = files || new FileCollection();
@@ -64,5 +67,9 @@ export default class StorjBucket implements IBucket {
 		} catch (error) {
 			throw new UnknownFileException(this.name, path);
 		}
+	}
+
+	clone(): IBucket {
+		return new StorjBucket(this.name, this.files);
 	}
 }

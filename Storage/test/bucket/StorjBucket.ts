@@ -108,3 +108,12 @@ tap.test("Should throw error when removing path that does not exist", (t) => {
 	}, new UnknownFileException(name, path));
 	t.end();
 });
+
+tap.test("Should create a clone of a bucket", (t) => {
+	const bucket = new StorjBucket(new StorjBucketName("test"));
+
+	const clone = bucket.clone();
+
+	t.ok(bucket.equals(clone));
+	t.end();
+});

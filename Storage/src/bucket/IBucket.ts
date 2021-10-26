@@ -1,10 +1,11 @@
-import IEquatable from "../utility/IEquatable";
 import IFile from "../file/IFile";
 import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import IFileCollection from "./IFileCollection";
+import IEntity from "../entities/IEntity";
+import IEquatable from "../utility/IEquatable";
 
-export default interface IBucket extends IEquatable<IBucket> {
+export default interface IBucket extends IEntity, IEquatable<IBucket> {
 	get name(): IFileName;
 	get path(): IFilePath;
 	get files(): IFileCollection;

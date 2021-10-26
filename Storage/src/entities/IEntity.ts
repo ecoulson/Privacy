@@ -1,7 +1,7 @@
 import ICloneable from "../utility/ICloneable";
-import IEquatable from "../utility/IEquatable";
 import IId from "../id/IId";
+import ISameable from "../utility/ISameable";
 
-export default interface IEntity extends ICloneable<IEntity>, IEquatable<IEntity> {
-    get id(): IId
+export default interface IEntity extends ICloneable<IEntity>, ISameable {
+	get id(): IId;
 }

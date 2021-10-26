@@ -14,7 +14,7 @@ export default abstract class Entity implements IEntity {
 
 	abstract clone(): IEntity;
 
-	equals(other: IEntity): boolean {
+	isSame(other: IEntity): boolean {
 		return this.id.equals(other.id);
 	}
 }
