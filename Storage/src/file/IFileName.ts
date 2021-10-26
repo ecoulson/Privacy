@@ -1,5 +1,5 @@
 // Author: Evan Coulson
-import IEquatable from "../equatable/IEquatable";
+import IEquatable from "../utility/IEquatable";
 
 export default interface IFileName extends IEquatable<IFileName> {
 	get value(): string;

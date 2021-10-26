@@ -1,5 +1,5 @@
 // Author: Evan Coulson
-import IEquatable from "../equatable/IEquatable";
+import IEquatable from "../utility/IEquatable";
 import IFileName from "./IFileName";
 import IFilePath from "./IFilePath";
 
