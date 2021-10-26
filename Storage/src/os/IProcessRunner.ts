@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IProcessResult from "./IProcessResults";
 import IProcessDTO from "./IProcessDTO";
 

@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IFileName from "./IFileName";
 
 export default class FileName implements IFileName {

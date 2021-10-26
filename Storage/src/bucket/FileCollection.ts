@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import Assert from "../assert/Assert";
 import IFile from "../file/IFile";
 import IFilePath from "../file/IFilePath";

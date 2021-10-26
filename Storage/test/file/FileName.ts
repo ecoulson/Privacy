@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import tap from "tap";
 import FileName from "../../src/file/FileName";
 

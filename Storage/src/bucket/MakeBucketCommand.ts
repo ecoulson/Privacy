@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IBucket from "./IBucket";
 import ICommand from "../commands/ICommand";
 import CreateBucketException from "./CreateBucketException";

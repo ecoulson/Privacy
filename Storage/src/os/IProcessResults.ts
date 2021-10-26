@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IDuration from "../time/IDuration";
 import IProcessId from "./IProcessId";
 

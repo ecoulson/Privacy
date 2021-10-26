@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IFileName from "../file/IFileName";
 import IFilePath from "../file/IFilePath";
 import StorjBucketName from "./StorjBucketName";

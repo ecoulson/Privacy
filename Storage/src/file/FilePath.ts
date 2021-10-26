@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import Assert from "../assert/Assert";
 import EmptyFilePathException from "./EmptyFilePathException";
 import FileName from "./FileName";

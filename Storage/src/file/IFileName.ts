@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IEquatable from "../utility/IEquatable";
 
 export default interface IFileName extends IEquatable<IFileName> {

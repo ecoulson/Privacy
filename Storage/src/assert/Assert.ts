@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 export default class Assert {
 	static true(a: boolean, error: Error) {
 		if (!a) {

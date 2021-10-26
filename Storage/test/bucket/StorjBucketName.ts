@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import tap from "tap";
 import StorjBucketName from "../../src/bucket/StorjBucketName";
 import BucketNameError from "../../src/bucket/StorjBucketNameError";

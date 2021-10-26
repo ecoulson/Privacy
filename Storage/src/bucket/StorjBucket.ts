@@ -1,4 +1,3 @@
-// Author: Evan Coulson
 import IFile from "../file/IFile";
 import IBucket from "./IBucket";
 import IFilePath from "../file/IFilePath";
