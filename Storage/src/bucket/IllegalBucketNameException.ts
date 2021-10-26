@@ -1,9 +1,9 @@
-import BucketNameErrors from "./BucketNameError";
+import StorjBucketNameErrors from "./StorjBucketNameError";
 
 export default class IllegalBucketNameException extends Error {
 	public name: string = "IllegalBucketNameException";
 
-	constructor(message: BucketNameErrors) {
+	constructor(message: StorjBucketNameErrors) {
 		super(message);
 	}
 }

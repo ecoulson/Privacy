@@ -1,7 +1,7 @@
 // Author: Evan Coulson
 import tap from "tap";
 import StorjBucketName from "../../src/bucket/StorjBucketName";
-import BucketNameError from "../../src/bucket/BucketNameError";
+import BucketNameError from "../../src/bucket/StorjBucketNameError";
 import IllegalBucketNameException from "../../src/bucket/IllegalBucketNameException";
 
 tap.test("Bucket should have passed name", (t) => {

@@ -7,23 +7,24 @@ import UnknownFileException from "./UnknownFileException";
 import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
 import StorjBucketPath from "./StorjBucketPath";
+import StorjBucketName from "./StorjBucketName";
 
 export default class StorjBucket implements IBucket {
-	private readonly _name: IFileName;
-	private readonly _path: IFilePath;
+	private readonly _name: StorjBucketName;
+	private readonly _path: StorjBucketPath;
 	private readonly _files: IFileCollection;
 
-	constructor(name: IFileName, files?: IFileCollection) {
+	constructor(name: StorjBucketName, files?: IFileCollection) {
 		this._name = name;
 		this._path = new StorjBucketPath(name);
 		this._files = files || new FileCollection();
 	}
 
-	get name(): IFileName {
+	get name(): StorjBucketName {
 		return this._name;
 	}
 
-	get path(): IFilePath {
+	get path(): StorjBucketPath {
 		return this._path;
 	}
 

@@ -1,6 +1,6 @@
 import Assert from "../assert/Assert";
 import IFileName from "../file/IFileName";
-import BucketNameError from "./BucketNameError";
+import BucketNameError from "./StorjBucketNameError";
 import IllegalBucketNameException from "./IllegalBucketNameException";
 
 export default class StorjBucketName implements IFileName {
