@@ -1,16 +1,26 @@
 // Author: Evan Coulson
 export default class Assert {
-	static true(a: boolean, error?: Error) {
+	static true(a: boolean, error: Error) {
 		if (!a) {
 			throw error;
 		}
 	}
 
-	static notEmpty(a: string, error?: Error) {
+	static false(a: boolean, error: Error) {
+		if (a) {
+			throw error;
+		}
+	}
+
+	static lessThanOrEqualTo(a: number, b: number, error: Error) {
+		Assert.true(a <= b, error);
+	}
+
+	static notEmpty(a: string, error: Error) {
 		Assert.notEqual(a, "", error);
 	}
 
-	static notEqual(a: any, b: any, error?: Error) {
+	static notEqual(a: any, b: any, error: Error) {
 		Assert.true(a !== b, error);
 	}
 }
