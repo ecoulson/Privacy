@@ -8,7 +8,7 @@ import StorjBucket from "../../src/bucket/StorjBucket";
 
 tap.beforeEach(() => {
 	Context.bucketGateway = {
-		save: () => new StorjBucket(new StorjBucketName("name")),
+		save: () => new StorjBucket(new StorjBucketName("bucket")),
 	};
 });
 

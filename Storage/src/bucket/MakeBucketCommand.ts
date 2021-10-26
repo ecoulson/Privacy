@@ -27,7 +27,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 	private async makeBucket() {
 		const bucket = Context.bucketGateway.save(new StorjBucket(this.name));
 		await this.spawnProcess();
-		return new StorjBucket(this.name);
+		return bucket;
 	}
 
 	private async spawnProcess() {
