@@ -1,9 +1,13 @@
 import Assert from "../assert/Assert";
 import IFileName from "../file/IFileName";
-import BucketNameErrors from "./BucketNameErrors";
+import BucketNameError from "./BucketNameError";
 import IllegalBucketNameException from "./IllegalBucketNameException";
 
 export default class BucketName implements IFileName {
+	private static readonly BUCKET_NAME_PATTERN = new RegExp(
+		/^[a-zA-Z0-9-_]*$/
+	);
+	private static readonly BUCKET_NAME_MAX_LENGTH = 64;
 	private readonly name: string;
 
 	constructor(name: string) {
@@ -14,17 +18,26 @@ export default class BucketName implements IFileName {
 	private validateName(name: string) {
 		Assert.notEmpty(
 			name,
-			new IllegalBucketNameException(BucketNameErrors.EMPTY)
+			this.createValidationError(BucketNameError.EMPTY)
 		);
 		Assert.lessThanOrEqualTo(
 			name.length,
-			64,
-			new IllegalBucketNameException(BucketNameErrors.EXCEDES_MAX_LENGTH)
+			BucketName.BUCKET_NAME_MAX_LENGTH,
+			this.createValidationError(BucketNameError.EXCEDES_MAX_LENGTH)
 		);
 		Assert.false(
 			name.endsWith("-"),
-			new IllegalBucketNameException(BucketNameErrors.ENDS_IN_DASH)
+			this.createValidationError(BucketNameError.ENDS_IN_DASH)
 		);
+		Assert.patternMatches(
+			BucketName.BUCKET_NAME_PATTERN,
+			name,
+			this.createValidationError(BucketNameError.HAS_ILLEGAL_CHARACTERS)
+		);
+	}
+
+	private createValidationError(error: BucketNameError) {
+		return new IllegalBucketNameException(error);
 	}
 
 	get value(): string {

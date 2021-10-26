@@ -1,4 +1,4 @@
-import BucketNameErrors from "./BucketNameErrors";
+import BucketNameErrors from "./BucketNameError";
 
 export default class IllegalBucketNameException extends Error {
 	public name: string = "IllegalBucketNameException";

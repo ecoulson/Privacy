@@ -23,4 +23,8 @@ export default class Assert {
 	static notEqual(a: any, b: any, error: Error) {
 		Assert.true(a !== b, error);
 	}
+
+	static patternMatches(pattern: RegExp, test: string, error: Error) {
+		Assert.true(pattern.test(test), error);
+	}
 }
