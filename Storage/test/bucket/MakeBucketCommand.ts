@@ -4,24 +4,16 @@ import StorjBucketName from "../../src/bucket/StorjBucketName";
 import CreateBucketException from "../../src/bucket/CreateBucketException";
 import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
 import Context from "../../src/Context";
-import StorjBucket from "../../src/bucket/StorjBucket";
 
 tap.beforeEach(() => {
 	Context.bucketGateway = {
-		save: () => new StorjBucket(new StorjBucketName("bucket")),
+		save: (bucket) => bucket,
 	};
 });
 
 tap.test("Successfully create a bucket", async (t) => {
 	const bucketName = "bucket";
-	const command = new MakeBucketCommand(new StorjBucketName(bucketName), {
-		spawn: async () => {
-			return {
-				id: { value: 1 },
-				executionLength: {},
-			};
-		},
-	});
+	const command = new MakeBucketCommand(new StorjBucketName(bucketName));
 
 	const bucket = await command.execute();
 
@@ -32,11 +24,12 @@ tap.test("Successfully create a bucket", async (t) => {
 });
 
 tap.test("Fails to create bucket due to process error", async (t) => {
-	const command = new MakeBucketCommand(new StorjBucketName("bucket"), {
-		spawn: async () => {
-			throw new Error("");
+	const command = new MakeBucketCommand(new StorjBucketName("bucket"));
+	Context.bucketGateway = {
+		save: () => {
+			throw new Error();
 		},
-	});
+	};
 
 	try {
 		await command.execute();
