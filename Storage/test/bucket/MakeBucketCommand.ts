@@ -3,11 +3,11 @@ import StorjBucketName from "../../src/bucket/StorjBucketName";
 import CreateBucketException from "../../src/bucket/CreateBucketException";
 import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
 import Context from "../../src/Context";
+import InMemoryBucketGateway from "../test_utilities/InMemoryBucketGateway";
+import StorjBucket from "../../src/bucket/StorjBucket";
 
 tap.beforeEach(() => {
-	Context.bucketGateway = {
-		save: (bucket) => bucket,
-	};
+	Context.bucketGateway = new InMemoryBucketGateway();
 });
 
 tap.test("Successfully create a bucket", async (t) => {
@@ -28,6 +28,7 @@ tap.test("Fails to create bucket due to process error", async (t) => {
 		save: () => {
 			throw new Error();
 		},
+		create: (name) => new StorjBucket(name),
 	};
 
 	try {
