@@ -6,7 +6,6 @@ import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
 import StorjBucketPath from "./StorjBucketPath";
 import Entity from "../entities/Entity";
-import UUID from "../id/UUID";
 import IFileName from "../file/IFileName";
 import BucketId from "./BucketId";
 

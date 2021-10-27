@@ -9,7 +9,7 @@ export default abstract class InMemoryGatewayUtilities<T extends IEntity> {
 
 	getAllEntities(): T[] {
 		const entities: T[] = [];
-		for (const key in this.entities.keys()) {
+		for (const key of this.entities.keys()) {
 			entities.push(this.entities.get(key) as T);
 		}
 		return entities;

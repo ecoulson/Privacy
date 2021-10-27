@@ -1,6 +1,5 @@
 import IBucket from "./IBucket";
 import ICommand from "../commands/ICommand";
-import CreateBucketException from "./CreateBucketException";
 import StorjBucket from "./StorjBucket";
 import StorjBucketName from "./StorjBucketName";
 import Context from "../Context";
@@ -13,11 +12,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 	}
 
 	async execute(): Promise<IBucket> {
-		try {
-			return await this.makeBucket();
-		} catch (error) {
-			throw new CreateBucketException();
-		}
+		return await this.makeBucket();
 	}
 
 	private async makeBucket() {
