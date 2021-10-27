@@ -1,8 +1,8 @@
 import tap from "tap";
 import StorjBucket from "../../src/bucket/StorjBucket";
 import StorjBucketName from "../../src/bucket/StorjBucketName";
-import File from "../../src/file/File";
-import FilePath from "../../src/file/FilePath";
+import File from "../../src/core/file/File";
+import FilePath from "../../src/core/file/FilePath";
 import UnknownFileException from "../../src/bucket/UnknownFileException";
 import FileCollection from "../../src/bucket/FileCollection";
 

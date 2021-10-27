@@ -1,5 +1,5 @@
-import Assert from "../assert/Assert";
-import IFileName from "../file/IFileName";
+import Assert from "../core/assert/Assert";
+import IFileName from "../core/file/IFileName";
 import BucketNameError from "./StorjBucketNameError";
 import IllegalBucketNameException from "./IllegalBucketNameException";
 

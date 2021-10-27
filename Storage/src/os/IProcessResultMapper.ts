@@ -1,4 +1,4 @@
-import IEntityDTO from "../entities/IEntityDTO";
+import IEntityDTO from "../core/entities/IEntityDTO";
 import IProcessResult from "./IProcessResults";
 
 export default interface IProcessResultMapper {

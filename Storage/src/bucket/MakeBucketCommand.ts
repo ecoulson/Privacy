@@ -1,5 +1,5 @@
 import IBucket from "./IBucket";
-import ICommand from "../commands/ICommand";
+import ICommand from "../core/command/ICommand";
 import StorjBucket from "./StorjBucket";
 import StorjBucketName from "./StorjBucketName";
 import Context from "../Context";

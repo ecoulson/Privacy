@@ -1,5 +1,5 @@
-import IFileName from "../file/IFileName";
-import IFilePath from "../file/IFilePath";
+import IFileName from "../core/file/IFileName";
+import IFilePath from "../core/file/IFilePath";
 
 export default class UnknownFileException extends Error {
 	public name: string = "UnknownFileException";

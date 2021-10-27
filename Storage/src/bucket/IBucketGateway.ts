@@ -1,4 +1,4 @@
-import IFileName from "../file/IFileName";
+import IFileName from "../core/file/IFileName";
 import BucketId from "./BucketId";
 import IBucket from "./IBucket";
 

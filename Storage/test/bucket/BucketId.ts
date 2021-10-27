@@ -1,6 +1,6 @@
 import tap from "tap";
 import BucketId from "../../src/bucket/BucketId";
-import FileName from "../../src/file/FileName";
+import FileName from "../../src/core/file/FileName";
 
 tap.test("Bucket ids with the same key should be equal", (t) => {
 	const bucketIdA = new BucketId(new FileName("bucketA"));

@@ -1,4 +1,4 @@
-import IDuration from "../time/IDuration";
+import IDuration from "../core/time/IDuration";
 import IProcessId from "./IProcessId";
 
 export default interface IProcessResult {

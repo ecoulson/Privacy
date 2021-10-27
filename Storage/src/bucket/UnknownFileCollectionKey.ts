@@ -1,4 +1,4 @@
-import IFilePath from "../file/IFilePath";
+import IFilePath from "../core/file/IFilePath";
 
 export default class UnknownFileCollectionKey extends Error {
 	constructor(key: IFilePath) {

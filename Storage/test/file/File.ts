@@ -1,8 +1,8 @@
 //Author: Evan Coulson
 import tap from "tap";
-import File from "../../src/file/File";
-import FileName from "../../src/file/FileName";
-import FilePath from "../../src/file/FilePath";
+import File from "../../src/core/file/File";
+import FileName from "../../src/core/file/FileName";
+import FilePath from "../../src/core/file/FilePath";
 
 tap.test("Should create a file", (t) => {
 	const file = new File(new FilePath("/foo/bar.txt"));

@@ -1,5 +1,5 @@
-import IFileName from "../file/IFileName";
-import IFilePath from "../file/IFilePath";
+import IFileName from "../core/file/IFileName";
+import IFilePath from "../core/file/IFilePath";
 import StorjBucketName from "./StorjBucketName";
 
 export default class StorjBucketPath implements IFilePath {

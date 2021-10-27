@@ -2,7 +2,7 @@ import BucketId from "../../src/bucket/BucketId";
 import IBucket from "../../src/bucket/IBucket";
 import IBucketGateway from "../../src/bucket/IBucketGateway";
 import StorjBucket from "../../src/bucket/StorjBucket";
-import IFileName from "../../src/file/IFileName";
+import IFileName from "../../src/core/file/IFileName";
 import InMemoryGatewayUtilities from "./InMemoryGatewayUtilities";
 
 export default class InMemoryBucketGateway

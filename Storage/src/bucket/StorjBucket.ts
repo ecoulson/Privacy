@@ -1,12 +1,12 @@
-import IFile from "../file/IFile";
+import IFile from "../core/file/IFile";
 import IBucket from "./IBucket";
-import IFilePath from "../file/IFilePath";
+import IFilePath from "../core/file/IFilePath";
 import UnknownFileException from "./UnknownFileException";
 import IFileCollection from "./IFileCollection";
 import FileCollection from "./FileCollection";
 import StorjBucketPath from "./StorjBucketPath";
-import Entity from "../entities/Entity";
-import IFileName from "../file/IFileName";
+import Entity from "../core/entities/Entity";
+import IFileName from "../core/file/IFileName";
 import BucketId from "./BucketId";
 
 export default class StorjBucket extends Entity implements IBucket {

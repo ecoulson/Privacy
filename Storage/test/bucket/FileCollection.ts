@@ -1,8 +1,8 @@
 import tap from "tap";
 import FileCollection from "../../src/bucket/FileCollection";
 import UnknownFileCollectionKey from "../../src/bucket/UnknownFileCollectionKey";
-import File from "../../src/file/File";
-import FilePath from "../../src/file/FilePath";
+import File from "../../src/core/file/File";
+import FilePath from "../../src/core/file/FilePath";
 
 tap.test("Should immutably add to file collection", (t) => {
 	const emptyCollection = new FileCollection();

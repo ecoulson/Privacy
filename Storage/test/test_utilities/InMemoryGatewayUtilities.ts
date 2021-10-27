@@ -1,4 +1,4 @@
-import IEntity from "../../src/entities/IEntity";
+import IEntity from "../../src/core/entities/IEntity";
 
 export default abstract class InMemoryGatewayUtilities<T extends IEntity> {
 	private entities: Map<string, T>;

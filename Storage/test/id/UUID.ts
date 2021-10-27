@@ -1,5 +1,5 @@
 import tap from "tap";
-import UUID from "../../src/id/UUID";
+import UUID from "../../src/core/id/UUID";
 
 tap.test("Should throw exception for illegal UUID", (t) => {
 	t.throws(() => {

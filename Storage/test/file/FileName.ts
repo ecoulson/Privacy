@@ -1,5 +1,5 @@
 import tap from "tap";
-import FileName from "../../src/file/FileName";
+import FileName from "../../src/core/file/FileName";
 
 tap.test("File name should have correct name and extension", (t) => {
 	const name = new FileName("file.txt");

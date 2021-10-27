@@ -1,6 +1,6 @@
 import tap from "tap";
-import FileName from "../../src/file/FileName";
-import FilePath from "../../src/file/FilePath";
+import FileName from "../../src/core/file/FileName";
+import FilePath from "../../src/core/file/FilePath";
 
 tap.test("Creates a file path", (t) => {
 	const filePath = new FilePath("/foo");
