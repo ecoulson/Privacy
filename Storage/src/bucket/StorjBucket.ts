@@ -8,6 +8,7 @@ import StorjBucketPath from "./StorjBucketPath";
 import Entity from "../entities/Entity";
 import UUID from "../id/UUID";
 import IFileName from "../file/IFileName";
+import BucketId from "./BucketId";
 
 export default class StorjBucket extends Entity implements IBucket {
 	private readonly _name: IFileName;
@@ -15,7 +16,7 @@ export default class StorjBucket extends Entity implements IBucket {
 	private readonly _files: IFileCollection;
 
 	constructor(name: IFileName, files?: IFileCollection) {
-		super(new UUID());
+		super(new BucketId(name));
 		this._name = name;
 		this._path = new StorjBucketPath(name);
 		this._files = files || new FileCollection();
