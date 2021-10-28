@@ -12,7 +12,14 @@ export default class BucketId implements IId {
 		return this.bucketName.value;
 	}
 
-	equals(other: BucketId): boolean {
-		return this.bucketName.equals(other.bucketName);
+	equals(other: IId): boolean {
+		if (!this.isBucketId(other)) {
+			return false;
+		}
+		return this.value === other.value;
+	}
+
+	private isBucketId(id: IId): id is BucketId {
+		return id instanceof BucketId;
 	}
 }

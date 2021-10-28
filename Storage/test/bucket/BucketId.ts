@@ -1,6 +1,7 @@
 import tap from "tap";
 import BucketId from "../../src/bucket/BucketId";
 import FileName from "../../src/core/file/FileName";
+import ProcessId from "../../src/os/ProcessId";
 
 tap.test("Bucket ids with the same key should be equal", (t) => {
 	const bucketIdA = new BucketId(new FileName("bucketA"));
@@ -18,9 +19,10 @@ tap.test("Bucket ids with the different key should not be equal", (t) => {
 	t.end();
 });
 
-tap.test("Bucket should have value of the file name", (t) => {
-	const id = new BucketId(new FileName("bucketA"));
+tap.test("Bucket should not be equal to a different id type", (t) => {
+	const idA = new BucketId(new FileName("0"));
+	const idB = new ProcessId(0);
 
-	t.equal(id.value, "bucketA");
+	t.notOk(idA.equals(idB));
 	t.end();
 });
