@@ -8,6 +8,10 @@ import IBucketGateway from "./IBucketGateway";
 import MakeBucketArgumentList from "./MakeBucketArgumentList";
 import MakeBucketProcessParser from "./MakeBucketProcessParser";
 import StorjBucketPath from "../value-objects/StorjBucketPath";
+import StorjBucket from "../entities/StorjBucket";
+import StorjBucketName from "../value-objects/StorjBucketName";
+import ListArgumentsList from "./ListArgumentsList";
+import BucketNotFoundException from "./BucketNotFoundException";
 
 export default class BucketGateway implements IBucketGateway {
 	private static readonly UPLINK_COMMAND = "uplink";
@@ -32,7 +36,11 @@ export default class BucketGateway implements IBucketGateway {
 		);
 	}
 
-	findById(id: BucketId): Promise<IBucket> {
-		throw new Error("Method not implemented.");
+	async findById(id: BucketId): Promise<IBucket> {
+		const result = await this.spawnProcess(new ListArgumentsList());
+		if (!result.output.includes(id.value)) {
+			throw new BucketNotFoundException(id);
+		}
+		return new StorjBucket(new StorjBucketName(id.value));
 	}
 }
