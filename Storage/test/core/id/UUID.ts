@@ -1,10 +1,11 @@
 import tap from "tap";
+import IllegalUUIDException from "../../../src/core/id/IllegalUUIDException";
 import UUID from "../../../src/core/id/UUID";
 
 tap.test("Should throw exception for illegal UUID", (t) => {
 	t.throws(() => {
 		new UUID("");
-	});
+	}, new IllegalUUIDException(""));
 
 	t.end();
 });

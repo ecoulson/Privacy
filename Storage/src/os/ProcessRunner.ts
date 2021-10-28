@@ -4,6 +4,7 @@ import IProcessRunner from "./IProcessRunner";
 import { spawn } from "child_process";
 import ProcessResult from "./ProcessResult";
 import ProcessId from "./ProcessId";
+import ProcessError from "./ProcessError";
 
 export default class ProcessRunner implements IProcessRunner {
 	spawn(processArguments: IProcessArguments): Promise<IProcessResult> {
@@ -12,19 +13,24 @@ export default class ProcessRunner implements IProcessRunner {
 				processArguments.command,
 				processArguments.arguments.toArray()
 			);
-			const errors: Error[] = [];
+			const errors: ProcessError[] = [];
 			const chunks: string[] = [];
 
 			process.stdout.on("data", (data) => {
 				chunks.push(data);
 			});
 
-			process.stderr.on("data", (data) => errors.push(new Error(data)));
+			process.stderr.on("data", (data) =>
+				errors.push(new ProcessError("PROCESS", data))
+			);
 
 			process.on("close", (code) => {
 				if (code && code > 0) {
 					errors.push(
-						new Error(`Process failed with code "${code}"`)
+						new ProcessError(
+							"CODE",
+							`Process failed with code "${code}"`
+						)
 					);
 				}
 				resolve(
@@ -36,7 +42,9 @@ export default class ProcessRunner implements IProcessRunner {
 				);
 			});
 
-			process.on("error", (error) => errors.push(error));
+			process.on("error", (error) =>
+				errors.push(new ProcessError(error.name, error.message))
+			);
 		});
 	}
 }

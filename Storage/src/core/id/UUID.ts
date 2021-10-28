@@ -1,6 +1,7 @@
 import IId from "./IId";
 import { v4 as createRandomUUID, validate } from "uuid";
 import IEquatable from "../interfaces/IEquatable";
+import IllegalUUIDException from "./IllegalUUIDException";
 
 export default class UUID implements IId, IEquatable<UUID> {
 	private _value: string;
@@ -12,7 +13,7 @@ export default class UUID implements IId, IEquatable<UUID> {
 
 	private validateUUID(value: string) {
 		if (!validate(value)) {
-			throw new Error("Invalid UUID");
+			throw new IllegalUUIDException(value);
 		}
 	}
 

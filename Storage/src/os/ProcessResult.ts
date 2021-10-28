@@ -1,12 +1,13 @@
 import IProcessResult from "./IProcessResult";
+import ProcessError from "./ProcessError";
 import ProcessId from "./ProcessId";
 
 export default class ProcessResult implements IProcessResult {
 	private _id: ProcessId;
 	private _output: string;
-	private _errors: Error[];
+	private _errors: ProcessError[];
 
-	constructor(id: ProcessId, output: string, errors: Error[] = []) {
+	constructor(id: ProcessId, output: string, errors: ProcessError[] = []) {
 		this._id = id;
 		this._output = output;
 		this._errors = errors;
@@ -26,7 +27,7 @@ export default class ProcessResult implements IProcessResult {
 
 	formatErrors(): string {
 		return `Process Errors:\n${this._errors
-			.map((error) => `${error.stack}\n\n`)
+			.map((error) => error.format())
 			.join("")}`;
 	}
 }

@@ -1,4 +1,5 @@
 import tap from "tap";
+import ProcessError from "../../src/os/ProcessError";
 import ProcessId from "../../src/os/ProcessId";
 import ProcessResult from "../../src/os/ProcessResult";
 
@@ -18,14 +19,16 @@ tap.test("Should not have any errors", (t) => {
 });
 
 tap.test("Should have errors", (t) => {
-	const result = new ProcessResult(new ProcessId(0), "output", [new Error()]);
+	const result = new ProcessResult(new ProcessId(0), "output", [
+		new ProcessError("PROCESS", "Error"),
+	]);
 
 	t.ok(result.hasErrors());
 	t.end();
 });
 
 tap.test("Should format errors", (t) => {
-	const error = new Error("an error");
+	const error = new ProcessError("PROCESS", "Error");
 	const result = new ProcessResult(new ProcessId(0), "output", [
 		error,
 		error,
@@ -33,7 +36,7 @@ tap.test("Should format errors", (t) => {
 
 	t.equal(
 		result.formatErrors(),
-		`Process Errors:\n${error.stack}\n\n${error.stack}\n\n`
+		`Process Errors:\n${error.format()}${error.format()}`
 	);
 	t.end();
 });
