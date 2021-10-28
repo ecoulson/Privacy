@@ -1,7 +1,7 @@
-import BucketId from "../../src/bucket/BucketId";
-import IBucket from "../../src/bucket/IBucket";
-import IBucketGateway from "../../src/bucket/IBucketGateway";
-import StorjBucket from "../../src/bucket/StorjBucket";
+import BucketId from "../../src/bucket/id/BucketId";
+import IBucket from "../../src/bucket/entities/IBucket";
+import IBucketGateway from "../../src/bucket/gateway/IBucketGateway";
+import StorjBucket from "../../src/bucket/entities/StorjBucket";
 import IFileName from "../../src/core/file/IFileName";
 import InMemoryGatewayUtilities from "./InMemoryGatewayUtilities";
 

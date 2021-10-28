@@ -1,7 +1,7 @@
 import tap from "tap";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import BucketNameError from "../../src/bucket/StorjBucketNameError";
-import IllegalBucketNameException from "../../src/bucket/IllegalBucketNameException";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import BucketNameError from "../../../src/bucket/value-objects/StorjBucketNameError";
+import IllegalBucketNameException from "../../../src/bucket/value-objects/IllegalBucketNameException";
 
 tap.test("Bucket should have passed name", (t) => {
 	const bucketName = "bucket";

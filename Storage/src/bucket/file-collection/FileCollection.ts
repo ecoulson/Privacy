@@ -1,6 +1,6 @@
-import Assert from "../core/assert/Assert";
-import IFile from "../core/file/IFile";
-import IFilePath from "../core/file/IFilePath";
+import Assert from "../../core/assert/Assert";
+import IFile from "../../core/file/IFile";
+import IFilePath from "../../core/file/IFilePath";
 import IFileCollection from "./IFileCollection";
 import UnknownFileCollectionKey from "./UnknownFileCollectionKey";
 

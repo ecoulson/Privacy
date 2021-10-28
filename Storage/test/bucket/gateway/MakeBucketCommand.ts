@@ -1,9 +1,9 @@
 import tap from "tap";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import MakeBucketCommand from "../../src/bucket/MakeBucketCommand";
-import Context from "../../src/Context";
-import InMemoryBucketGateway from "../test_utilities/InMemoryBucketGateway";
-import BucketId from "../../src/bucket/BucketId";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import MakeBucketCommand from "../../../src/bucket/commands/MakeBucketCommand";
+import Context from "../../../src/Context";
+import InMemoryBucketGateway from "../../test_utilities/InMemoryBucketGateway";
+import BucketId from "../../../src/bucket/id/BucketId";
 
 tap.beforeEach(() => {
 	Context.bucketGateway = new InMemoryBucketGateway();

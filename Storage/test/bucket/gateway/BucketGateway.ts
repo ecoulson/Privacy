@@ -1,11 +1,11 @@
 import tap from "tap";
-import BucketGateway from "../../src/bucket/BucketGateway";
-import StorjBucket from "../../src/bucket/StorjBucket";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import Context from "../../src/Context";
-import ProcessId from "../../src/os/ProcessId";
-import ProcessResult from "../../src/os/ProcessResult";
-import InMemoryProcessRunner from "../test_utilities/InMemoryProcessRunner";
+import BucketGateway from "../../../src/bucket/gateway/BucketGateway";
+import StorjBucket from "../../../src/bucket/entities/StorjBucket";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import Context from "../../../src/Context";
+import ProcessId from "../../../src/os/ProcessId";
+import ProcessResult from "../../../src/os/ProcessResult";
+import InMemoryProcessRunner from "../../test_utilities/InMemoryProcessRunner";
 
 tap.beforeEach(() => {
 	Context.processRunner = new InMemoryProcessRunner();

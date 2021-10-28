@@ -1,8 +1,8 @@
-import IBucket from "./IBucket";
-import ICommand from "../core/command/ICommand";
-import StorjBucketName from "./StorjBucketName";
-import Context from "../Context";
-import BucketId from "./BucketId";
+import IBucket from "../entities/IBucket";
+import ICommand from "../../core/command/ICommand";
+import StorjBucketName from "../value-objects/StorjBucketName";
+import Context from "../../Context";
+import BucketId from "../id/BucketId";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
 	private readonly name: StorjBucketName;

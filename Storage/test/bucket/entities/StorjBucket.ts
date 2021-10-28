@@ -1,10 +1,10 @@
 import tap from "tap";
-import StorjBucket from "../../src/bucket/StorjBucket";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import File from "../../src/core/file/File";
-import FilePath from "../../src/core/file/FilePath";
-import UnknownFileException from "../../src/bucket/UnknownFileException";
-import FileCollection from "../../src/bucket/FileCollection";
+import StorjBucket from "../../../src/bucket/entities/StorjBucket";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import File from "../../../src/core/file/File";
+import FilePath from "../../../src/core/file/FilePath";
+import UnknownFileException from "../../../src/bucket/entities/UnknownFileException";
+import FileCollection from "../../../src/bucket/file-collection/FileCollection";
 
 tap.test("Bucket should be properly initialized", (t) => {
 	const name = new StorjBucketName("bucket");

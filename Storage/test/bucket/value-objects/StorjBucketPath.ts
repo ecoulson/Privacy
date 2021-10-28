@@ -1,6 +1,6 @@
 import tap from "tap";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import StorjBucketPath from "../../src/bucket/StorjBucketPath";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import StorjBucketPath from "../../../src/bucket/value-objects/StorjBucketPath";
 
 tap.test("Should create a bucket path", (t) => {
 	const name = new StorjBucketName("bucket");

@@ -1,7 +1,7 @@
 import tap from "tap";
-import BucketId from "../../src/bucket/BucketId";
-import FileName from "../../src/core/file/FileName";
-import ProcessId from "../../src/os/ProcessId";
+import BucketId from "../../../src/bucket/id/BucketId";
+import FileName from "../../../src/core/file/FileName";
+import ProcessId from "../../../src/os/ProcessId";
 
 tap.test("Bucket ids with the same key should be equal", (t) => {
 	const bucketIdA = new BucketId(new FileName("bucketA"));

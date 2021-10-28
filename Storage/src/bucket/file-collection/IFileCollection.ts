@@ -1,6 +1,6 @@
-import IEquatable from "../core/interfaces/IEquatable";
-import IFile from "../core/file/IFile";
-import IFilePath from "../core/file/IFilePath";
+import IEquatable from "../../core/interfaces/IEquatable";
+import IFile from "../../core/file/IFile";
+import IFilePath from "../../core/file/IFilePath";
 
 export default interface IFileCollection extends IEquatable<IFileCollection> {
 	add(file: IFile): IFileCollection;

@@ -1,9 +1,9 @@
 import tap from "tap";
-import MakeBucketProcessParser from "../../src/bucket/MakeBucketProcessParser";
-import StorjBucket from "../../src/bucket/StorjBucket";
-import StorjBucketName from "../../src/bucket/StorjBucketName";
-import ProcessId from "../../src/os/ProcessId";
-import ProcessResult from "../../src/os/ProcessResult";
+import MakeBucketProcessParser from "../../../src/bucket/gateway/MakeBucketProcessParser";
+import StorjBucket from "../../../src/bucket/entities/StorjBucket";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import ProcessId from "../../../src/os/ProcessId";
+import ProcessResult from "../../../src/os/ProcessResult";
 
 tap.test("Should return bucket from result", (t) => {
 	const name = "test";

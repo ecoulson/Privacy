@@ -1,13 +1,13 @@
-import Context from "../Context";
-import IFileName from "../core/file/IFileName";
-import ArgumentList from "../os/ArgumentList";
-import ProcessArguments from "../os/ProcessArguments";
-import BucketId from "./BucketId";
-import IBucket from "./IBucket";
+import Context from "../../Context";
+import IFileName from "../../core/file/IFileName";
+import ArgumentList from "../../os/ArgumentList";
+import ProcessArguments from "../../os/ProcessArguments";
+import BucketId from "../id/BucketId";
+import IBucket from "../entities/IBucket";
 import IBucketGateway from "./IBucketGateway";
 import MakeBucketArgumentList from "./MakeBucketArgumentList";
 import MakeBucketProcessParser from "./MakeBucketProcessParser";
-import StorjBucketPath from "./StorjBucketPath";
+import StorjBucketPath from "../value-objects/StorjBucketPath";
 
 export default class BucketGateway implements IBucketGateway {
 	private static readonly UPLINK_COMMAND = "uplink";

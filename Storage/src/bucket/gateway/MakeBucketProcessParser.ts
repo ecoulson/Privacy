@@ -1,9 +1,9 @@
-import Assert from "../core/assert/Assert";
-import IProcessResult from "../os/IProcessResults";
-import IBucket from "./IBucket";
+import Assert from "../../core/assert/Assert";
+import IProcessResult from "../../os/IProcessResults";
+import IBucket from "../entities/IBucket";
 import IProcessParser from "./IProcessParser";
-import StorjBucket from "./StorjBucket";
-import StorjBucketName from "./StorjBucketName";
+import StorjBucket from "../entities/StorjBucket";
+import StorjBucketName from "../value-objects/StorjBucketName";
 
 export default class MakeBucketProcessParser
 	implements IProcessParser<IBucket>

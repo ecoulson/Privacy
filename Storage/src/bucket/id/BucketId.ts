@@ -1,5 +1,5 @@
-import IFileName from "../core/file/IFileName";
-import IId from "../core/id/IId";
+import IFileName from "../../core/file/IFileName";
+import IId from "../../core/id/IId";
 
 export default class BucketId implements IId {
 	private readonly bucketName: IFileName;
