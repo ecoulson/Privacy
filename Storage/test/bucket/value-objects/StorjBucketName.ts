@@ -31,16 +31,8 @@ tap.test("Bucket name can not be longer than 64 characters", (t) => {
 	t.end();
 });
 
-tap.test("Bucket name can not end in a dash", (t) => {
-	const name = "test-";
-	t.throws(() => {
-		new StorjBucketName(name);
-	}, new IllegalBucketNameException(BucketNameError.ENDS_IN_DASH, name));
-	t.end();
-});
-
 tap.test("Bucket name has illegal characters", (t) => {
-	const name = "test@@";
+	const name = "test@-_!#$";
 	t.throws(() => {
 		new StorjBucketName(name);
 	}, new IllegalBucketNameException(BucketNameError.HAS_ILLEGAL_CHARACTERS, name));
@@ -49,9 +41,9 @@ tap.test("Bucket name has illegal characters", (t) => {
 });
 
 tap.test("Bucket equivalency", (t) => {
-	const bucketNameA1 = new StorjBucketName("bucketA");
-	const bucketNameA2 = new StorjBucketName("bucketA");
-	const bucketNameB = new StorjBucketName("bucketB");
+	const bucketNameA1 = new StorjBucketName("bucketa");
+	const bucketNameA2 = new StorjBucketName("bucketa");
+	const bucketNameB = new StorjBucketName("bucketb");
 
 	t.ok(bucketNameA1.equals(bucketNameA2));
 	t.notOk(bucketNameA1.equals(bucketNameB));

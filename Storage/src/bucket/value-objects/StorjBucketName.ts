@@ -4,7 +4,7 @@ import BucketNameError from "./StorjBucketNameError";
 import IllegalBucketNameException from "./IllegalBucketNameException";
 
 export default class StorjBucketName implements IFileName {
-	public static readonly BUCKET_NAME_PATTERN = new RegExp(/^[a-zA-Z0-9-_]*$/);
+	public static readonly BUCKET_NAME_PATTERN = new RegExp(/^[a-z0-9]*$/);
 	private static readonly BUCKET_NAME_MAX_LENGTH = 64;
 	private readonly name: string;
 
@@ -22,10 +22,6 @@ export default class StorjBucketName implements IFileName {
 			name.length,
 			StorjBucketName.BUCKET_NAME_MAX_LENGTH,
 			this.createValidationError(BucketNameError.EXCEDES_MAX_LENGTH, name)
-		);
-		Assert.false(
-			name.endsWith("-"),
-			this.createValidationError(BucketNameError.ENDS_IN_DASH, name)
 		);
 		Assert.patternMatches(
 			StorjBucketName.BUCKET_NAME_PATTERN,

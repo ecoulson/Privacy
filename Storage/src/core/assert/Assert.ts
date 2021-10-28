@@ -5,12 +5,6 @@ export default class Assert {
 		}
 	}
 
-	static false(a: boolean, error: Error) {
-		if (a) {
-			throw error;
-		}
-	}
-
 	static lessThanOrEqualTo(a: number, b: number, error: Error) {
 		Assert.true(a <= b, error);
 	}
