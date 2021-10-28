@@ -15,6 +15,26 @@ tap.test("Successfully create a bucket", async (t) => {
 
 	const bucket = await command.execute();
 
-	t.ok(Context.bucketGateway.findById(bucket.id as BucketId).equals(bucket));
+	const foundBucket = await Context.bucketGateway.findById(
+		bucket.id as BucketId
+	);
+	t.ok(foundBucket.equals(bucket));
+	t.end();
+});
+
+tap.test("Should fail to create bucket with duplicate name", async (t) => {
+	const bucketName = new StorjBucketName("bucket");
+	const command = new MakeBucketCommand(bucketName);
+	Context.bucketGateway.create(bucketName);
+
+	try {
+		await command.execute();
+		t.fail();
+	} catch (err) {
+		t.match(
+			err,
+			new Error(`Bucket with name ${bucketName.value} already exists`)
+		);
+	}
 	t.end();
 });

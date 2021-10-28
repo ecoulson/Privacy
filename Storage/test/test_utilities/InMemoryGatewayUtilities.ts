@@ -15,12 +15,12 @@ export default abstract class InMemoryGatewayUtilities<T extends IEntity> {
 		return entities;
 	}
 
-	save(entity: T): T {
+	async save(entity: T): Promise<T> {
 		this.entities.set(entity.id.value, entity);
 		return entity;
 	}
 
-	delete(entity: T): void {
+	async delete(entity: T): Promise<void> {
 		this.entities.delete(entity.id.value);
 	}
 }

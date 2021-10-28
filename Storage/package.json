@@ -4,8 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "tap --ts -R=terse --test-ignore=\"test_utilities\"",
-		"posttest": "tap --coverage-report=html | codecov"
+		"test": "tap --ts -R=terse --test-ignore=\"test_utilities\""
 	},
 	"author": "",
 	"license": "ISC",

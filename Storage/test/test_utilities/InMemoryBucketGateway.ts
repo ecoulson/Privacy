@@ -9,7 +9,7 @@ export default class InMemoryBucketGateway
 	extends InMemoryGatewayUtilities<IBucket>
 	implements IBucketGateway
 {
-	findById(id: BucketId): IBucket {
+	async findById(id: BucketId): Promise<IBucket> {
 		const bucket = this.getAllEntities().find((entity) => {
 			return entity.id.equals(id);
 		});
@@ -19,7 +19,7 @@ export default class InMemoryBucketGateway
 		return bucket;
 	}
 
-	create(name: IFileName): IBucket {
+	async create(name: IFileName): Promise<IBucket> {
 		const bucket = new StorjBucket(name);
 		this.save(new StorjBucket(name));
 		return bucket;
