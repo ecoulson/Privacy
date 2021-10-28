@@ -37,3 +37,11 @@ tap.test("Throws exception when accessing argument out of bounds", (t) => {
 
 	t.end();
 });
+
+tap.test("Should convert arguments to an array of string", (t) => {
+	const args = ["a", "b", "c"];
+	const argumentList = new ArgumentList(["a", "b", "c"]);
+
+	t.match(argumentList.toArray(), args);
+	t.end();
+});

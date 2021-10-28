@@ -29,4 +29,8 @@ export default class ArgumentList implements IArgumentList {
 			true
 		);
 	}
+
+	toArray(): string[] {
+		return this._arguments.map((arg) => arg);
+	}
 }
