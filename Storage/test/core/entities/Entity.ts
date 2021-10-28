@@ -1,7 +1,7 @@
 import tap from "tap";
-import Entity from "../../src/core/entities/Entity";
-import IEntity from "../../src/core/entities/IEntity";
-import UUID from "../../src/core/id/UUID";
+import Entity from "../../../src/core/entities/Entity";
+import IEntity from "../../../src/core/entities/IEntity";
+import UUID from "../../../src/core/id/UUID";
 
 class TestEntity extends Entity {
 	constructor(id: UUID) {

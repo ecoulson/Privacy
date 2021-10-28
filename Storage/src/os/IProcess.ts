@@ -1,4 +1,4 @@
-import IProcessId from "./IProcessId";
+import IProcessId from "./ProcessId";
 import IProcessResult from "./IProcessResults";
 
 export default interface IProcess {
