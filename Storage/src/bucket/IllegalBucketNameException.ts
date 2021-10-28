@@ -3,7 +3,7 @@ import StorjBucketNameErrors from "./StorjBucketNameError";
 export default class IllegalBucketNameException extends Error {
 	public name: string = "IllegalBucketNameException";
 
-	constructor(message: StorjBucketNameErrors) {
-		super(message);
+	constructor(message: StorjBucketNameErrors, name: string) {
+		super(message + `, was: "${name}"`);
 	}
 }

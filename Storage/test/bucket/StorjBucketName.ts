@@ -12,34 +12,38 @@ tap.test("Bucket should have passed name", (t) => {
 });
 
 tap.test("Bucket can not have an empty name", (t) => {
+	const name = "";
+
 	t.throws(() => {
-		new StorjBucketName("");
-	}, new IllegalBucketNameException(BucketNameError.EMPTY));
+		new StorjBucketName(name);
+	}, new IllegalBucketNameException(BucketNameError.EMPTY, name));
 
 	t.end();
 });
 
 tap.test("Bucket name can not be longer than 64 characters", (t) => {
+	const name =
+		"12345678901234567890123456789012345678901234567890123456789012345";
 	t.throws(() => {
-		new StorjBucketName(
-			"12345678901234567890123456789012345678901234567890123456789012345"
-		);
-	}, new IllegalBucketNameException(BucketNameError.EXCEDES_MAX_LENGTH));
+		new StorjBucketName(name);
+	}, new IllegalBucketNameException(BucketNameError.EXCEDES_MAX_LENGTH, name));
 
 	t.end();
 });
 
 tap.test("Bucket name can not end in a dash", (t) => {
+	const name = "test-";
 	t.throws(() => {
-		new StorjBucketName("test-");
-	}, new IllegalBucketNameException(BucketNameError.ENDS_IN_DASH));
+		new StorjBucketName(name);
+	}, new IllegalBucketNameException(BucketNameError.ENDS_IN_DASH, name));
 	t.end();
 });
 
 tap.test("Bucket name has illegal characters", (t) => {
+	const name = "test@@";
 	t.throws(() => {
-		new StorjBucketName("test@@");
-	}, new IllegalBucketNameException(BucketNameError.HAS_ILLEGAL_CHARACTERS));
+		new StorjBucketName(name);
+	}, new IllegalBucketNameException(BucketNameError.HAS_ILLEGAL_CHARACTERS, name));
 
 	t.end();
 });
