@@ -20,7 +20,7 @@ export default class MakeBucketProcessParser
 			new RegExp(/^Bucket .* created$/),
 			result.output,
 			new Error(
-				`Output is not in expected format. Output was ${result.output}`
+				`Output is not in expected format. Output was "${result.output}"`
 			)
 		);
 	}
