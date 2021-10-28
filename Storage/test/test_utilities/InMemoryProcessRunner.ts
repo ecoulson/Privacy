@@ -1,5 +1,5 @@
-import IProcessResult from "../../src/os/IProcessResults";
-import IProcessResults from "../../src/os/IProcessResults";
+import IProcessResult from "../../src/os/IProcessResult";
+import IProcessResults from "../../src/os/IProcessResult";
 import IProcessRunner from "../../src/os/IProcessRunner";
 
 export default class InMemoryProcessRunner implements IProcessRunner {

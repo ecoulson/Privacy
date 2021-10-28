@@ -1,4 +1,4 @@
-import IProcessResult from "./IProcessResults";
+import IProcessResult from "./IProcessResult";
 import IProcessArguments from "./IProcessArguments";
 
 export default interface IProcessRunner {

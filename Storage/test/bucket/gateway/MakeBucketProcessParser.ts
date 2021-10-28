@@ -11,7 +11,7 @@ tap.test("Should return bucket from result", (t) => {
 	const expectedBucket = new StorjBucket(new StorjBucketName(name));
 
 	const bucket = parser.parse(
-		new ProcessResult(new ProcessId(0), `Bucket ${name} created`)
+		new ProcessResult(new ProcessId(0), `Bucket ${name} created\n`)
 	);
 
 	t.ok(expectedBucket.equals(bucket));

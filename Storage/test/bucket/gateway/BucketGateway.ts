@@ -13,7 +13,7 @@ tap.beforeEach(() => {
 
 tap.test("Should create bucket", async (t) => {
 	(Context.processRunner as InMemoryProcessRunner).queueResult(
-		new ProcessResult(new ProcessId(0), "Bucket test created")
+		new ProcessResult(new ProcessId(0), "Bucket test created\n")
 	);
 	const gateway = new BucketGateway();
 	const bucketName = new StorjBucketName("test");

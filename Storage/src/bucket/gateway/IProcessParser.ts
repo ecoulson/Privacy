@@ -1,4 +1,4 @@
-import IProcessResult from "../../os/IProcessResults";
+import IProcessResult from "../../os/IProcessResult";
 
 export default interface IProcessParser<T> {
 	parse(processResult: IProcessResult): T;

@@ -40,6 +40,14 @@ tap.test("Bucket name has illegal characters", (t) => {
 	t.end();
 });
 
+tap.test("Bucket must have more than 2 characters", (t) => {
+	const name = "aa";
+	t.throws(() => {
+		new StorjBucketName(name);
+	}, new IllegalBucketNameException(BucketNameError.UNDER_MIN_LENGTH, name));
+	t.end();
+});
+
 tap.test("Bucket equivalency", (t) => {
 	const bucketNameA1 = new StorjBucketName("bucketa");
 	const bucketNameA2 = new StorjBucketName("bucketa");

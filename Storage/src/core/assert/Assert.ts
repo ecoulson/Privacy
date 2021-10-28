@@ -9,6 +9,10 @@ export default class Assert {
 		Assert.true(a <= b, error);
 	}
 
+	static greaterThan(a: number, b: number, error: Error) {
+		Assert.true(a > b, error);
+	}
+
 	static notEmpty(a: string, error: Error) {
 		Assert.notEqual(a, "", error);
 	}

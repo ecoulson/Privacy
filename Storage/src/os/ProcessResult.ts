@@ -1,4 +1,4 @@
-import IProcessResult from "./IProcessResults";
+import IProcessResult from "./IProcessResult";
 import ProcessId from "./ProcessId";
 
 export default class ProcessResult implements IProcessResult {

@@ -6,6 +6,7 @@ import IllegalBucketNameException from "./IllegalBucketNameException";
 export default class StorjBucketName implements IFileName {
 	public static readonly BUCKET_NAME_PATTERN = new RegExp(/^[a-z0-9]*$/);
 	private static readonly BUCKET_NAME_MAX_LENGTH = 64;
+	private static readonly BUCKET_NAME_MIN_LENGTH = 2;
 	private readonly name: string;
 
 	constructor(name: string) {
@@ -30,6 +31,11 @@ export default class StorjBucketName implements IFileName {
 				BucketNameError.HAS_ILLEGAL_CHARACTERS,
 				name
 			)
+		);
+		Assert.greaterThan(
+			name.length,
+			StorjBucketName.BUCKET_NAME_MIN_LENGTH,
+			this.createValidationError(BucketNameError.UNDER_MIN_LENGTH, name)
 		);
 	}
 

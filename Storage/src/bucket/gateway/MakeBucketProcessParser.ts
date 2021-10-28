@@ -1,5 +1,5 @@
 import Assert from "../../core/assert/Assert";
-import IProcessResult from "../../os/IProcessResults";
+import IProcessResult from "../../os/IProcessResult";
 import IBucket from "../entities/IBucket";
 import IProcessParser from "./IProcessParser";
 import StorjBucket from "../entities/StorjBucket";
@@ -17,7 +17,7 @@ export default class MakeBucketProcessParser
 
 	private assertParsableResult(result: IProcessResult) {
 		Assert.patternMatches(
-			new RegExp(/^Bucket .* created$/),
+			new RegExp(/^Bucket (.*) created\n$/gm),
 			result.output,
 			new Error(
 				`Output is not in expected format. Output was "${result.output}"`

@@ -20,8 +20,8 @@ tap.test("Two ids with different pids are not equivalent", (t) => {
 });
 
 tap.test("Two ids with differnt id types are not equivalent", (t) => {
-	const idA = new ProcessId(0);
-	const idB = new BucketId(new StorjBucketName("0"));
+	const idA = new ProcessId(100);
+	const idB = new BucketId(new StorjBucketName("100"));
 
 	t.notOk(idA.equals(idB));
 	t.end();
