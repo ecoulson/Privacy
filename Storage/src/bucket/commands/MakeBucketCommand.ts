@@ -3,6 +3,7 @@ import ICommand from "../../core/command/ICommand";
 import StorjBucketName from "../value-objects/StorjBucketName";
 import Context from "../../Context";
 import BucketId from "../id/BucketId";
+import BucketNameExistsException from "./BucketNameExistsException";
 
 export default class MakeBucketCommand implements ICommand<IBucket> {
 	private readonly name: StorjBucketName;
@@ -13,9 +14,7 @@ export default class MakeBucketCommand implements ICommand<IBucket> {
 
 	async execute(): Promise<IBucket> {
 		if (await this.doesBucketExist()) {
-			throw new Error(
-				`Bucket with name ${this.name.value} already exists`
-			);
+			throw new BucketNameExistsException(this.name);
 		}
 		return await this.makeBucket();
 	}

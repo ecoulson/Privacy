@@ -4,6 +4,7 @@ import MakeBucketCommand from "../../../src/bucket/commands/MakeBucketCommand";
 import Context from "../../../src/Context";
 import InMemoryBucketGateway from "../../test_utilities/InMemoryBucketGateway";
 import BucketId from "../../../src/bucket/id/BucketId";
+import BucketNameExistsException from "../../../src/bucket/commands/BucketNameExistsException";
 
 tap.beforeEach(() => {
 	Context.bucketGateway = new InMemoryBucketGateway();
@@ -31,10 +32,7 @@ tap.test("Should fail to create bucket with duplicate name", async (t) => {
 		await command.execute();
 		t.fail();
 	} catch (err) {
-		t.match(
-			err,
-			new Error(`Bucket with name ${bucketName.value} already exists`)
-		);
+		t.match(err, new BucketNameExistsException(bucketName));
 	}
 	t.end();
 });
