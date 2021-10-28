@@ -1,6 +1,6 @@
 import IProcessResult from "./IProcessResults";
-import IProcessDTO from "./IProcessDTO";
+import IProcessArguments from "./IProcessArguments";
 
 export default interface IProcessRunner {
-	spawn(processDTO: IProcessDTO): Promise<IProcessResult>;
+	spawn(processArguments: IProcessArguments): Promise<IProcessResult>;
 }
