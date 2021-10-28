@@ -4,6 +4,7 @@ import StorjBucket from "../../../src/bucket/entities/StorjBucket";
 import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
 import ProcessId from "../../../src/os/ProcessId";
 import ProcessResult from "../../../src/os/ProcessResult";
+import IllegalOutputFormatException from "../../../src/bucket/gateway/IllegalOutputFormatException";
 
 tap.test("Should return bucket from result", (t) => {
 	const name = "test";
@@ -20,10 +21,11 @@ tap.test("Should return bucket from result", (t) => {
 
 tap.test("Should throw due to illegal output format", (t) => {
 	const parser = new MakeBucketProcessParser();
+	const result = new ProcessResult(new ProcessId(0), `output`);
 
 	t.throws(() => {
-		parser.parse(new ProcessResult(new ProcessId(0), `output`));
-	}, new Error(`Output is not in expected format. Output was "output"`));
+		parser.parse(result);
+	}, new IllegalOutputFormatException(result, /^Bucket (.*) created\n$/gm));
 
 	t.end();
 });
