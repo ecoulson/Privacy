@@ -4,6 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"build": "tsc -p .",
+		"clean": "rm -rf ./bin",
 		"test": "tap --ts -R=terse --test-ignore=\"test_utilities\""
 	},
 	"author": "",

@@ -2,12 +2,12 @@ import tap from "tap";
 import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
 import MakeBucketCommand from "../../../src/bucket/commands/MakeBucketCommand";
 import Context from "../../../src/Context";
-import InMemoryBucketGateway from "../../test_utilities/InMemoryBucketGateway";
 import BucketId from "../../../src/bucket/id/BucketId";
 import BucketNameExistsException from "../../../src/bucket/commands/BucketNameExistsException";
+import TestContextSetup from "../../test_utilities/TestContextSetup";
 
 tap.beforeEach(() => {
-	Context.bucketGateway = new InMemoryBucketGateway();
+	TestContextSetup.setup();
 });
 
 tap.test("Successfully create a bucket", async (t) => {

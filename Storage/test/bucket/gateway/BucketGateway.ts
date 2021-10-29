@@ -8,9 +8,10 @@ import ProcessResult from "../../../src/os/ProcessResult";
 import InMemoryProcessRunner from "../../test_utilities/InMemoryProcessRunner";
 import BucketId from "../../../src/bucket/id/BucketId";
 import BucketNotFoundException from "../../../src/bucket/gateway/BucketNotFoundException";
+import TestContextSetup from "../../test_utilities/TestContextSetup";
 
 tap.beforeEach(() => {
-	Context.processRunner = new InMemoryProcessRunner();
+	TestContextSetup.setup();
 });
 
 function queueResult(result: ProcessResult) {

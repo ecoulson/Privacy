@@ -8,8 +8,6 @@ import IBucketGateway from "./IBucketGateway";
 import MakeBucketArgumentList from "./MakeBucketArgumentList";
 import MakeBucketProcessParser from "./MakeBucketProcessParser";
 import StorjBucketPath from "../value-objects/StorjBucketPath";
-import StorjBucket from "../entities/StorjBucket";
-import StorjBucketName from "../value-objects/StorjBucketName";
 import ListArgumentsList from "./ListArgumentsList";
 import BucketNotFoundException from "./BucketNotFoundException";
 import ListBucketsProcessParser from "./ListBucketsProcessParser";
