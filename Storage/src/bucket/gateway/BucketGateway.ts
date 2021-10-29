@@ -12,14 +12,17 @@ import StorjBucket from "../entities/StorjBucket";
 import StorjBucketName from "../value-objects/StorjBucketName";
 import ListArgumentsList from "./ListArgumentsList";
 import BucketNotFoundException from "./BucketNotFoundException";
+import ListBucketsProcessParser from "./ListBucketsProcessParser";
 
 export default class BucketGateway implements IBucketGateway {
 	private static readonly UPLINK_COMMAND = "uplink";
 
 	private readonly makeBucketParser: MakeBucketProcessParser;
+	private readonly listBucketsParser: ListBucketsProcessParser;
 
 	constructor() {
 		this.makeBucketParser = new MakeBucketProcessParser();
+		this.listBucketsParser = new ListBucketsProcessParser();
 	}
 
 	async create(name: IFileName): Promise<IBucket> {
@@ -38,9 +41,15 @@ export default class BucketGateway implements IBucketGateway {
 
 	async findById(id: BucketId): Promise<IBucket> {
 		const result = await this.spawnProcess(new ListArgumentsList());
-		if (!result.output.includes(id.value)) {
+		const buckets = this.listBucketsParser.parse(result);
+		return this.findBucketWithIdFromAllBuckets(id, buckets);
+	}
+
+	private findBucketWithIdFromAllBuckets(id: BucketId, buckets: IBucket[]) {
+		const bucketWithId = buckets.find((bucket) => bucket.id.equals(id));
+		if (!bucketWithId) {
 			throw new BucketNotFoundException(id);
 		}
-		return new StorjBucket(new StorjBucketName(id.value));
+		return bucketWithId;
 	}
 }
