@@ -1,4 +1,4 @@
-import IEquatable from "../core/interfaces/IEquatable";
+import IEquatable from "../interfaces/IEquatable";
 import IArgumentList from "./IArgumentList";
 
 export default interface IProcessArguments

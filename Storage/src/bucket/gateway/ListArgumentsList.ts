@@ -1,4 +1,4 @@
-import ArgumentList from "../../os/ArgumentList";
+import ArgumentList from "../../core/process/ArgumentList";
 
 export default class ListArgumentsList extends ArgumentList {
 	constructor() {

@@ -1,7 +1,7 @@
 import tap from "tap";
-import BucketId from "../../src/bucket/id/BucketId";
-import StorjBucketName from "../../src/bucket/value-objects/StorjBucketName";
-import ProcessId from "../../src/os/ProcessId";
+import BucketId from "../../../src/bucket/id/BucketId";
+import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
+import ProcessId from "../../../src/core/process/ProcessId";
 
 tap.test("Two ids with the same value are equivalent", (t) => {
 	const idA = new ProcessId(0);

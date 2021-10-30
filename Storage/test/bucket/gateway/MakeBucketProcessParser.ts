@@ -2,8 +2,8 @@ import tap from "tap";
 import MakeBucketProcessParser from "../../../src/bucket/gateway/MakeBucketProcessParser";
 import StorjBucket from "../../../src/bucket/entities/StorjBucket";
 import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
-import ProcessId from "../../../src/os/ProcessId";
-import ProcessResult from "../../../src/os/ProcessResult";
+import ProcessId from "../../../src/core/process/ProcessId";
+import ProcessResult from "../../../src/core/process/ProcessResult";
 import IllegalOutputFormatException from "../../../src/bucket/gateway/IllegalOutputFormatException";
 
 tap.test("Should return bucket from result", (t) => {

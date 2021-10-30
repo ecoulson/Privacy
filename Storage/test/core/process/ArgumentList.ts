@@ -1,6 +1,6 @@
 import tap from "tap";
-import ArgumentList from "../../src/os/ArgumentList";
-import ArgumentOutOfBoundsException from "../../src/os/ArgumentOutOfBoundsException";
+import ArgumentList from "../../../src/core/process/ArgumentList";
+import ArgumentOutOfBoundsException from "../../../src/core/process/ArgumentOutOfBoundsException";
 
 tap.test("Empty argument lists are equal", (t) => {
 	const argumentListA = new ArgumentList([]);

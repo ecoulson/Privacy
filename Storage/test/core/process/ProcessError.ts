@@ -1,5 +1,5 @@
 import tap from "tap";
-import ProcessError from "../../src/os/ProcessError";
+import ProcessError from "../../../src/core/process/ProcessError";
 
 tap.test("Should correctly format a process error", (t) => {
 	const error = new ProcessError("PROCESS", "message");

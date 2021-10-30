@@ -1,9 +1,9 @@
 import tap from "tap";
 import StorjBucketName from "../../../src/bucket/value-objects/StorjBucketName";
-import MakeBucketCommand from "../../../src/bucket/commands/MakeBucketCommand";
+import CreateBucketService from "../../../src/bucket/service/CreateBucketService";
 import Context from "../../../src/Context";
 import BucketId from "../../../src/bucket/id/BucketId";
-import BucketNameExistsException from "../../../src/bucket/commands/BucketNameExistsException";
+import BucketNameExistsException from "../../../src/bucket/service/BucketNameExistsException";
 import TestContextSetup from "../../test_utilities/TestContextSetup";
 
 tap.beforeEach(() => {
@@ -11,10 +11,9 @@ tap.beforeEach(() => {
 });
 
 tap.test("Successfully create a bucket", async (t) => {
-	const bucketName = "bucket";
-	const command = new MakeBucketCommand(new StorjBucketName(bucketName));
+	const service = new CreateBucketService(Context.bucketGateway);
 
-	const bucket = await command.execute();
+	const bucket = await service.createBucket(new StorjBucketName("bucket"));
 
 	const foundBucket = await Context.bucketGateway.findById(
 		bucket.id as BucketId
@@ -25,11 +24,11 @@ tap.test("Successfully create a bucket", async (t) => {
 
 tap.test("Should fail to create bucket with duplicate name", async (t) => {
 	const bucketName = new StorjBucketName("bucket");
-	const command = new MakeBucketCommand(bucketName);
+	const service = new CreateBucketService(Context.bucketGateway);
 	Context.bucketGateway.create(bucketName);
 
 	try {
-		await command.execute();
+		await service.createBucket(bucketName);
 		t.fail();
 	} catch (err) {
 		t.match(err, new BucketNameExistsException(bucketName));

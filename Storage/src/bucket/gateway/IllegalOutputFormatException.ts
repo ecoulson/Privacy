@@ -1,4 +1,4 @@
-import IProcessResult from "../../os/IProcessResult";
+import IProcessResult from "../../core/process/IProcessResult";
 
 export default class IllegalOutputFormatException extends Error {
 	public name: string = "IllegalOutputFormatException";

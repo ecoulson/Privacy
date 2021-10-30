@@ -1,4 +1,4 @@
-import IId from "../core/id/IId";
+import IId from "../id/IId";
 
 export default class ProcessId implements IId {
 	private processId: number;

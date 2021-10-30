@@ -1,24 +1,11 @@
-import MakeBucketCommand from "./bucket/commands/MakeBucketCommand";
-import BucketGateway from "./bucket/gateway/BucketGateway";
-import StorjBucketName from "./bucket/value-objects/StorjBucketName";
-import Context from "./Context";
-import ArgumentList from "./os/ArgumentList";
-import ProcessRunner from "./os/ProcessRunner";
+import ArgumentList from "./core/process/ArgumentList";
+import StorjAPI from "./storj/StorjAPI";
 
 class Main {
 	static async main(args: ArgumentList) {
-		Context.bucketGateway = new BucketGateway();
-		Context.processRunner = new ProcessRunner();
-
-		const command = new MakeBucketCommand(
-			new StorjBucketName(args.getArgument(2))
-		);
-		try {
-			const bucket = await command.execute();
-			console.log("Created bucket", bucket.name.value);
-		} catch (error) {
-			console.log(error);
-		}
+		const storj = new StorjAPI();
+		const bucket = await storj.bucket.createBucket(args.getArgument(2));
+		console.log(bucket);
 	}
 }
 

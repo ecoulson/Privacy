@@ -1,6 +1,6 @@
 import tap from "tap";
-import ArgumentList from "../../src/os/ArgumentList";
-import ProcessArguments from "../../src/os/ProcessArguments";
+import ArgumentList from "../../../src/core/process/ArgumentList";
+import ProcessArguments from "../../../src/core/process/ProcessArguments";
 
 tap.test("Should create equivalent process arguments", (t) => {
 	const argumentsA = new ProcessArguments("ls", new ArgumentList([]));

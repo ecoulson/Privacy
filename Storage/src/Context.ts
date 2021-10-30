@@ -1,5 +1,5 @@
 import IBucketGateway from "./bucket/gateway/IBucketGateway";
-import IProcessRunner from "./os/IProcessRunner";
+import IProcessRunner from "./core/process/IProcessRunner";
 
 export default class Context {
 	public static bucketGateway: IBucketGateway;

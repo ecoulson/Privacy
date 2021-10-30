@@ -1,4 +1,4 @@
-import ArgumentList from "../../os/ArgumentList";
+import ArgumentList from "../../core/process/ArgumentList";
 import StorjBucketPath from "../value-objects/StorjBucketPath";
 
 export default class MakeBucketArgumentList extends ArgumentList {

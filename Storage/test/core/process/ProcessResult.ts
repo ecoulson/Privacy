@@ -1,7 +1,7 @@
 import tap from "tap";
-import ProcessError from "../../src/os/ProcessError";
-import ProcessId from "../../src/os/ProcessId";
-import ProcessResult from "../../src/os/ProcessResult";
+import ProcessError from "../../../src/core/process/ProcessError";
+import ProcessId from "../../../src/core/process/ProcessId";
+import ProcessResult from "../../../src/core/process/ProcessResult";
 
 tap.test("Should create a process result with id and output", (t) => {
 	const result = new ProcessResult(new ProcessId(0), "output");

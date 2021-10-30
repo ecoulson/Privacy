@@ -1,4 +1,4 @@
-import IProcessResult from "../../os/IProcessResult";
+import IProcessResult from "../../core/process/IProcessResult";
 import IBucket from "../entities/IBucket";
 import StorjBucket from "../entities/StorjBucket";
 import StorjBucketName from "../value-objects/StorjBucketName";
